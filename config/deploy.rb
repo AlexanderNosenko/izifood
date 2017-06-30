@@ -4,12 +4,12 @@ lock "3.8.2"
 set :application, "izifood.pl"
 set :repo_url, "git@github.com:AlexandrNosenko/izifood.git"
 set :branch, 'master'
+set :rvm_ruby_version, "2.3.1@izifood"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/izifood_app/"
-# set :scm_passphrase, "***REMOVED***zU"
 set :use_sudo, false
 set :rails_env, "production"
 set :deploy_via, :copy
@@ -39,3 +39,17 @@ set :pty, true
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+namespace :deploy do
+    task :restart do
+        puts 'Shit'
+    end
+    # ...lots of other code
+	
+end
+namespace :bundler do
+  desc "run bundle install and ensure all gem requirements are met"
+  task :install do
+    # run "cd #{current_path} && rvm use 2.3.1@izifood && bundle install  --without=test"
+  end
+end
+before "deploy:restart", "bundle:install"

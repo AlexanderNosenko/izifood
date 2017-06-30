@@ -64,3 +64,4 @@ server SERVER_IP, user: 'root', roles: %w{app web db}
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
