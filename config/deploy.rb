@@ -72,8 +72,8 @@ namespace :deploy do
   desc 'Initial Deploy'
   task :initial do
     on roles(:app) do
-      execute("sudo ln -nfs #{shared_path}config/config/nginx.conf.erb' '/etc/nginx/sites-enabled/izifood_app'")
-      execute('sudo service nginx restart')
+      sudo "ln -nfs #{shared_path}config/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
+      sudo "service nginx restart"
 
       before 'deploy:restart', 'puma:start'
       invoke 'deploy'
