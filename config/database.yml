@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: izifood_production
-  username: root
+  username: izifood
   password: <%= ENV['IZIFOOD_DATABASE_PASSWORD'] %>

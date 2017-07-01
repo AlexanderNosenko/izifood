@@ -26,7 +26,7 @@ set :ssh_options, { :forward_agent => true }
 set :pty, true
 
 # Default value for :linked_files is []
-# append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, "config/database.yml", "config/secrets.yml", "config/application.yml"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -40,16 +40,25 @@ set :pty, true
 # Default value for keep_releases is 5
 set :keep_releases, 5
 namespace :deploy do
-    task :restart do
-        puts 'Shit'
+
+	task :setup_config do 
+		on roles(:app) do
+			# execute "ln -s #{current_path}/config/ngix.conf /etc/nginx/sites-enabled/izifood_app.conf"
+	    end
+	end
+    before 'deploy:started', 'deploy:setup_config'
+    task :start do
+        on roles(:app) do
+		    execute "cd #{current_path}"
+		    execute "./run.sh"
+	    end
     end
-    # ...lots of other code
-	
+    after "deploy:cleanup", "deploy:start"
 end
-namespace :bundler do
-  desc "run bundle install and ensure all gem requirements are met"
-  task :install do
-    # run "cd #{current_path} && rvm use 2.3.1@izifood && bundle install  --without=test"
-  end
-end
-before "deploy:restart", "bundle:install"
+# namespace :bundler do
+#   desc "run bundle install and ensure all gem requirements are met"
+#   task :install do
+#     # run "cd #{current_path} && rvm use 2.3.1@izifood && bundle install  --without=test"
+#   end
+# end
+# before "deploy:restart", "bundle:install"
