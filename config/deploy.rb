@@ -49,8 +49,7 @@ namespace :deploy do
     before 'deploy:started', 'deploy:setup_config'
     task :start do
         on roles(:app) do
-		    execute "cd #{current_path}"
-		    execute "./run.sh"
+		    execute "bundle exec pumactl -P /home/deploy/.pids/puma.pid restart"
 	    end
     end
     after "deploy:cleanup", "deploy:start"

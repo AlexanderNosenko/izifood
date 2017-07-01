@@ -40,6 +40,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'capistrano', '~> 3.6'
+  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rvm'
   gem 'better_errors'
