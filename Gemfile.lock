@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/seuros/capistrano-puma.git
+  revision: 00708fa18a029cb34f46aef60f920106c0c00107
+  specs:
+    capistrano3-puma (3.1.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -209,6 +218,7 @@ DEPENDENCIES
   capistrano (~> 3.6)
   capistrano-rails (~> 1.1)
   capistrano-rvm
+  capistrano3-puma!
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   figaro
