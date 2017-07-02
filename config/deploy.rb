@@ -78,7 +78,13 @@ namespace :deploy do
   #     invoke 'deploy'
   #   end
   # end
-  before 'puma:start', 'puma:nginx_config'
+  task :nginx_config do
+  	on roles(:app) do
+      sudo "ln -nfs '#{shared_path}/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
+      sudo "service nginx restart"
+    end  	
+  end 
+  before 'puma:start', 'deploy:nginx_config'
   # before 'deploy:restart', 'puma:start'
 
   desc 'Restart application'
