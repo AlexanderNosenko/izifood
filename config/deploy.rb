@@ -42,7 +42,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 
 ## Linked Files & Directories (Default None):
-set :linked_files, %w{config/database.yml config/secrets.yml config/application.yml config/nginx.conf}
+set :linked_files, %w{config/database.yml config/secrets.yml config/application.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
 
 # namespace :puma do
@@ -78,13 +78,13 @@ namespace :deploy do
   #     invoke 'deploy'
   #   end
   # end
-  task :nginx_config do
-  	on roles(:app) do
-      sudo "ln -nfs '#{shared_path}/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
-      sudo "service nginx restart"
-    end  	
-  end 
-  before 'puma:start', 'deploy:nginx_config'
+  # task :nginx_config do
+  # 	on roles(:app) do
+  #     sudo "ln -nfs '#{shared_path}/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
+  #     sudo "service nginx restart"
+  #   end  	
+  # end
+  # before 'puma:start', 'deploy:nginx_config'
   # before 'deploy:restart', 'puma:start'
 
   desc 'Restart application'
