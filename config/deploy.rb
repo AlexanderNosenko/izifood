@@ -42,43 +42,44 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 
 ## Linked Files & Directories (Default None):
-set :linked_files, %w{config/database.yml, config/secrets.yml, config/application.yml, config/nginx.conf.erb}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{config/database.yml config/secrets.yml config/application.yml config/nginx.conf}
+set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
 
-namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
-    on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
-    end
-  end
-
-  before :start, :make_dirs
-end
+# namespace :puma do
+#   desc 'Create Directories for Puma Pids and Socket'
+#   task :make_dirs do
+#     on roles(:app) do
+#       execute "mkdir #{shared_path}/tmp/sockets -p"
+#       execute "mkdir #{shared_path}/tmp/pids -p"
+#     end
+#   end
+#   before :start, :make_dirs
+# end
 
 namespace :deploy do
-  desc "Make sure local git is in sync with remote."
-  task :check_revision do
-    on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
-        exit
-      end
-    end
-  end
+  # desc "Make sure local git is in sync with remote."
+  # task :check_revision do
+  #   on roles(:app) do
+  #     unless `git rev-parse HEAD` == `git rev-parse origin/master`
+  #       puts "WARNING: HEAD is not the same as origin/master"
+  #       puts "Run `git push` to sync changes."
+  #       exit
+  #     end
+  #   end
+  # end
 
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      sudo "ln -nfs '#{shared_path}config/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
-      sudo "service nginx restart"
+  # desc 'Initial Deploy'
+  # task :initial do
+  #   on roles(:app) do
+  #     sudo "ln -nfs '#{shared_path}config/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
+  #     sudo "service nginx restart"
 
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
+  #     before 'deploy:restart', 'puma:start'
+  #     invoke 'deploy'
+  #   end
+  # end
+  before 'puma:start', 'puma:nginx_config'
+  # before 'deploy:restart', 'puma:start'
 
   desc 'Restart application'
   task :restart do
@@ -87,7 +88,7 @@ namespace :deploy do
     end
   end
 
-  before :starting,     :check_revision
+  # before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
