@@ -85,7 +85,7 @@ namespace :deploy do
   #   end  	
   # end
   # before 'puma:start', 'deploy:nginx_config'
-  # before 'deploy:restart', 'puma:start'
+  before 'deploy:restart', 'puma:start'
 
   desc 'Restart application'
   task :restart do

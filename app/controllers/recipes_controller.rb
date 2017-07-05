@@ -24,6 +24,8 @@ class RecipesController < ApplicationController
   # POST /recipes
   # POST /recipes.json
   def create
+    # [:=>[{:title=>"ziemniaki młode", :quantity=>"6-8 szt (duże)"}
+    
     @recipe = Recipe.new(recipe_params)
 
     respond_to do |format|
@@ -70,5 +72,14 @@ class RecipesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
       params.require(:recipe).permit(:title, :description)
+    end
+
+    def parse_recipes
+      data = Parser.new.get_recipes(41, 99)
+      data.each do |r|
+        recipe = Recipe.create_from(r)
+        RecipeIngredient.add_ingredients_from(r, recipe)
+      end
+      Recipe.convert_to_enum
     end
 end
