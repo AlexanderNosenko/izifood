@@ -43,19 +43,9 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 ## Linked Files & Directories (Default None):
 set :linked_files, %w{config/secrets.yml config/application.yml}
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
+set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle, public}
 
-# namespace :puma do
-#   desc 'Create Directories for Puma Pids and Socket'
-#   task :make_dirs do
-#     on roles(:app) do
-#       execute "mkdir #{shared_path}/tmp/sockets -p"
-#       execute "mkdir #{shared_path}/tmp/pids -p"
-#     end
-#   end
-#   before :start, :make_dirs
-# end
-
+Rake::Task["puma:start"].reenable
 namespace :deploy do
   # desc "Make sure local git is in sync with remote."
   # task :check_revision do
@@ -68,16 +58,6 @@ namespace :deploy do
   #   end
   # end
 
-  # desc 'Initial Deploy'
-  # task :initial do
-  #   on roles(:app) do
-  #     sudo "ln -nfs '#{shared_path}config/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
-  #     sudo "service nginx restart"
-
-  #     before 'deploy:restart', 'puma:start'
-  #     invoke 'deploy'
-  #   end
-  # end
   # task :nginx_config do
   # 	on roles(:app) do
   #     sudo "ln -nfs '#{shared_path}/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
@@ -85,19 +65,22 @@ namespace :deploy do
   #   end  	
   # end
   # before 'puma:start', 'deploy:nginx_config'
-  before 'deploy:restart', 'puma:start'
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     invoke 'puma:restart'
+  #   end
+  # end
+
+  task :test do
+    puts "shjit"
+    on roles(:app) do 
+      execute("cd #{current_path}; /usr/local/rvm/bin/rvm 2.3.1@izifood do bundle exec puma -C /home/izifood_app/shared/puma.rb --daemon")
     end
   end
 
-  # before :starting,     :check_revision
-  after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  after 'puma:restart', 'deploy:test'
 end
 
 # ps aux | grep puma    # Get puma pid
