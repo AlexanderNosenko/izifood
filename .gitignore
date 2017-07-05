@@ -21,5 +21,5 @@
 # Ignore application configuration
 config/application.yml
 config/secrets.yml
-public
-#app/models/parser.rb
+/public/*
+app/models/parser.rb
