@@ -22,3 +22,4 @@
 config/application.yml
 config/secrets.yml
 public
+#app/models/parser.rb
