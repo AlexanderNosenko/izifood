@@ -1,4 +1,5 @@
 class IngredientsController < ApplicationController
+  before_action :authenticate_user!
   
   def index
 	parse_ingredients
@@ -19,7 +20,7 @@ class IngredientsController < ApplicationController
     data = IngredientsParser.new.get_ingredients(13, 99)
     data.each do |ing|
       existing = Ingredient.where('title LIKE ?', '%' + ing[:title] + '%')
-      cd
+      cd	
       if existing.count > 0
       	existing.update_all(ing)
       else
