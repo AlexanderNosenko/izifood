@@ -1,0 +1,52 @@
+// Place all the styles related to the Orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.container{
+	width: 60%;
+}
+.dashed-border{
+	/*Horizontal*/
+	width: 100%;
+	height: 2px;
+    margin: 20px 0px;	
+	background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+	background-position: top;
+	background-size: 20px 1px;
+	background-repeat: repeat-x;
+}
+.ingredients{
+	.recipe-block{
+		.recipe{
+			height: 100px;
+			div{
+				display: inline-block;
+			}
+			.image>img{
+				width: 225px;
+			}
+			.title{
+				font-size: 2vw; 
+			}
+		}
+		.recipe-ingredients, .custom-ingredients{
+			margin-left: 35px;
+			.ingredient{
+			    height: 66px;
+    			margin: 10px;
+    			
+    			div{
+    				display: inline-block;
+    				font-size: 1.7vw;
+    				vertical-align: middle;
+    			}
+				.image{
+				    border-radius: 50%;
+    				overflow: hidden;
+				}
+				.image>img{
+					width: 61px;
+				}
+			}
+		}
+	}
+}

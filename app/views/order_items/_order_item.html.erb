@@ -1,0 +1,8 @@
+<div class="ingredient">
+  	<%= hidden_field_tag 'order[ingredients][][id]', order_item.ingredient.id %>
+  	<%= hidden_field_tag 'order[ingredients][][quantity]', order_item.quantity %>
+	<div class="image"><%= image_tag "ing-default.jpg" %></div>
+	<div class="title"><%= order_item.ingredient.title %></div>
+	<div class="quantity"><%= order_item.quantity %></div>
+	<div class="total-price">10 ZT</div>
+</div>	

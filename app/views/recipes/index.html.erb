@@ -1,6 +1,5 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
-  <h1>Shit works</h1>
   <h1>Recipes</h1>
   <div class="recipes">
     <% @recipes.each do |recipe| %>
@@ -11,11 +10,16 @@
           <div class="title"><%= recipe.title %></div>
           <!-- <div class="description"><%= recipe.description %></div> -->
           <div class="details-link"><%= link_to 'Show', recipe %></div>
-          <!-- <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td> -->
+          <div class="add-to-menu-btn">
+            <%= link_to 'Add', menus_add_recipe_path(current_user.current_menu, recipe), remote: true, method: :post%>
+            <!-- #, "data-type" => "js" -->
+          </div>
+          <!-- <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td> --Menu.first>
           <!-- <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>         -->
         </div>
       </div>
     <% end %>  
   </div>
+  <%= will_paginate @recipes %>
   <%= link_to 'New Recipe', new_recipe_path %>
 </div>

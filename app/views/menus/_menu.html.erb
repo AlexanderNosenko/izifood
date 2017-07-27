@@ -1,0 +1,16 @@
+<div class="user-menus">
+  <div class="user-menu">
+    <% menu.recipes.each do |recipe| %>
+	  <div class="recipe">
+		  <div class="image">
+			<%=image_tag recipe.images[0].url%>
+		  </div>
+		  <div class="title"><%=recipe['title'].downcase.capitalize%></div>
+		  <div class="remove-recipe-btn">
+			<%= link_to 'X', menus_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
+		  </div>
+	  </div>		
+    <% end%>
+  </div>
+  <%= link_to 'Order', new_order_path, class: 'btn btn-primary order-btn' %>
+</div>

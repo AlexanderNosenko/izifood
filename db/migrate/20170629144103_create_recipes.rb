@@ -7,7 +7,7 @@ class CreateRecipes < ActiveRecord::Migration[5.1]
    	  t.string :title, null: false
       t.string :images, array: true, default: [], null: false
       t.text :description, array: true, default: [], null: false      
-	  t.string :desc_images, array: true, default: []      
+	    t.string :desc_images, array: true, default: []      
    	  t.string :r_type, null: false, index: true
    	  t.string :prep_time, null: false, index: true
    	  t.string :prep_type, null: false, index: true

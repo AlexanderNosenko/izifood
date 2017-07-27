@@ -16,3 +16,92 @@
  * require_tree .
  * require_self
  */
+ body{
+ 	background: #fafafa;
+ }
+.user-menus{
+	/*position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;*/
+    position: fixed; 
+    transition: all 0.25s ease-out;
+    /*z-index: -100;*/
+    background: white;
+    width: 350px;
+    min-height: 350px;
+    display: block;
+    top: 10px;
+    left: calc(100% - 127px);
+	.order-btn{
+	    margin: 10px;
+	    position: absolute;
+	    bottom: 0;
+	    right: 0px;
+	}
+}
+.user-menus:hover{
+    z-index: 1;
+    left: calc(100% - 370px);
+}
+.user-menu{
+	.recipe{
+	    width: 94%;
+    	margin: 3%;
+		div{
+		    display: inline-block;
+		}
+		.title{
+			max-width: 196px;
+		    vertical-align: middle;
+		}
+		.image{
+		    display: inline-block;
+		}
+		.image > img{
+			width: 113px;
+		}
+		.remove-recipe-btn{
+	        float: right;
+			top: 0px;
+			right: 12px;
+		}
+	}
+}
+::-webkit-scrollbar { 
+  display: none; 
+}
+.live-search{
+  form{
+	width: 97%;
+    margin: auto;
+  }
+  height: 400px;
+  background: white;
+  padding-top: 27px;
+  .search-results{
+  	display: none;
+  	max-height: 261px;
+    overflow-y: scroll;
+  	background: white;
+  	width: 97%;
+  	margin: auto;
+  	border: 1px solid #ccc;
+    border-radius: 4px;
+  	.ingredient:hover{
+      background: #ccc;
+  	}
+  	.ingredient{
+  	  height: 60px;
+  	  div{
+  	  	display: inline-block;
+  	  }
+  	  .image{
+  	  	margin: 5px;
+  	  	img{
+  	  		height: 50px;
+  	  	}
+  	  }
+  	}
+  }
+}

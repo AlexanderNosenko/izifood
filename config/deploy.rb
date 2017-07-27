@@ -64,23 +64,14 @@ namespace :deploy do
   #     sudo "service nginx restart"
   #   end  	
   # end
-  # before 'puma:start', 'deploy:nginx_config'
 
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     invoke 'puma:restart'
-  #   end
-  # end
-
-  task :test do
-    puts "shjit"
+  task :puma_restart_fix do
     on roles(:app) do 
-      execute("cd #{current_path}; /usr/local/rvm/bin/rvm 2.3.1@izifood do bundle exec puma -C /home/izifood_app/shared/puma.rb --daemon")
+      execute("cd #{current_path}; /usr/local/rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec puma -C #{shared_path}/puma.rb --daemon")
     end
   end
 
-  after 'puma:restart', 'deploy:test'
+  after 'puma:restart', 'deploy:puma_restart_fix'
 end
 
 # ps aux | grep puma    # Get puma pid

@@ -1,0 +1,8 @@
+<%= form_tag(ingredients_search_path, remote:true) do%>
+  <div class="form-group">
+  	<% label_tag :q, 'Search'%>
+    <%= text_field_tag :q, '', class:"form-control live-search-input", placeholder: 'Cucumber'%>
+  </div>
+<% end %>
+<div class="search-results">
+</div>
