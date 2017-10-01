@@ -27,6 +27,8 @@ $(document).ready(function(){
 	})
 
 	$(document).on('click', '.search-results>.ingredient', function(){
+		let ingredient_clone = $('.recipe-ingredients>.ingredient:first')
+		
 		$(this).clone().appendTo('.custom-ingredients');
 		
 		console.log($(this))

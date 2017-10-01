@@ -5,13 +5,10 @@
 	  <div class="recipe-block">
 	    <div class="recipe-ingredients">
 	      <% @order.items.each do |item| %>
-		    <%= render item %>		
-	      <% end %>
+  		    <%= render item, locals: {form: form} %>		
+  	    <% end %>
 	    </div>	  
 	  </div>
-	  <%# @recipes.each do |recipe| %>
-  	  	<%# render partial: 'recipes/recipe', locals: {:recipe => recipe, form: form}%>  	  
-      <%# end %>
     </div>
     <div class="dashed-border"></div>
     <div class="ingredients">

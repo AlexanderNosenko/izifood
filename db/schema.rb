@@ -10,20 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724132921) do
+ActiveRecord::Schema.define(version: 20171001102839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "ingredients", force: :cascade do |t|
-    t.string "title"
+  create_table "ingredient_searches", force: :cascade do |t|
+    t.string "search", null: false
+    t.string "results", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredient_translations", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.string "label", null: false
+    t.string "language", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "title", null: false
     t.float "price_piece", default: -1.0, null: false
     t.float "price_volume", default: -1.0
     t.string "quantifier", default: "-kg", null: false
+    t.string "min_amount", null: false
     t.string "image"
+    t.string "tesco_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "menu_recipes", force: :cascade do |t|
@@ -51,13 +69,15 @@ ActiveRecord::Schema.define(version: 20170724132921) do
   end
 
   create_table "order_items", force: :cascade do |t|
+    t.bigint "recipe_ingredient_id", null: false
+    t.bigint "order_id", null: false
+    t.bigint "ingredient_id", null: false
     t.string "quantity"
-    t.bigint "order_id"
-    t.bigint "ingredient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_order_items_on_ingredient_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["recipe_ingredient_id"], name: "index_order_items_on_recipe_ingredient_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -72,12 +92,11 @@ ActiveRecord::Schema.define(version: 20170724132921) do
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
-    t.bigint "ingredient_id"
     t.bigint "recipe_id"
     t.string "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.string "title", default: "", null: false
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
@@ -132,6 +151,7 @@ ActiveRecord::Schema.define(version: 20170724132921) do
   add_foreign_key "menus", "users"
   add_foreign_key "order_items", "ingredients"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "recipe_ingredients"
   add_foreign_key "orders", "menus"
   add_foreign_key "orders", "users"
 end

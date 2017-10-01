@@ -1,0 +1,32 @@
+
+	<!-- <div class="possible-ingredients">
+		<span class="arrow-down"></span>
+		<div class="selected-ingredient">
+			<%= render order_item.recipe_ingredient.possible_ingredients.first %>
+		</div>
+		<div class="all-possible-ingredients">
+			<%= render order_item.recipe_ingredient.possible_ingredients %>
+		</div>
+	</div> -->
+
+<select class="cs-select cs-skin-elastic">
+	<option value="" disabled selected>Select a Country</option>
+	<option value="france" data-class="flag-france">France</option>
+	<option value="brazil" data-class="flag-brazil">Brazil</option>
+	<option value="argentina" data-class="flag-argentina">Argentina</option>
+	<option value="south-africa" data-class="flag-safrica">South Africa</option>
+</select>
+
+<div class="form-group">
+  <select class="form-control" id="sel1">
+    <div class="image"><%= image_tag order_item.ingredient.image.url || "ing-default.jpg" %></div>
+    order_item.recipe_ingredient.possible_ingredients.map do |ing|
+	  [ing.title, ing.id]
+	end
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+</div>
+	<%# select_tag('order[ingredients][][id]', options_for_select(options_for_possible_ingredients(order_item))) %>	

@@ -1,6 +1,8 @@
-// Place all the styles related to the Orders controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "cs-select";
+@import "cs-skin-elastic";
+@import "tesco_main";
+@import "tesco_shared";
+
 .container{
 	width: 60%;
 }
@@ -14,6 +16,7 @@
 	background-size: 20px 1px;
 	background-repeat: repeat-x;
 }
+
 .ingredients{
 	.recipe-block{
 		.recipe{
@@ -27,26 +30,111 @@
 			.title{
 				font-size: 2vw; 
 			}
-		}
+		}		
 		.recipe-ingredients, .custom-ingredients{
-			margin-left: 35px;
 			.ingredient{
-			    height: 66px;
+				display: flex;
+			    flex-direction: row;
+			    justify-content: space-between;
+			    height: 52px;
     			margin: 10px;
-    			
     			div{
-    				display: inline-block;
-    				font-size: 1.7vw;
     				vertical-align: middle;
     			}
-				.image{
-				    border-radius: 50%;
+    			.title{
+    				order: 1;
+    				width: 22%;
+					border-right: 1px solid black;
+				}
+				.quantity{
+				    order: 3;
+					width: 20%
+				}
+				.total-price{
+					order: 4;
+				}
+				.remove-order-item-btn{
+					cursor: pointer;
+				    order: 5;
+				}
+				.possible-ingredients.cs-active{
+					box-shadow: 1px 8px 23px #888;
+					.cs-options{
+						box-shadow: 1px 13px 17px #888;
+					}
+				}
+				.possible-ingredients{
+				    order: 2;
+					width: 40%;
+					/*.arrow-down{
+						position: absolute;
+					    margin-top: 36px;
+					    margin-left: calc(100% - 24px);
+					    border-left: 4px solid transparent;
+					    border-right: 4px solid transparent;
+					    border-top: 4px solid #3790d0;
+					    -webkit-transition: 0.3s;
+					    -moz-transition: 0.3s;
+					    -ms-transition: 0.3s;
+					    -o-transition: 0.3s;
+					    transition: 0.3s;
+					}
+					.selected-ingredient{
+					
+					}
+					.all-possible-ingredients{
+						display: none!important;
+					}*/
+				}
+				/*.possible-ingredients:hover{
+					.all-possible-ingredients{
+						display: inline-block!important;
+					}
+				}*/
+				/*.image{
+				    border-radius: 23%;
     				overflow: hidden;
 				}
 				.image>img{
-					width: 61px;
-				}
+					width: 48px;
+				}*/
 			}
 		}
 	}
+}
+div.cs-skin-elastic {
+	font-size: initial;
+	font-weight: initial;
+}
+.cs-skin-elastic .cs-options img, .cs-placeholder > img{
+	width: 42px;
+	display: inline-block;
+	position: absolute;
+	margin-left: 10px;
+	border-radius: 6px; 
+}
+
+.cs-select span{
+    padding-right: 1em;
+}
+.cs-placeholder > img{
+	margin-top: -7px;
+}
+.cs-placeholder{
+	padding: 0.7em!important;
+}
+.cs-placeholder > span{
+	padding: 0.4em 1em 0.4em 4em;
+}
+.overflowing{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cs-options>ul>li>div{
+    width: 280px;
+    margin-left: 60px;
+}
+.cs-skin-elastic .cs-options span{
+	padding-left: 0;
 }

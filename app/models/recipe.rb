@@ -4,7 +4,6 @@ class Recipe < ApplicationRecord
   mount_uploaders :desc_images, DescriptionImageUploader
   
   has_many :recipe_ingredients
-  has_many :ingredients, through: :recipe_ingredients
   
   enum r_type: { Inne: 0, Obiad: 1, Deser: 2, Zupa: 3, Przystawka: 4, Kolacja: 5, Napój: 6, Śniadanie: 7, 'Ciasto słodkie' => 8 }, _prefix: true
   enum prep_time: { Inne: 0, Szybko: 1, Średnio: 2, Długo: 3 }, _prefix: true

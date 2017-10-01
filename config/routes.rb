@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'ingredients/search', to: 'ingredients#search', as: 'ingredients_search'
   # get 'ingredients/search', to: 'ingredients#search'
   resources :orders
+  get 'orders/new/:recipe_id/delivery/', to: 'orders#delivery', as: 'new_order_delivery'
 
   post 'menus/:menu_id/add_recipe/:recipe_id', to: 'menus#add_recipe', as: 'menus_add_recipe'
   get 'menus/:menu_id/add_recipe/:recipe_id', to: 'menus#add_recipe'

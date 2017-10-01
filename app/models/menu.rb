@@ -25,27 +25,34 @@ class Menu < ApplicationRecord
  	end
   end
 
-  def ingredients
-  	@ingredients ||= recipes.map { |r| r.ingredients }.flatten.uniq
-  end
-
-  def quantities
-  	@quantities ||= recipes.map { |r| r.recipe_ingredients }.flatten
+  def recipe_ingredients
+  	@recipe_ingredients ||= recipes.map { |r| r.recipe_ingredients }.flatten
   end
   
-  def quantity_for(ingredient)
-  	quantity = 0;
-    quantities.each do |rc|
-  	  next if rc.ingredient_id != ingredient.id
-   	  quantity += rc.calc_quantity
-    end
-    quantity
+  def quantity_for(rec_ing)
+  	# quantity = 0;
+   #  quantities.each do |rc|
+  	#   next if rc.ingredient_id != ingredient.id
+   # 	  quantity += rc.calc_quantity
+   #  end
+   #  quantity
+
+   recipe_ingredients.map { |ri|
+    next if ri.title != rec_ing.title
+   	  ri.quantity
+    }.reject { |q| q.nil? || q.empty? }.join(" + ").prepend("|") + "|"
+
   end
   
   def to_order
-  	o = Order.new({ user_id: self.user.id, menu_id: self.id })    
-    o.order_items = ingredients.map do |ingredient|
-      OrderItem.new({ order_id: o.id, ingredient_id: ingredient.id, quantity: quantity_for(ingredient)})
+  	o = Order.new({ user_id: self.user.id, menu_id: self.id })
+    o.order_items = recipe_ingredients.uniq { |r| r.title }.map do |rec_ing|
+      OrderItem.new({ 
+      	order_id: o.id, 
+      	ingredient_id: rec_ing.possible_ingredients.first.try(:id), 
+      	quantity: quantity_for(rec_ing), 
+      	recipe_ingredient: rec_ing
+      })
     end
     o
   end
