@@ -8,6 +8,14 @@ GIT
       mime-types (>= 1.16)
 
 GIT
+  remote: https://github.com/ctran/annotate_models.git
+  revision: 5f37a974f3dff68f92b3495115f1399e7db5c584
+  specs:
+    annotate (2.7.2)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
+
+GIT
   remote: https://github.com/seuros/capistrano-puma.git
   revision: 00708fa18a029cb34f46aef60f920106c0c00107
   specs:
@@ -120,6 +128,8 @@ GEM
     erubi (1.6.1)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.8.1)
+      activesupport (>= 3.0.0)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -259,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate!
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.6)
@@ -272,6 +283,7 @@ DEPENDENCIES
   carrierwave!
   coffee-rails (~> 4.2)
   devise
+  factory_girl
   figaro
   jbuilder (~> 2.5)
   jquery-rails

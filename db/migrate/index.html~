@@ -1,4 +1,0 @@
-<form class="edit_menu_recipe" id="edit_menu_recipe_10" action="/menus/remove_recipe/10" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="delete">
-			    <input value="10" type="hidden" name="menu_recipe[id]" id="menu_recipe_id">
-			    <input type="submit" name="commit" value="X" data-disable-with="X">
-</form>
