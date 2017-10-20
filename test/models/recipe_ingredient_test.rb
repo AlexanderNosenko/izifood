@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string           default(""), not null
+#  match      :integer          default("none"), not null
 #
 
 require 'test_helper'

@@ -11,8 +11,7 @@
           <!-- <div class="description"><%= recipe.description %></div> -->
           <div class="details-link"><%= link_to 'Show', recipe %></div>
           <div class="add-to-menu-btn">
-            <%= link_to 'Add', menus_add_recipe_path(current_user.current_menu, recipe), remote: true, method: :post%>
-            <!-- #, "data-type" => "js" -->
+            <%= link_to 'Add', menu_add_recipe_path(current_user.current_menu, recipe), remote: true, method: :post%>
           </div>
           <!-- <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td> --Menu.first>
           <!-- <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>         -->
@@ -20,6 +19,6 @@
       </div>
     <% end %>  
   </div>
-  <%= will_paginate @recipes %>
+  <%= paginate @recipes %>
   <%= link_to 'New Recipe', new_recipe_path %>
 </div>

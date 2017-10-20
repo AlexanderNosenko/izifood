@@ -10,17 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171001102839) do
+ActiveRecord::Schema.define(version: 20171016203804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "deliveries", force: :cascade do |t|
+    t.date "deliver_on", null: false
+    t.decimal "cost_value", precision: 5, scale: 2, null: false
+    t.string "cost_currency", null: false
+    t.string "time_from", null: false
+    t.string "time_to", null: false
+    t.bigint "order_id", null: false
+    t.index ["deliver_on"], name: "index_deliveries_on_deliver_on"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
+
+  create_table "delivery_slots", force: :cascade do |t|
+    t.text "content_html", null: false
+    t.string "vendor", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "ingredient_searches", force: :cascade do |t|
     t.string "search", null: false
     t.string "results", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["search"], name: "index_ingredient_searches_on_search", unique: true
   end
 
   create_table "ingredient_translations", force: :cascade do |t|
@@ -42,6 +61,7 @@ ActiveRecord::Schema.define(version: 20171001102839) do
     t.string "tesco_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_ingredients_on_title", unique: true
   end
 
   create_table "menu_recipes", force: :cascade do |t|
@@ -97,6 +117,7 @@ ActiveRecord::Schema.define(version: 20171001102839) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title", default: "", null: false
+    t.integer "match", default: 0, null: false
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
@@ -117,6 +138,7 @@ ActiveRecord::Schema.define(version: 20171001102839) do
     t.boolean "grill", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["calories"], name: "index_recipes_on_calories"
     t.index ["cost"], name: "index_recipes_on_cost"
     t.index ["cuisine"], name: "index_recipes_on_cuisine"
@@ -127,6 +149,15 @@ ActiveRecord::Schema.define(version: 20171001102839) do
     t.index ["prep_type"], name: "index_recipes_on_prep_type"
     t.index ["r_type"], name: "index_recipes_on_r_type"
     t.index ["veg"], name: "index_recipes_on_veg"
+  end
+
+  create_table "search_duplicates", force: :cascade do |t|
+    t.string "value", null: false
+    t.bigint "origin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["origin_id"], name: "index_search_duplicates_on_origin_id"
+    t.index ["value"], name: "index_search_duplicates_on_value", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -154,4 +185,5 @@ ActiveRecord::Schema.define(version: 20171001102839) do
   add_foreign_key "order_items", "recipe_ingredients"
   add_foreign_key "orders", "menus"
   add_foreign_key "orders", "users"
+  add_foreign_key "search_duplicates", "ingredient_searches", column: "origin_id"
 end

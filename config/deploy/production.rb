@@ -1,6 +1,6 @@
 set :stage, :production
 
-SERVER_IP = '46.101.158.89'
+SERVER_IP = '51.15.83.214'
 
 # server-based syntax
 # ======================

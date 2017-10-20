@@ -7,7 +7,7 @@
 		  </div>
 		  <div class="title"><%=recipe['title'].downcase.capitalize%></div>
 		  <div class="remove-recipe-btn">
-			<%= link_to 'X', menus_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
+			<%= link_to 'X', menu_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
 		  </div>
 	  </div>		
     <% end%>

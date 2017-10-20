@@ -12,8 +12,8 @@ class OrdersController < ApplicationController
   	})
     respond_to do |format|
       if @order.save
-        format.html { redirect_to new_order_path }
-        # format.html { redirect_to new_order_delivery_path(@order), notice: 'Recipe was successfully created.' }
+        # format.html { redirect_to new_order_path }
+        format.html { redirect_to order_delivery_path(@order), notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
         format.html { render :new }
@@ -23,7 +23,12 @@ class OrdersController < ApplicationController
   end
 
   def delivery
-  	@delivery_dates ||= Tesco.delivery_dates_html
+    @delivery = Delivery.new({ order_id: params[:order_id] })
+    @delivery_slots ||= DeliverySlot.for(:tesco).content_html
+  end
+
+  def delivery_create
+    
   end
 
   def new
@@ -37,7 +42,7 @@ class OrdersController < ApplicationController
   # 	  OrderItem.new(order_item.permit(order_item_attributes))
   # 	}.reject { |i| i.nil? }
   # end
-
+  
   def order_item_attributes
     [ 
       :recipe_ingredient_id, 

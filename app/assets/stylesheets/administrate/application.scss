@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+@import "reset/normalize";
+
+@import "selectize";
+@import "datetime_picker";
+
+@import "library/clearfix";
+@import "library/data-label";
+@import "library/variables";
+
+@import "base/forms";
+@import "base/layout";
+@import "base/lists";
+@import "base/tables";
+@import "base/typography";
+
+@import "components/app-container";
+@import "components/attributes";
+@import "components/buttons";
+@import "components/cells";
+@import "components/field-unit";
+@import "components/flashes";
+@import "components/form-actions";
+@import "components/main-content";
+@import "components/navigation";
+@import "components/pagination";
+@import "components/search";
+
+@import "utilities/text-color";
+@import "cs-select";
+@import "cs-skin-elastic";
+
+div.cs-skin-elastic {
+	font-size: initial;
+	font-weight: initial;
+}
+.cs-skin-elastic .cs-options img, .cs-placeholder > img{
+	width: 80px;
+	display: inline-block;
+	position: absolute;
+	margin-left: 10px;
+	border-radius: 6px; 
+}
+
+.cs-select {
+	min-width: 500px;
+	span{
+	    padding-right: 1em;
+	}
+}
+.cs-placeholder{
+	height: 80px;
+	padding: 0.7em!important;
+	span{
+		padding: 1.4em 1em 0.4em 6em;
+	}
+	img{
+		margin-top: -7px;
+	}
+}
+.overflowing{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cs-options>ul>li>div{
+    width: 400px;
+    margin-left: 60px;
+}
+
+.cs-select.cs-skin-elastic.possible-ingredients.cs-active{
+	box-shadow: 1px 8px 23px #888;
+	.cs-options{
+		ul{
+		    background: white;
+			box-shadow: 1px 13px 17px #888;
+		}
+	}
+}
+
+.cs-skin-elastic .cs-options{
+	height: 100px;
+	span{
+		padding: 1.4em 0em 0.4em 2em;
+		height: 74px;
+	}
+}
+.slot-selector{
+	position: absolute!important;
+}
+.slot-selector--week-tabheader-link{
+	cursor: pointer;
+}
+.recipe-ingredients{
+	margin-bottom: 60px;
+}
+.recipe-ingredient{
+    display: flex;
+ 	&__field{
+	    margin: 10px;
+	    margin-top: 29px;
+		&__title{
+	    width: 170px;
+	        margin-top: 27px;
+	            border-right: 1px solid black;
+	    overflow: hidden;
+	  }
+	}
+}

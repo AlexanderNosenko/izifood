@@ -10,9 +10,7 @@
 #
 
 class IngredientSearch < ApplicationRecord
-  def self.search
-  	#TODO introduce matching table
-  	# search titile -> ingredients saved in database
-  	# where("LOWER(title) similar to ?", '%' + q.downcase + '%').limit(10) unless q.empty?
-  end
+  has_many :duplicates, class_name: "SearchDuplicate", foreign_key: "origin_id", dependent: :destroy
+
+  validates :search, presence: true, uniqueness: true
 end

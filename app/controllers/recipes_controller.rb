@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.paginate(:page => params[:page], :per_page => 6)
+    @recipes = Recipe.page(params[:page]).per(6)
   end
 
   # GET /recipes/1

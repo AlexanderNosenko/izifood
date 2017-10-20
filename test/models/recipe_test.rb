@@ -19,6 +19,7 @@
 #  grill           :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  status          :integer          default("unchecked"), not null
 #
 
 require 'test_helper'

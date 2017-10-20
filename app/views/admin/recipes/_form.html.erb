@@ -1,0 +1,86 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+<%= form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
+  <% if page.resource.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(page.resource.errors.count, "error") %>
+        prohibited this <%= page.resource_name %> from being saved:
+      </h2>
+
+      <ul>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% page.attributes.each do |attribute| -%>
+    <% if attribute.attribute == :recipe_ingredients %>
+      <div class="recipe-ingredients">
+        <% attribute.data.each do |recipe_ingredient| %>
+          
+          <div class="recipe-ingredient">
+            <div class="recipe-ingredient__field">
+              <%= link_to(
+                recipe_ingredient.id, 
+                edit_admin_recipe_ingredient_path(recipe_ingredient.id),
+                target: "_blank") %>
+              </div>
+            <div class="recipe-ingredient__field__title"><%= recipe_ingredient.title %></div>  
+            <div class="ingredient__field">
+              <select class="cs-select cs-skin-elastic possible-ingredients">
+                <% if recipe_ingredient.possible_ingredients.length > 0 %>
+                  <% recipe_ingredient.possible_ingredients.map do |ing| %>
+                    <option value="<%= ing.id %>" data-image="<%= ing.image.url || image_path('ing-default.jpg') %>">
+                      <%= !ing.nil? && "#{ing.id} | #{ing.title}" %>
+                    </option>
+                  <% end %>
+                <% else %>
+                  <option value="" disabled>No matches in our databse :( </option>
+                <% end %>
+              </select>
+            </div>  
+            <div class="recipe-ingredient__field">
+              <% search = IngredientSearch.find_by(search: recipe_ingredient.title) %>
+              <% duplicate = SearchDuplicate.find_by(value: recipe_ingredient.title) %>
+              
+              <%= link_to(
+                  'Edit search', 
+                  edit_admin_ingredient_search_path(search.id),
+                  target: "_blank") %>
+              <%= link_to(
+                  'New duplicate', 
+                  new_admin_search_duplicate_path,
+                  target: "_blank") %>
+            </div>    
+           <!--  <div class="recipe-ingredient__field"><%= recipe_ingredient.match %></div>
+            <div class="recipe-ingredient__field__image"><%= recipe_ingredient.match %></div> -->
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="field-unit field-unit--<%= attribute.html_class %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end %>
+  <% end -%>
+
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+<% end %>

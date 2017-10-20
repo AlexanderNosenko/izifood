@@ -1,1 +1,6 @@
-<%= @delivery_dates.html_safe %>
+<%= form_for(@delivery, html: {class: "order-form"}, url: order_delivery_path) do |f| %>
+  <%= f.hidden_field "deliver_on" %>
+  <%= f.hidden_field "cost_value" %>
+  <%= f.hidden_field "cost_currency" %>
+<% end %>
+<%= @delivery_slots.html_safe %>

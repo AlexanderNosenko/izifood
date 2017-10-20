@@ -19,14 +19,16 @@
 #  grill           :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  status          :integer          default("unchecked"), not null
 #
 
 class Recipe < ApplicationRecord
+  include IngredientStatusDecider
 
   mount_uploaders :images, RecipeImageUploader
   mount_uploaders :desc_images, DescriptionImageUploader
-  
-  has_many :recipe_ingredients
+
+  has_many :recipe_ingredients, dependent: :destroy
   
   enum r_type: { Inne: 0, Obiad: 1, Deser: 2, Zupa: 3, Przystawka: 4, Kolacja: 5, Napój: 6, Śniadanie: 7, 'Ciasto słodkie' => 8 }, _prefix: true
   enum prep_time: { Inne: 0, Szybko: 1, Średnio: 2, Długo: 3 }, _prefix: true
@@ -36,6 +38,8 @@ class Recipe < ApplicationRecord
   enum portion_size: { Inne: 0, '1-2' => 1, '3-4' => 2, '5+' => 3 }, _prefix: true
   enum main_ingredient: { Inne: 0, Drób: 1, 'Kasza/ryż' => 2, 'Ryby i owoce morza' => 3, Wieprzowina: 4, Warzywa: 5, Grzyby: 6, Sery: 7, Owoce: 8, Makarony: 9 }, _prefix: true
   enum cuisine: { Inna: 0,  polska: 1, włoska: 2, skandynawska: 3, japońska: 4, indyjska: 5 }, _prefix: true
+
+  enum status: [:unchecked, :ok], _prefix: true
 
   def self.create_from(data)
   	r = Recipe.new
@@ -76,17 +80,18 @@ class Recipe < ApplicationRecord
     	5=> :Warzywa, 6 => :Grzyby, 7 => :Sery, 8 =>  :Owoce, 9=> :Makarony}
     e_cuisine = { 0 => :Inna,  1 => :polska, 2 => :włoska, 3 => :skandynawska, 4 => :japońska, 5 => :indyjska }
 
-	Recipe.where("id > 20").each do |recipe|
-	  recipe.r_type =  e_r_type.select { |key, value| value.to_s.match(/#{recipe.r_type}/)}.keys[0]
-	  recipe.prep_time =  e_prep_time.select { |key, value| value.to_s.match(/#{recipe.prep_time}/)}.keys[0]
-	  recipe.prep_type =  e_prep_type.select { |key, value| value.to_s.match(/#{recipe.prep_type}/)}.keys[0]
-	  recipe.cost =  e_cost.select { |key, value| value.to_s.match(/#{recipe.cost}/)}.keys[0]
-	  recipe.calories =  e_calories.select { |key, value| value.to_s.match(/#{recipe.calories}/)}.keys[0]
-	  recipe.portion_size =  e_portion_size.select { |key, value| value.to_s.match(/#{recipe.portion_size}/)}.keys[0]
-	  recipe.main_ingredient =  e_main_ingredient.select { |key, value| value.to_s.match(/#{recipe.main_ingredient}/)}.keys[0]
-	  recipe.cuisine =  e_cuisine.select { |key, value| value.to_s.match(/#{recipe.cuisine}/)}.keys[0]
-	  recipe.save
-	end  	
+  	Recipe.where("id > 20").each do |recipe|
+  	  recipe.r_type =  e_r_type.select { |key, value| value.to_s.match(/#{recipe.r_type}/)}.keys[0]
+  	  recipe.prep_time =  e_prep_time.select { |key, value| value.to_s.match(/#{recipe.prep_time}/)}.keys[0]
+  	  recipe.prep_type =  e_prep_type.select { |key, value| value.to_s.match(/#{recipe.prep_type}/)}.keys[0]
+  	  recipe.cost =  e_cost.select { |key, value| value.to_s.match(/#{recipe.cost}/)}.keys[0]
+  	  recipe.calories =  e_calories.select { |key, value| value.to_s.match(/#{recipe.calories}/)}.keys[0]
+  	  recipe.portion_size =  e_portion_size.select { |key, value| value.to_s.match(/#{recipe.portion_size}/)}.keys[0]
+  	  recipe.main_ingredient =  e_main_ingredient.select { |key, value| value.to_s.match(/#{recipe.main_ingredient}/)}.keys[0]
+  	  recipe.cuisine =  e_cuisine.select { |key, value| value.to_s.match(/#{recipe.cuisine}/)}.keys[0]
+  	  recipe.save
+  	end  	
 
   end
+
 end

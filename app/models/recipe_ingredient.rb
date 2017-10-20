@@ -8,22 +8,38 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string           default(""), not null
+#  match      :integer          default("none"), not null
 #
 
 class RecipeIngredient < ApplicationRecord
+  include IngredientStatusDecider
+  
   belongs_to :recipe
-  # has_many :order_items
-  # has_many :ingredients, through: :order_items
+
+  enum match: match_statuses, _prefix: true
+  
+  after_save :update_match
 
   def possible_ingredients
     bandwith = (6 - most_popular_ingredients.count)
     ingredients = Ingredient.search(title).reject { |i| most_popular_ingredients.pluck(:id).include?(i.id) }
-    @possible_ingredients ||= most_popular_ingredients.concat(ingredients[0..bandwith])
+    ingredients = ingredients.sort_by { |r| r["updated_at"] }
+    @possible_ingredients ||= most_popular_ingredients.concat(ingredients[0..bandwith])    
   end
 
   def most_popular_ingredients
     ingredients = Ingredient.where(id: ranked_order_items.pluck(:ingredient_id))
-    @most_popular_ingredients ||= ingredients.to_a.sort { |ing_1, ing_2| rank_for(ing_2) <=> rank_for(ing_1) }
+    @most_popular_ingredients ||= sort_by_rank(ingredients)
+  end
+  
+  def update_match
+    IngredientMatchesWorker.perform_async(id: id) if title_changed?
+    # IngredientMatchesWorker.new.perform_async(id: id) if title_changed?
+  end
+
+  private
+  def sort_by_rank(ingredients)
+    ingredients.to_a.sort { |ing_1, ing_2| rank_for(ing_2) <=> rank_for(ing_1) }
   end
 
   def rank_for(ing)

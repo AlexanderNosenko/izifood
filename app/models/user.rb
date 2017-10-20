@@ -28,7 +28,7 @@ class User < ApplicationRecord
   	if menus.count == 0
   	  Menu.create_first_menu_for(self)
   	else
-	  Menu.current_menu(menus)
+	    Menu.current_menu(menus)
   	end
   end
 

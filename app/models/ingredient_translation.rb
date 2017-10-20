@@ -12,4 +12,6 @@
 
 class IngredientTranslation < ApplicationRecord
   belongs_to :ingredient
+
+  validates :label, :language, presence: true
 end

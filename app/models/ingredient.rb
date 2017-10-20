@@ -16,34 +16,47 @@
 
 class Ingredient < ApplicationRecord
   @@DOUBLE_SEARCH = false
-
   mount_uploader :image, IngredientImageUploader
-  validates :tesco_id, uniqueness: true
-  validates :title, :price_piece, :quantifier, :min_amount, :tesco_id, presence: true
-  
+
   has_many :order_items, dependent: :delete_all
   has_many :translations, class_name: 'IngredientTranslation', dependent: :delete_all
+  
+  validates :title,
+            :price_piece, 
+            :quantifier, 
+            :min_amount, 
+            :tesco_id, presence: true
+
+  validates :tesco_id, uniqueness: true
 
   def self.search(q)
-  	searches = IngredientSearch.where(self.search_filters, q)
-  	if searches.count > 0
-  	  Ingredient.where(id: searches.first.results)
+  	search = prev_search_for(q)
+
+  	if search
+  	  Ingredient.where(id: search.results)
   	else
-  	  results = self.fetch_ingredients(q)
+  	  results = fetch_ingredients(q)
   	  IngredientSearch.create(search: q, results: results.pluck(:id))
-  	  results
+      results
   	end
   end
   
   private
   
-  def self.search_filters
-  	'search=?' + (@@DOUBLE_SEARCH ? 'AND array_length(results, 1) > 0' : "")
+  def self.prev_search_for(q)
+    duplicate = SearchDuplicate.find_by(value: q)
+    
+    if duplicate
+      duplicate.origin
+    else
+      search_filters = 'search=?' + (@@DOUBLE_SEARCH ? 'AND array_length(results, 1) > 0' : "")
+      IngredientSearch.where(search_filters, q).first
+    end
   end
-  
+
   def self.fetch_ingredients(q, options={})
   	tesco_search = TescoSearch.new(result_processor: IngredientSearchProcessor)
-  	tesco_search.do(self.translit(q))  	
+  	tesco_search.do(self.translit(q))
   end
   
   def self.translit(q)
@@ -59,14 +72,14 @@ class IngredientSearchProcessor
   end
   
   def self.create_or_return_existing(ing)
- 	existing = Ingredient.where(title: ing[:title])
-    
-    if existing.count > 0
-      existing.first
+ 	  existing = Ingredient.find_by(title: ing[:title])
+    if existing
+      existing.touch
+      existing
     else
       ing[:remote_image_url] = ing[:image]
-	  ing.delete(:image)
-	  Ingredient.create(ing)
-	end
+	    ing.delete(:image)
+  	  Ingredient.create(ing)
+  	end
   end
 end

@@ -3,5 +3,9 @@ module ApplicationHelper
   	if (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset("#{controller_name}.scss")
   		stylesheet_link_tag controller_name
   	end
+  end
+
+  def nav_bar_status(path)
+  	current_page?(path) ? "active" : ""
   end 
 end

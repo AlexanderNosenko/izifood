@@ -19,6 +19,10 @@
  body{
  	background: #fafafa;
  }
+ .container-fluid{
+   padding-left: 0px; 
+   padding-right: 0px; 
+ }  
 .user-menus{
 	/*position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -31,7 +35,7 @@
     width: 350px;
     min-height: 350px;
     display: block;
-    top: 10px;
+    top: 70px;
     left: calc(100% - 127px);
 	.order-btn{
 	    margin: 10px;

@@ -1,0 +1,81 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+
+<% content_for(:title) { "#{t("administrate.actions.show")} #{page.page_title}" } %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title">
+    <%= content_for(:title) %>
+  </h1>
+
+  <div>
+    <%= link_to(
+      "#{t("administrate.actions.edit")} #{page.page_title}",
+      [:edit, namespace, page.resource],
+      class: "button",
+    ) if valid_action? :edit %>
+  </div>
+</header>
+<style>
+  .recipe-ingredient{
+    display: flex
+  }
+  .recipe-ingredient__field{
+    margin: 10px;
+  }
+</style>
+<section class="main-content__body">
+  <dl>
+    <% page.attributes.each do |attribute| %>
+      <dt class="attribute-label" id="<%= attribute.name %>">
+      <%= t(
+        "helpers.label.#{resource_name}.#{attribute.name}",
+        default: attribute.name.titleize,
+      ) %>
+      </dt>
+      <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+        <% if attribute.attribute == :recipe_ingredients %>
+          <% attribute.data.each do |recipe_ingredient| %>
+            <div class="recipe-ingredient">
+                <div class="ingredient">
+                  <div class="title"><%= recipe_ingredient.title %></div>
+                  <select class="cs-select cs-skin-elastic possible-ingredients">
+                    <% if recipe_ingredient.possible_ingredients.length > 0 %>
+                      <% recipe_ingredient.possible_ingredients.map do |ing| %>
+                        <option value="<%= ing.id %>" data-image="<%= ing.image.url || image_path('ing-default.jpg') %>">
+                          <%= !ing.nil? && ing.title %>
+                        </option>
+                      <% end %>
+                    <% else %>
+                      <option value="" disabled>No matches in our databse :( </option>
+                    <% end %>
+                  </select>
+                </div>  
+
+              <!-- <div class="recipe-ingredient__field"><%= recipe_ingredient.title %></div>  
+              <div class="recipe-ingredient__field"><%= recipe_ingredient.match %></div>
+              <div class="recipe-ingredient__field__image"><%= recipe_ingredient.match %></div> -->
+            </div>
+          <% end %>
+        <% else %>
+          <%= render_field attribute %>
+        <% end %>
+      </dd>
+    <% end %>
+  </dl>
+</section>
