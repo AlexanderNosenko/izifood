@@ -5,19 +5,18 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
-# Use mysql as the database for Active Record
-# gem 'mysql2', '>= 0.3.18', '< 0.5'
+# Use postgres as the database for Active Record
 gem "pg"
+# Pictures uploader
 gem "carrierwave", :github => "carrierwaveuploader/carrierwave"
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+# gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 #Easy ENV_VARs
@@ -28,17 +27,28 @@ gem 'annotate', git: 'https://github.com/ctran/annotate_models.git', require: fa
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+#Styles
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'roboto', '~> 0.2.0'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# gem 'active_model_serializers'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Authorization
 gem 'devise'
-gem 'will_paginate'
+# Pagination
+gem 'kaminari'
+# Admin panel
+gem "administrate"
+#Background jobs
+gem 'sidekiq'
+# Backups
+gem 'whenever', require: false
+gem 'backup',   require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -48,10 +58,11 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'better_errors'
   gem "binding_of_caller"
-  gem 'capistrano',         require: false
+  gem 'capistrano', '3.8.2',         require: false
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-postgresql', '~> 4.2.0' 
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'rest-client'
 end
