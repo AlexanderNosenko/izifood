@@ -17,15 +17,15 @@ $(document).on('turbolinks:load', function(){
 		startEvent: "mouseenter",
 		stopEvent: "mouseleave"
 	});
-	let slot_selectors = [];
-	let slot_selector_bar_matches = {};
+	var slot_selectors = [];
+	var slot_selector_bar_matches = {};
 	
 	$('.slot-selector').each(function(elem){
 		slot_selectors.push($(this))
 		if(elem != 0) $(this).hide()
 	})
 
-	let slot_selector_links_counter = 0;
+	var slot_selector_links_counter = 0;
 	$('.slot-selector .slot-selector--week-tabheader-link').each(function(){
 		slot_selector_bar_matches[$(this).data('reactid')] = slot_selector_links_counter
 		slot_selector_links_counter += 1
@@ -44,9 +44,9 @@ $(document).on('turbolinks:load', function(){
 	})
 	
 	$('.available-slot--button').on('click', function(){
-		let dateTimeString = $(this).find('.visually-hidden').text();
-		let deliveryCostValue = $(this).find('.value').text()
-		let deliveryCostCurrency = $(this).find('.currency').text()
+		var dateTimeString = $(this).find('.visually-hidden').text();
+		var deliveryCostValue = $(this).find('.value').text()
+		var deliveryCostCurrency = $(this).find('.currency').text()
 		
 		$('[name="delivery[deliver_on]"]').val(dateTimeString)
 		$('[name="delivery[cost_value]"]').val(deliveryCostValue)
