@@ -1,10 +1,11 @@
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
 require 'capistrano/deploy'
+require 'capistrano/postgresql'
+
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 # Include capistrano-rails
-require 'capistrano/postgresql'
 require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
