@@ -491,6 +491,8 @@ GEM
       simple_oauth (~> 0.2.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    uglifier (3.2.0)
+      execjs (>= 0.3.0, < 3)
     unf (0.1.3)
       unf_ext
     unf_ext (0.0.6)
@@ -548,6 +550,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   tzinfo-data
+  uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   whenever
 
