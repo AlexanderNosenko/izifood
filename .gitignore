@@ -24,3 +24,4 @@ config/secrets.yml
 /public/*
 app/models/parser.rb
 app/models/ingredients_parser.rb
+config/database.yml
