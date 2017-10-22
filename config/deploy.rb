@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.8.2"
+lock "3.9.1"
 
 set :application, "izifood.pl"
 set :repo_url, "git@github.com:AlexandrNosenko/izifood.git"
@@ -28,8 +28,20 @@ set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :puma_init_active_record, true
 
+# Sidekiq config
+set :sidekiq_default_hooks, true
+set :sidekiq_pid, File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid')
+set :sidekiq_env, fetch(:rails_env)
+set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
+set :sidekiq_role, :app
+set :sidekiq_processes, 1
+# :sidekiq_require => nil
+# :sidekiq_config => nil # if you have a config/sidekiq.yml, do not forget to set this. 
+# :sidekiq_queue => nil
+# :sbunidekiq_service_name => "sidekiq_#{fetch(:application)}_#{fetch(:sidekiq_env)}"
+# :sidekiq_cmd => "#{fetch(:bundle_cmd, "bundle")} exec sidekiq" # Only for capistrano2.5
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
@@ -47,24 +59,7 @@ set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle, publ
 
 Rake::Task["puma:start"].reenable
 namespace :deploy do
-  # desc "Make sure local git is in sync with remote."
-  # task :check_revision do
-  #   on roles(:app) do
-  #     unless `git rev-parse HEAD` == `git rev-parse origin/master`
-  #       puts "WARNING: HEAD is not the same as origin/master"
-  #       puts "Run `git push` to sync changes."
-  #       exit
-  #     end
-  #   end
-  # end
-
-  # task :nginx_config do
-  # 	on roles(:app) do
-  #     sudo "ln -nfs '#{shared_path}/config/nginx.conf' '/etc/nginx/sites-enabled/izifood_app'"
-  #     sudo "service nginx restart"
-  #   end  	
-  # end
-
+  desc "Fix deploy:puma:restart bug"
   task :puma_restart_fix do
     on roles(:app) do 
       execute("cd #{current_path}; /usr/local/rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec puma -C #{shared_path}/puma.rb --daemon")
@@ -72,8 +67,15 @@ namespace :deploy do
   end
 
   after 'puma:restart', 'deploy:puma_restart_fix'
-end
+  
+  desc "Update crontab with whenever"
+  task :update_cron do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+      end
+    end
+  end
 
-# ps aux | grep puma    # Get puma pid
-# kill -s SIGUSR2 pid   # Restart puma
-# kill -s SIGTERM pid   # Stop puma_pid
+  after :finishing, 'deploy:update_cron'
+end

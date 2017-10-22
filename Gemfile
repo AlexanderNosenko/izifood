@@ -46,6 +46,8 @@ gem "administrate"
 #Background jobs
 gem 'sidekiq'
 gem 'sidekiq-status'
+gem 'rest-client'
+
 # Backups
 gem 'whenever', require: false
 gem 'backup',   require: false
@@ -59,13 +61,13 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'better_errors'
   gem "binding_of_caller"
-  gem 'capistrano', '3.8.2',         require: false
+  gem 'capistrano', require: false#, '3.8.2'
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-postgresql', '~> 4.2.0' 
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
-  gem 'rest-client'
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 end
 
 group :development do
