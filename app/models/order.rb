@@ -14,8 +14,7 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :menu     
   has_one :delivery, dependent: :destroy
-
-  has_many :order_items, :dependent => :delete_all
+  has_many :order_items, dependent: :delete_all
   
   accepts_nested_attributes_for :order_items
   validates_uniqueness_of :menu_id, scope: [:deliver_on, :user_id]

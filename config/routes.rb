@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :search_duplicates
 
     patch 'utils/update_matches', to: 'utils#update_matches', as: 'utils_update_matches'
+    patch 'utils/update_slots', to: 'utils#update_slots', as: 'utils_update_slots'
 
     root to: "users#index"
   end
