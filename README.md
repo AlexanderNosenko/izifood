@@ -36,4 +36,5 @@ sudo apt-get install redis-server
 sudo systemctl restart redis-server.service
 sudo systemctl enable redis-server.service
 
-gem install selenium-webdriver
+download geckodriver 
+export PATH=$PATH:/path/to/geckodriver

@@ -1,11 +1,15 @@
 require "selenium-webdriver"
 require 'nokogiri'
+require 'headless'
+
 class Tesco	
   BASE_URL = "https://ezakupy.tesco.pl/groceries/en-GB/"
   DRIVER = ENV['SELENIUM_DRIVER']
 
   def initialize
     raise ArgumentError.new("No selenium driver is set") if DRIVER.blank?
+    @headless = Headless.new
+    @headless.start
     @driver = Selenium::WebDriver.for DRIVER.to_sym
   end
 
@@ -23,6 +27,8 @@ class Tesco
 
     #Quitting the browser
     @driver.quit
+    @headless.destroy
+
     results.join("\n")
   end
 
