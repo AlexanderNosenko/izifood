@@ -46,6 +46,7 @@ gem "administrate"
 #Background jobs
 gem 'sidekiq'
 gem 'sidekiq-status'
+gem 'selenium-webdriver'
 gem 'rest-client'
 
 # Backups
@@ -58,7 +59,6 @@ group :development, :test do
   gem 'factory_girl'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'capistrano', require: false#, '3.8.2'

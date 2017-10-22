@@ -1,6 +1,6 @@
+require "selenium-webdriver"
+require 'nokogiri'
 class Tesco	
-  require "selenium-webdriver"
-  require 'nokogiri'
   BASE_URL = "https://ezakupy.tesco.pl/groceries/en-GB/"
   DRIVER = ENV['SELENIUM_DRIVER']
 

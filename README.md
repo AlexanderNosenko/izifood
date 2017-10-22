@@ -35,3 +35,5 @@ sudo apt-get install postgresql postgresql-contrib postgresql-9.5 libpq-dev
 sudo apt-get install redis-server
 sudo systemctl restart redis-server.service
 sudo systemctl enable redis-server.service
+
+gem install selenium-webdriver
