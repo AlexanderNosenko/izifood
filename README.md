@@ -25,3 +25,6 @@ Things you may want to cover:
 backup generate:model --trigger=db_backup --databases='postgresql' --storages='scp' --compressor='gzip' --notifiers='mail'
 foreman start -f Procfile
 whenever --update-crontab
+
+gem install bundler
+sudo apt-get install postgresql postgresql-contrib postgresql-9.5 libpq-dev

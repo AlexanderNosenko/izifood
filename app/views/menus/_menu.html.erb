@@ -12,5 +12,20 @@
 	  </div>		
     <% end%>
   </div>
-  <%= link_to 'Order', new_order_path, class: 'btn btn-primary order-btn' %>
+  <div class="menu-controls">
+    <% if menu.active? %>
+      <%= link_to 'Order', new_order_path, class: 'btn btn-primary order-btn' %>
+    <% else %>
+      <% if menu&.active_order&.delivery&.deliver_on%>
+        <div>Delivery: <%= menu.active_order.delivery.deliver_on %></div>
+      <% else %>
+        <div class="delivery-controls">
+          <%= link_to 'Set delivery', new_order_delivery_path(menu.active_order), class: 'btn btn-primary set-delivery-btn' %>
+        </div>
+      <% end %>
+      <div class="order-controls">
+        <%= link_to 'Edit Order', edit_order_path(menu.active_order), class: 'btn btn-primary order-btn' %>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -7,17 +7,11 @@
 	<%= hidden_field_tag 'order[order_items_attributes][][recipe_ingredient_id]', order_item.recipe_ingredient.id %>
 	<%= hidden_field_tag 'order[order_items_attributes][][quantity]', order_item.quantity %>
 	<div class="title"><%= order_item.recipe_ingredient.title %></div>
-	<select name='order[order_items_attributes][][ingredient_id]' class="cs-select cs-skin-elastic possible-ingredients">
-		<% if order_item.recipe_ingredient.possible_ingredients.length > 0 %>
-			<% order_item.recipe_ingredient.possible_ingredients.map do |ing| %>
-			  <option value="<%= ing.id %>" data-image="<%= ing.image.url || image_path('ing-default.jpg') %>">
-			  	<%= !ing.nil? && ing.title %>
-			  </option>
-			<% end %>
-		<% else %>
-			<option value="" disabled>No matches in our databse :( </option>
-		<% end %>
-	</select>
+	
+	<%= render partial: 'order_items/possible_ingredients', locals: {
+		form_name: 'order[order_items_attributes][][ingredient_id]',
+		ingredients: order_item.possible_ingredients}%>  	  
+	
 	<div class="quantity"><%= order_item.quantity %></div>
 	<div class="total-price">10 ZT</div>
 	<div class="pull-right remove-order-item-btn">X</div>	

@@ -20,11 +20,17 @@ class RecipeIngredient < ApplicationRecord
   
   after_save :update_match
 
-  def possible_ingredients
-    bandwith = (6 - most_popular_ingredients.count)
-    ingredients = Ingredient.search(title).reject { |i| most_popular_ingredients.pluck(:id).include?(i.id) }
-    ingredients = ingredients.sort_by { |r| r["updated_at"] }
-    @possible_ingredients ||= most_popular_ingredients.concat(ingredients[0..bandwith])    
+  def possible_ingredients(limit = 0)
+    limit_index = limit - 1
+    bandwith = limit_index - most_popular_ingredients.count
+
+    @ingredients ||= Ingredient.search(title).reject { |i|
+      most_popular_ingredients.pluck(:id).include?(i.id)
+    }.sort_by { |r| 
+      r["updated_at"] 
+    }
+    result = [].concat(most_popular_ingredients).concat(@ingredients[0..bandwith])
+    result[0..limit_index]
   end
 
   def most_popular_ingredients

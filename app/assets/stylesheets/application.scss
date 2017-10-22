@@ -1,111 +1,114 @@
-/*"bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"*/
 @import "bootstrap-sprockets";
 @import "bootstrap";
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- * require_tree .
- * require_self
- */
- body{
- 	background: #fafafa;
- }
- .container-fluid{
-   padding-left: 0px; 
-   padding-right: 0px; 
- }  
+body{
+  background: #fafafa;
+}
+.container-fluid{
+  padding-left: 0px; 
+  padding-right: 0px; 
+}  
 .user-menus{
-	/*position: relative;
-    -webkit-transition: all 0.25s ease-out;
-    -moz-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;*/
-    position: fixed; 
-    transition: all 0.25s ease-out;
-    /*z-index: -100;*/
-    background: white;
-    width: 350px;
-    min-height: 350px;
-    display: block;
-    top: 70px;
-    left: calc(100% - 127px);
-	.order-btn{
-	    margin: 10px;
-	    position: absolute;
-	    bottom: 0;
-	    right: 0px;
-	}
+  /*position: relative;
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;*/
+  position: fixed; 
+  transition: all 0.25s ease-out;
+  /*z-index: -100;*/
+  background: white;
+  width: 350px;
+  min-height: 350px;
+  display: block;
+  top: 70px;
+  left: calc(100% - 127px);
+  .order-btn{
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+  }
+  .menu-controls{
+    width: 100%;
+    min-height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .delivery-controls, .order-controls{
+    width: 100%;
+    min-height: 50px;
+    text-align: right;
+  }
+  .delivery-controls{
+    .set-delivery-btn{
+      margin-right: 10px;
+    }
+  }
+  .order-controls{
+  }
 }
 .user-menus:hover{
-    z-index: 1;
-    left: calc(100% - 370px);
+  z-index: 1;
+  left: calc(100% - 370px);
 }
 .user-menu{
-	.recipe{
-	    width: 94%;
-    	margin: 3%;
-		div{
-		    display: inline-block;
-		}
-		.title{
-			max-width: 196px;
-		    vertical-align: middle;
-		}
-		.image{
-		    display: inline-block;
-		}
-		.image > img{
-			width: 113px;
-		}
-		.remove-recipe-btn{
-	        float: right;
-			top: 0px;
-			right: 12px;
-		}
-	}
+  .recipe{
+    width: 94%;
+    margin: 3%;
+    div{
+        display: inline-block;
+    }
+    .title{
+      max-width: 196px;
+      vertical-align: middle;
+    }
+    .image{
+      display: inline-block;
+    }
+    .image > img{
+      width: 113px;
+    }
+    .remove-recipe-btn{
+      float: right;
+      top: 0px;
+      right: 12px;
+    }
+  }
 }
 ::-webkit-scrollbar { 
   display: none; 
 }
 .live-search{
   form{
-	width: 97%;
+  width: 97%;
     margin: auto;
   }
   height: 400px;
   background: white;
   padding-top: 27px;
   .search-results{
-  	display: none;
-  	max-height: 261px;
+    display: none;
+    max-height: 261px;
     overflow-y: scroll;
-  	background: white;
-  	width: 97%;
-  	margin: auto;
-  	border: 1px solid #ccc;
+    background: white;
+    width: 97%;
+    margin: auto;
+    border: 1px solid #ccc;
     border-radius: 4px;
-  	.ingredient:hover{
+    .ingredient:hover{
       background: #ccc;
-  	}
-  	.ingredient{
-  	  height: 60px;
-  	  div{
-  	  	display: inline-block;
-  	  }
-  	  .image{
-  	  	margin: 5px;
-  	  	img{
-  	  		height: 50px;
-  	  	}
-  	  }
-  	}
+    }
+    .ingredient{
+      height: 60px;
+      div{
+        display: inline-block;
+      }
+      .image{
+        margin: 5px;
+        img{
+          height: 50px;
+        }
+      }
+    }
   }
 }

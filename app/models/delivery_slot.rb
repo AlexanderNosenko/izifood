@@ -10,33 +10,51 @@
 #
 
 class DeliverySlot < ApplicationRecord
+  EXPIRE_IN = 3
+
   validates :content_html, 
             :vendor, presence: true
 
   scope :fresh_for, -> (vendor){
-  								where(vendor: vendor.to_s)
-  								.where('created_at > ?', 3.hours.ago)
-  								.order(created_at: :desc)
-  								.limit(1)
-  							}
+                        where(vendor: vendor.to_s)
+                       .where('created_at > ?', EXPIRE_IN.hours.ago)
+                       .order(created_at: :desc)
+                       .limit(1)
+                      }
 
-  def self.for(vendor)
-	  slots = self.fresh_for(vendor).first
+  # def is_fresh
+  #   created_at > EXPIRE_IN.hours.ago
+  # end
 
-  	if slots.nil?
-  	  self.get_new_slots(vendor)
-  	else
-  	  slots
-  	end
+  class << self
+    # def for(vendor)
+    #   slots = fresh_for(vendor).first
+
+    #   if slots.nil?
+    #     get_new_slots(vendor)
+    #   else
+    #     slots
+    #   end
+    # end
+
+    def get_new_slots(vendor)
+      @tesco_api = Tesco.new
+      slots_html = @tesco_api.delivery_slots_html
+      create!({
+        content_html: slots_html,
+        vendor: vendor
+      })
+    end
+
+    def update_slots
+      vendors = ['tesco']
+      job_ids = {}
+      vendors.map do |vendor|
+        job_id = DeliverySlotsWorker.perform_async(vendor)
+        job_ids[vendor.to_sym] = job_id
+      end
+      job_ids
+    end
   end
-
-  def self.get_new_slots(vendor)
-  	@tesco_api = Tesco.new
-	  slots_html = @tesco_api.delivery_slots_html
-  	self.create!({
-  	  content_html: slots_html,
-  	  vendor: vendor
-  	})
-  end
-
+  
 end

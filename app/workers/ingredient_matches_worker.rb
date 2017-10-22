@@ -10,7 +10,7 @@ class IngredientMatchesWorker
     end
     recipe_ingredients.each_with_index do |recipe_ingredient, index|
       ingredients = Ingredient.search(recipe_ingredient.title)
-      puts "#{recipe_ingredient.id} ingredient  status_update #{RecipeIngredient.status_for(ingredients.count)}"
+      # puts "#{recipe_ingredient.id} ingredient  status_update #{RecipeIngredient.status_for(ingredients.count)}"
       recipe_ingredient.assign_attributes({match: RecipeIngredient.status_for(ingredients.count)})
       recipe_ingredient.save if recipe_ingredient.changed?
     end

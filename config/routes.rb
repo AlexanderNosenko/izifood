@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  root 'recipes#index'
+
+  mount_roboto
+  devise_for :users, :controllers => { :sessions => "sessions" }
+
   namespace :admin do
     resources :users
     resources :deliveries
@@ -19,11 +24,6 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  devise_for :users, :controllers => { :sessions => "sessions" }
-  mount_roboto
-
-  root 'recipes#index'
-
   resources :recipes, only: %i(index show edit new)
   
   resources :menus do
@@ -34,13 +34,10 @@ Rails.application.routes.draw do
   end
   
   resources :orders do 
-    resources :delivery, controller: "deliveries", only: %i(new create)
-    get 'delivery_create', to: 'orders#delivery_create'
-    get 'delivery', to: 'orders#delivery', as: 'delivery'
+    resources :delivery, controller: "deliveries", only: %i(new)
+    post 'delivery', to: 'deliveries#create'
   end
 
-  resources :ingredients, only: %i(index) do
-    # get 'search', to: 'ingredients#search', as: 'search'
-  end
-
+  resources :ingredients, only: %i(index)
+  get '/job_status/:job_id', to: 'orders#job_status', as: 'job_status'
 end

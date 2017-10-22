@@ -1,2 +1,13 @@
-<h1>Deliveries#new</h1>
-<p>Find me in app/views/deliveries/new.html.erb</p>
+<% if @delivery %>
+  <%= form_for(@delivery, html: {class: "order-form"}, url: order_delivery_path) do |f| %>
+    <%= f.hidden_field "deliver_on" %>
+    <%= f.hidden_field "cost_value" %>
+    <%= f.hidden_field "cost_currency" %>
+  <% end %>
+  <%= @delivery_slots.html_safe %>
+<% else %>
+  <script>handleLoading("<%= job_status_url(@job_id) %>")</script>
+  <div class="loading">
+    We are working <span></span>
+  </div>
+<%  end %>

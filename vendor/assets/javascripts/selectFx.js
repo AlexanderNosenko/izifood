@@ -122,7 +122,11 @@
 				image = '<img src="' + el.getAttribute( 'data-image' ) + '"/>';
 			}
 
-			return '<li ' + optclass + link + ' data-option data-value="' + el.value + '">' + image + '<div><span class="overflowing">' + el.textContent + '</span></div></li>';
+			return '<li ' + optclass + link + ' data-option data-value="' + el.value + '">' 
+				+ image 
+				+ '<div><span data-toggle="tooltip" title="' + el.textContent + '" class="overflowing">' 
+				+ el.textContent
+				+ '</span></div></li>';
 		};
 
 		[].slice.call( this.el.children ).forEach( function(el) {
@@ -147,7 +151,11 @@
 		this.selEl.className = this.el.className;
 		this.selEl.tabIndex = this.el.tabIndex;
 		var image = this.selectedOpt.image ? '<img src="' + this.selectedOpt.image + '"/>' + '<span>' : '';
-		this.selEl.innerHTML = '<span class="cs-placeholder">' + image + this.selectedOpt.textContent + '</span></span>' + opts_el;
+		this.selEl.innerHTML = '<span class="cs-placeholder" data-toggle="tooltip" title="' + this.selectedOpt.textContent + '" >' 
+			+ image 
+			+ this.selectedOpt.textContent 
+			+ '</span></span>' + opts_el;
+
 		this.el.parentNode.appendChild( this.selEl );
 		this.selEl.appendChild( this.el );
 	}

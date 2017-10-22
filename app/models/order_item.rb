@@ -19,4 +19,7 @@ class OrderItem < ApplicationRecord
   validates :ingredient, presence: { message: 'Please choose an ingredient' }
   validates :quantity, presence: true
 
+  def possible_ingredients(limit = 0)
+    recipe_ingredient.possible_ingredients(limit)
+  end
 end

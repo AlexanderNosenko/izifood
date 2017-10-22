@@ -10,6 +10,7 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default(0), not null
 #
 
 class Menu < ApplicationRecord
@@ -19,6 +20,8 @@ class Menu < ApplicationRecord
   
   validates :user_id, presence: true
   
+  enum status: [:active, :ordered], _prefix: true
+    
   def add_recipe(recipe)
     menu_recipe = MenuRecipe.new(menu: self, recipe: recipe)
     if !menu_recipe.save
@@ -52,6 +55,19 @@ class Menu < ApplicationRecord
     o
   end
 
+  def active_order
+    # Order.where('menu_id = ? AND deliver_on != NULL', id).order(created_at: :desc).limit(1).first
+    @active_order ||= Order.where('menu_id = ?', id).order(created_at: :desc).limit(1).first
+  end
+
+  def ordered!
+    update_attribute(:status, 'ordered')
+  end
+
+  def active?
+    active_order.nil?
+  end
+  
   def quantity_for(rec_ing)
   	# quantity = 0;
    #  quantities.each do |rc|

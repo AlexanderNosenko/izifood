@@ -3,28 +3,43 @@ class DeliveriesController < ApplicationController
   end
 
   def new
+    slots = DeliverySlot.fresh_for(:tesco)
+    if slots.any?
+      @delivery_slots = slots.first.content_html
+      @delivery = Delivery.new({ order_id: params[:order_id] })
+    else
+      job_ids = DeliverySlot.update_slots
+      @job_id = job_ids[:tesco]
+      flash[:notice] = 'We are checking fot available slots'
+    end
   end
 
   def create
-  	times = delivery_params[:deliver_on].scan(/\d\d:\d\d/)
+    delivery = Delivery.new(prepared_params)
 
-    delivery = Delivery.new({
+    if delivery.save
+      delivery.order.menu.ordered!
+      redirect_to recipes_path, notice: 'Delivery is set.'
+    else
+      redirect_to new_order_delivery_path(params[:order_id]), notice: "Error Delivery is already set"
+    end
+  end
+
+  private 
+
+  def prepared_params
+    times = delivery_params[:deliver_on].scan(/\d\d:\d\d/)
+    
+    {
       deliver_on: DateTime.parse(delivery_params[:deliver_on]),
       time_from: times[0],
       time_to: times[1],
       cost_value: delivery_params[:cost_value],
       cost_currency: delivery_params[:cost_currency],
       order_id: params[:order_id]
-    })
-
-    if delivery.save
-      redirect_to recipes_path, notice: 'Order is places.'
-    else
-      redirect_to order_delivery_path(params[:order_id])
-    end
+    }
   end
 
-  private 
   def delivery_attributes
     [
       :deliver_on,

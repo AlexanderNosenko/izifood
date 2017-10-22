@@ -15,22 +15,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require_tree .
+
 $.ajaxSetup({
   headers: {
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$(document).ready(function(){
-	$('.live-search-input').on('input', function(){
-		$(this).closest('form').submit();
-	})
-
-	$(document).on('click', '.search-results>.ingredient', function(){
-		var ingredient_clone = $('.recipe-ingredients>.ingredient:first')
-		
-		$(this).clone().appendTo('.custom-ingredients');
-		
-		console.log($(this))
-	})
-})

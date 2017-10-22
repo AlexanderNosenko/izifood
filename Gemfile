@@ -45,6 +45,7 @@ gem 'kaminari'
 gem "administrate"
 #Background jobs
 gem 'sidekiq'
+gem 'sidekiq-status'
 # Backups
 gem 'whenever', require: false
 gem 'backup',   require: false
