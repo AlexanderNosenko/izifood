@@ -38,10 +38,9 @@
         </div><!--/.container-fluid -->
       </nav>
       <content>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <%= render partial: 'layouts/flashes' %>
         <div class="side-bar">
-          <%= render @menus %>
+          <%= render partial: 'menus/menus_toolbar'%>
         </div>
         <%= yield %>
       </content>

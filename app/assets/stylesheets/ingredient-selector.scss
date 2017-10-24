@@ -17,7 +17,7 @@ $title-padding: 6% 5% 0% 24%;
 .cs-options{
   max-height: 50vh;
   overflow-y: scroll!important;
-  
+
   ul>li{
     height: 90px;
     background: white;
@@ -39,7 +39,7 @@ div.cs-skin-elastic {
   font-size: initial;
   font-weight: initial;
   .cs-options img, .cs-placeholder > img{
-    width: 20%;
+    height: 90%;
     display: inline-block;
     position: absolute;
     margin-left: 10px;

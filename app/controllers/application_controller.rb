@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :setup_menus
 
   def setup_menus
-    @menus ||= current_user ? current_user.menus_with_recipes : []
+    @menus = current_user&.menus_with_recipes.to_a
   end
 
   private

@@ -2,7 +2,7 @@ class MenusController < ApplicationController
   before_action :authenticate_user!
   # protect_from_forgery with: :exception
   
-  before_action :set_menu, only: [:add_recipe, :remove_recipe, :show, :edit, :update, :destroy]
+  before_action :set_menu, only: [:add_recipe, :remove_recipe, :show, :edit, :destroy]
   before_action :set_recipe, only: [:add_recipe, :remove_recipe]
 
   def index
@@ -11,6 +11,28 @@ class MenusController < ApplicationController
   end
 
   def new
+  end
+  
+  def update
+    menu = Menu.find(params[:id])
+
+    if menu.active_menu!
+      render json: {success: menu.main}
+    else
+      render json: {success: false}
+    end
+  end
+
+  def create
+    menu = Menu.new()
+    menu.user = current_user
+
+    if menu.save
+      flash[:success] = "New menu is created!"
+      redirect_to recipes_path
+    else
+
+    end
   end
 
   def add_recipe    

@@ -8,10 +8,22 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
   
+  def update
+    @order = Order.find(params[:id])
+
+    if @order.update(order_items_attributes: order_items_params)
+      @order.remove_not_mentioned!(order_items_params)
+      redirect_to recipes_path, success: 'Order is saved.'
+    else
+      flash[:error] = 'Please correct your order.'
+      redirect_to edit_order_path(@order)
+    end
+  end
+
   def create
   	menu  = current_user.current_menu
 
-    if menu.active?
+    # if menu.active?
       @order = Order.new({
     	  user_id: current_user.id,
     	  menu_id: menu.id,
@@ -21,11 +33,12 @@ class OrdersController < ApplicationController
       if @order.save
         redirect_to new_order_delivery_path(@order), success: 'Order was successfully created.'
       else
+        flash[:error] = 'Please correct your order.'
         render :new
       end
-    else
-      redirect_to recipes_path, notice: 'Menu is already ordered, please edit the current one'
-    end
+    # else
+    #   redirect_to recipes_path, notice: 'Menu is already ordered, please edit the current one'
+    # end
 
   end
 
@@ -41,6 +54,7 @@ class OrdersController < ApplicationController
   
   def order_item_attributes
     [ 
+      :id,
       :recipe_ingredient_id, 
       :quantity, 
       :ingredient_id

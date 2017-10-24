@@ -1,15 +1,15 @@
-<div class="user-menus">
+<div class="menu-block" data-id="<%= menu.id %>" style="display: <%= menu.main ? 'block' : 'none' %>">
   <div class="user-menu">
     <% menu.recipes.each do |recipe| %>
-	  <div class="recipe">
-		  <div class="image">
-			<%=image_tag recipe.images[0].url%>
-		  </div>
-		  <div class="title"><%=recipe['title'].downcase.capitalize%></div>
-		  <div class="remove-recipe-btn">
-			<%= link_to 'X', menu_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
-		  </div>
-	  </div>		
+    <div class="recipe">
+      <div class="image">
+      <%=image_tag recipe.images[0].url%>
+      </div>
+      <div class="title"><%=recipe['title'].downcase.capitalize%></div>
+      <div class="remove-recipe-btn">
+      <%= link_to 'X', menu_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
+      </div>
+    </div>    
     <% end%>
   </div>
   <div class="menu-controls">

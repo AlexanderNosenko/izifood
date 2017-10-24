@@ -1,0 +1,18 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+.form-container{
+  width: 30%;
+  margin: auto;
+  margin-top: 20vh;
+  .shared-links{
+    text-align: center;
+  }
+  .actions{
+    text-align: right;
+  }
+  .error_explanation{
+    .alert.error{
+      padding: 5px;
+    }
+  }
+}

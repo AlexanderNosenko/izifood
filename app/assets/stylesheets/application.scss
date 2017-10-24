@@ -3,11 +3,18 @@
 body{
   background: #fafafa;
 }
+.flashes{
+  z-index: 1000160000;
+  width: fit-content;
+  position: fixed;
+  right: 2%;
+}
 .container-fluid{
   padding-left: 0px; 
   padding-right: 0px; 
 }  
-.user-menus{
+
+.menus-toolbar{
   /*position: relative;
   -webkit-transition: all 0.25s ease-out;
   -moz-transition: all 0.25s ease-out;
@@ -21,33 +28,39 @@ body{
   display: block;
   top: 70px;
   left: calc(100% - 127px);
-  .order-btn{
-    margin: 10px;
-    position: absolute;
-    bottom: 0;
-    right: 0px;
+  .menu-block{
+    background: white;
   }
-  .menu-controls{
-    width: 100%;
-    min-height: 100px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-  .delivery-controls, .order-controls{
-    width: 100%;
-    min-height: 50px;
-    text-align: right;
-  }
-  .delivery-controls{
-    .set-delivery-btn{
-      margin-right: 10px;
+  .user-menus{
+    .order-btn{
+      margin: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0px;
+    }
+    .menu-controls{
+      width: 100%;
+      min-height: 100px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    .delivery-controls, .order-controls{
+      width: 100%;
+      min-height: 50px;
+      text-align: right;
+    }
+    .delivery-controls{
+      .set-delivery-btn{
+        margin-right: 10px;
+      }
+    }
+    .order-controls{
     }
   }
-  .order-controls{
-  }
 }
-.user-menus:hover{
+
+.menus-toolbar:hover{
   z-index: 1;
   left: calc(100% - 370px);
 }

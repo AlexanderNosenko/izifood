@@ -16,7 +16,16 @@ $(document).ready(function(){
 $(document).on('turbolinks:load', function(){
   // Order Items managment
   $(document).on('click', '.remove-order-item-btn', function(){
-    $(this).parent().remove()
+    var prevElem = $(this).parent().prev();
+    if(prevElem.hasClass('alert'))
+      prevElem.fadeOut(400, function(){
+        $(this).remove()
+      })
+
+
+    $(this).parent().fadeOut(400, function(){
+      $(this).remove()
+    })
   })
 
   //Live search

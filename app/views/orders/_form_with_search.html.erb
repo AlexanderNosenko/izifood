@@ -1,3 +1,6 @@
+<div class="order-errors">
+  <%= error_for(:order, @order) %>
+</div>
 <%= form_for @order do |form| %>
   <div class="ingredients">
   <div class="recipe-block">
@@ -14,7 +17,7 @@
    <div class="custom-ingredients"></div>
     </div>
   </div>
-  <%= form.submit 'Order', class: "btn btn-success" %>
+  <%= form.submit submit_btn_text, class: "btn btn-success" %>
 <% end %>
 <!-- <div class="live-search">
   <%= render 'live_search' %>

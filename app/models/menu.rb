@@ -15,7 +15,8 @@
 
 class Menu < ApplicationRecord
   belongs_to :user
-  has_many :menu_recipes
+  has_many :menu_recipes, dependent: :destroy
+  has_many :orders, dependent: :destroy
   has_many :recipes, through: :menu_recipes
   
   validates :user_id, presence: true
@@ -55,9 +56,13 @@ class Menu < ApplicationRecord
     o
   end
 
+  def active_menu!
+    Menu.where(user_id: user_id).update_all(main: false)
+    update_attribute(:main, true)
+  end
+
   def active_order
-    # Order.where('menu_id = ? AND deliver_on != NULL', id).order(created_at: :desc).limit(1).first
-    @active_order ||= Order.where('menu_id = ?', id).order(created_at: :desc).limit(1).first
+    @active_order ||= Order.active_orders_for(self).first
   end
 
   def ordered!
@@ -89,7 +94,7 @@ class Menu < ApplicationRecord
   end
 
   def self.create_first_menu_for(user)
-  	Menu.create(user: user, title: 'First menu')
+  	Menu.create(user: user, title: 'First menu', main: true)
   end
 
   def self.current_menu(menus)

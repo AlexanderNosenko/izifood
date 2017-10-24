@@ -21,3 +21,23 @@ $.ajaxSetup({
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
 });
+$(document).on('ready, turbolinks:load', function(){
+  $('.menu-togle-btn').on('click', function(){
+    $('.menu-block').hide();
+    var menu_id = $(this).data('id');
+
+    // ('[data-id="' + menu_id + '"]')
+    $('.menu-block[data-id="' + menu_id + '"]').show();
+    
+    $.ajax({
+      method: "PATCH",
+      url: "/menus/" + menu_id,
+      data: { main: true }
+    }).done(function( msg ) {
+        console.log( "Data Saved: " + msg );
+      });
+  })
+  setTimeout(function(){
+    $(".alert.alert-dismissable").fadeTo(500, 0);  
+  }, 5000)
+})

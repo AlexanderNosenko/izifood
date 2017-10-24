@@ -1,0 +1,10 @@
+<% if flash.present? %>
+  <div class="flashes">
+    <% flash.each do |f| %>
+      <div class="alert alert-dismissable fade in out alert-<%= flash_class_for(f[0])%>">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= f[1]%>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -4,6 +4,7 @@
   </div>
 <% end %>
 <div class="ingredient">
+	<%= hidden_field_tag 'order[order_items_attributes][][id]', order_item.id %>
 	<%= hidden_field_tag 'order[order_items_attributes][][recipe_ingredient_id]', order_item.recipe_ingredient.id %>
 	<%= hidden_field_tag 'order[order_items_attributes][][quantity]', order_item.quantity %>
 	<div class="title"><%= order_item.recipe_ingredient.title %></div>
