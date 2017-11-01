@@ -68,14 +68,6 @@ class RecipeIngredient < ApplicationRecord
     EOS
     @ranked_order_items ||= OrderItem.find_by_sql(popularity_sql).uniq { |b| b.ingredient_id }
   end
-  
-  def calc_quantity
-    quantity.split(/[[:space:]]/).each_slice(2).map { |q|
-      asss if q[0].gsub(',','.').to_f == 0
-      puts q[0].to_number.to_s + " " + ingredient.title
-      q[0].to_number * ( q[1] + " " + ingredient.title ).to_weight.to_i      
-    }[0].to_i
-  end
 
   def self.add_ingredients_from(data, recipe)
 
@@ -90,56 +82,4 @@ class RecipeIngredient < ApplicationRecord
   	end
 
   end
-end
-
-class String
-  
-  def to_weight
-    _q_ = self.split(/[[:space:]]/)
-
-    case _q_[0]
-    when 'ml', 'g', 'szczypta'
-      1 
-    when 'łyzeczka'
-      5
-    when 'łyzka', 'łyzki', 'łyżki', 'łyżka'
-      16
-    when 'szkl'
-      case _q_[1]
-      when 'mleko'
-        245
-      when 'kasza'
-        128
-      else
-        raise ArgumentError("No specification for #{_q_}")
-      end
-    when 'szt', 'sztuki'
-      case _q_[1]
-      when 'jajko'
-        1
-      when 'ziemniaki'
-        200
-      when 'buraki'
-        240
-      else
-        raise ArgumentError("No specification for #{_q_}")
-      end
-    when 'litry'
-      1000
-    else
-      raise ArgumentError("No specification for #{_q_}")
-    end
-  end
-
-  def to_number
-    fraction = self.split("/")
-    if fraction.length > 1
-      fraction.each_slice(2).map { |q|
-        fraction[0].to_f / fraction[1].to_f
-      }[0].to_f
-    else
-      self.gsub(',','.').to_f
-    end
-  end
-
 end

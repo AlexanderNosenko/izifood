@@ -1,31 +1,38 @@
 <div class="menu-block" data-id="<%= menu.id %>" style="display: <%= menu.main ? 'block' : 'none' %>">
   <div class="user-menu">
-    <% menu.recipes.each do |recipe| %>
-    <div class="recipe">
-      <div class="image">
-      <%=image_tag recipe.images[0].url%>
+    <% if menu.recipes.present? %>
+      <% menu.recipes.each do |recipe| %>
+        <div class="recipe">
+          <div class="image">
+          <%=image_tag recipe.images[0].url%>
+          </div>
+          <div class="title"><%=recipe['title'].downcase.capitalize%></div>
+          <div class="remove-recipe-btn">
+          <%= link_to 'X', menu_recipes_path({recipe_id: recipe}), method: :delete, remote: true%>
+          </div>
+        </div>    
+      <% end%>
+    <% else %>
+    <div class="no-recipes">
+        This menu is empty, add recipe <%= link_to "here", recipes_path, class: "btn-link"%>
       </div>
-      <div class="title"><%=recipe['title'].downcase.capitalize%></div>
-      <div class="remove-recipe-btn">
-      <%= link_to 'X', menu_remove_recipe_path(menu, recipe), method: :delete, remote: true%>
-      </div>
-    </div>    
-    <% end%>
+    <% end %>
   </div>
   <div class="menu-controls">
-    <% if menu.active? %>
-      <%= link_to 'Order', new_order_path, class: 'btn btn-primary order-btn' %>
-    <% else %>
-      <% if menu&.active_order&.delivery&.deliver_on%>
-        <div>Delivery: <%= menu.active_order.delivery.deliver_on %></div>
-      <% else %>
-        <div class="delivery-controls">
-          <%= link_to 'Set delivery', new_order_delivery_path(menu.active_order), class: 'btn btn-primary set-delivery-btn' %>
-        </div>
-      <% end %>
+    <% if menu.active_order %>
       <div class="order-controls">
-        <%= link_to 'Edit Order', edit_order_path(menu.active_order), class: 'btn btn-primary order-btn' %>
-      </div>
+        <%= link_to 'Edit Order', edit_order_path(menu.active_order), class: 'btn btn-primary' %>
+        <% if !menu.active_order.ok? %>
+          <%= link_to 'Attention', edit_order_path(menu.active_order, {attention: true}), class: 'btn btn-warning' %>
+        <% end %>
+        <% if menu.active_order.delivery %>
+          <div>Delivery: <%= menu.active_order.delivery.deliver_on %></div>
+        <% else %>
+          <%= link_to 'Set delivery', new_order_delivery_path(menu.active_order), class: 'btn btn-primary set-delivery-btn' %>
+        <% end %>
+      </div>      
+    <% else %>
+      <%= link_to 'Order', new_order_path, class: 'btn btn-primary order-btn' %>
     <% end %>
   </div>
 </div>

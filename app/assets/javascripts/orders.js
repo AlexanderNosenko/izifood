@@ -13,7 +13,7 @@ function init_ingredient_selectors(){
 $(document).ready(function(){
   init_ingredient_selectors()
 })
-$(document).on('turbolinks:load', function(){
+$(document).on('ready', function(){
   // Order Items managment
   $(document).on('click', '.remove-order-item-btn', function(){
     var prevElem = $(this).parent().prev();

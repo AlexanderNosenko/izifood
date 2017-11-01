@@ -25,15 +25,15 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  resources :recipes, only: %i(index show edit new)
+  resources :recipes, only: %i(index show)
+  resources :menus, only: %i(create update destroy)
+  resources :menu_recipes, only: %i(create)
+  delete 'menu_recipes', to: 'menu_recipes#destroy'
   
-  resources :menus do
-    resources :recipes, only: %i()
-      get 'add_recipe/:recipe_id', to: 'menus#add_recipe'
-      post 'add_recipe/:recipe_id', to: 'menus#add_recipe', as: 'add_recipe'
-      delete 'remove_recipe/:recipe_id', to: 'menus#remove_recipe', as: 'remove_recipe'
-  end
-  
+  # get '/menus/add_recipe/:recipe_id', to: 'menus#add_recipe'
+  # post '/menus/add_recipe/:recipe_id', to: '#createadd_recipe', as: 'add_recipe'
+  # delete 'remove_recipe/:recipe_id', to: 'menus#remove_recipe', as: 'remove_recipe'
+
   resources :orders do 
     resources :delivery, controller: "deliveries", only: %i(new)
     post 'delivery', to: 'deliveries#create'

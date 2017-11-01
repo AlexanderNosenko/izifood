@@ -1,5 +1,4 @@
-$(document).on('ready, turbolinks:load', function(){
- console.log('ss')
+$(document).on('ready', function(){
   //Slot Selector
   var slot_selectors = [];
   var slot_selector_bar_matches = {};

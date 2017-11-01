@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021234557) do
+ActiveRecord::Schema.define(version: 20171025222317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,9 +107,22 @@ ActiveRecord::Schema.define(version: 20171021234557) do
     t.datetime "deliver_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["deliver_on"], name: "index_orders_on_deliver_on"
     t.index ["menu_id"], name: "index_orders_on_menu_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "quantity_matches", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.string "quantifier"
+    t.bigint "origin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_quantity_matches_on_key", unique: true
+    t.index ["origin_id"], name: "index_quantity_matches_on_origin_id"
+    t.index ["quantifier"], name: "index_quantity_matches_on_quantifier"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -186,5 +199,6 @@ ActiveRecord::Schema.define(version: 20171021234557) do
   add_foreign_key "order_items", "recipe_ingredients"
   add_foreign_key "orders", "menus"
   add_foreign_key "orders", "users"
+  add_foreign_key "quantity_matches", "quantity_matches", column: "origin_id"
   add_foreign_key "search_duplicates", "ingredient_searches", column: "origin_id"
 end

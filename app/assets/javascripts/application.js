@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+// require turbolinks
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
@@ -21,12 +21,17 @@ $.ajaxSetup({
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$(document).on('ready, turbolinks:load', function(){
+//turbolinks:load
+$(document).on('ready', function(){
   $('.menu-togle-btn').on('click', function(){
-    $('.menu-block').hide();
     var menu_id = $(this).data('id');
 
-    // ('[data-id="' + menu_id + '"]')
+    // Toggle toolbar
+    $('.menu-togle-btn').removeClass('btn-info');
+    $('.menu-togle-btn[data-id="' + menu_id + '"]').addClass('btn-info');
+
+    // Toggle menus
+    $('.menu-block').hide();
     $('.menu-block[data-id="' + menu_id + '"]').show();
     
     $.ajax({
@@ -34,7 +39,7 @@ $(document).on('ready, turbolinks:load', function(){
       url: "/menus/" + menu_id,
       data: { main: true }
     }).done(function( msg ) {
-        console.log( "Data Saved: " + msg );
+        // console.log( "Data Saved: " + msg );
       });
   })
   setTimeout(function(){

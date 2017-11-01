@@ -14,8 +14,12 @@ class MenuRecipe < ApplicationRecord
   belongs_to :recipe
 
   validates :recipe_id, 
-  			:menu_id, presence: true
-  			
+            :menu_id, presence: true
+
   validates :menu_id, uniqueness: { scope: :recipe_id }  
+
+  after_save ->(record) { record.menu.handle_change }
+  after_create ->(record) { record.menu.handle_change }
+  after_destroy ->(record) { record.menu.handle_change }
 
 end

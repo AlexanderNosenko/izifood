@@ -18,7 +18,6 @@ class DeliveriesController < ApplicationController
     delivery = Delivery.new(prepared_params)
 
     if delivery.save
-      delivery.order.menu.ordered!
       redirect_to recipes_path, notice: 'Delivery is set.'
     else
       redirect_to new_order_delivery_path(params[:order_id]), notice: "Error Delivery is already set"

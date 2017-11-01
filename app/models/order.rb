@@ -17,37 +17,50 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :delete_all
   
   accepts_nested_attributes_for :order_items
-  # after_update -> { remove_not_mentioned(true) }
 
   validates_uniqueness_of :menu_id, scope: [:deliver_on, :user_id]
-  validate :no_active_orders#, if: -> { new_record? }
+  validate :no_active_orders, if: -> { new_record? }
 
-  def no_active_orders
-    orders = Order.active_orders_for(menu)
+  enum status: [:ok, :user_attention]
 
-    if orders.count > 0
-      errors.add(:order, "Menu is already ordered, please edit the current one or create new.")
-    end  
-  end
-
-  def self.active_orders_for(menu)
+  def self.active_order_for(menu)
     Order.joins(<<-EOS 
-      INNER JOIN deliveries 
+      LEFT JOIN deliveries 
         ON deliveries.order_id = orders.id 
         AND deliveries.deliver_on > date '#{Time.now.strftime('%Y-%m-%d')}' 
-        AND orders.menu_id = #{menu.id} 
+      WHERE
+        orders.menu_id = #{menu.id} 
       EOS
-    )#TODO AND deliveries.time_from < time '03:00'
+    ).first
+    #TODO AND deliveries.time_from < time '03:00'
   end
 
+  def items
+    order_items 
+  end
+  
   def remove_not_mentioned!(order_items_new)
     new_ids = order_items_new.pluck(:id)
     order_items.each do |order_item|
       order_item.destroy unless new_ids.include?(order_item.id.to_s)
     end
   end
-
-  def items
-  	order_items	
+  
+  # State managment
+  def ok!
+    self.update_attribute(:status, "ok")
   end
+  
+  def handle_menu_change
+    self.update_attribute(:status, "user_attention")
+  end
+  
+  private
+
+  def no_active_orders
+    if Order.active_order_for(menu)
+      errors.add(:order, "Menu is already ordered, please edit the current one or create new.")
+    end  
+  end
+  
 end

@@ -22,4 +22,8 @@ class OrderItem < ApplicationRecord
   def possible_ingredients(limit = 0)
     recipe_ingredient.possible_ingredients(limit)
   end
+
+  def possible_quantity
+    QuantityMatch.calculate(quantity)    
+  end
 end

@@ -6,14 +6,19 @@
 <div class="ingredient">
 	<%= hidden_field_tag 'order[order_items_attributes][][id]', order_item.id %>
 	<%= hidden_field_tag 'order[order_items_attributes][][recipe_ingredient_id]', order_item.recipe_ingredient.id %>
-	<%= hidden_field_tag 'order[order_items_attributes][][quantity]', order_item.quantity %>
-	<div class="title"><%= order_item.recipe_ingredient.title %></div>
+	<div class="title">
+		<%= order_item.recipe_ingredient.title %>
+		<%= " " + order_item.quantity %>
+	</div>
 	
 	<%= render partial: 'order_items/possible_ingredients', locals: {
 		form_name: 'order[order_items_attributes][][ingredient_id]',
 		ingredients: order_item.possible_ingredients}%>  	  
 	
-	<div class="quantity"><%= order_item.quantity %></div>
+	<div class="quantity">
+		<%= text_field_tag 'order[order_items_attributes][][quantity]', order_item.possible_quantity %>		
+	</div>
+	
 	<div class="total-price">10 ZT</div>
 	<div class="pull-right remove-order-item-btn">X</div>	
 </div>	

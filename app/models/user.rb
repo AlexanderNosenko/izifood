@@ -29,12 +29,12 @@ class User < ApplicationRecord
   	if menus.count == 0
   	  Menu.create_first_menu_for(self)
   	else
-	    menus.where(main: true)#TODO change name column
+	    menus.find_by(main: true)#TODO change name column
       # Menu.current_menu(menus)
   	end
   end
   
   def menus_with_recipes
-  	menus.includes(:recipes)
+  	menus.includes(:recipes).order(created_at: :asc)
   end
 end

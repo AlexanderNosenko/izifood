@@ -34,21 +34,7 @@ class MenusController < ApplicationController
 
     end
   end
-
-  def add_recipe    
-    respond_to do |format|
-      if @menu.add_recipe(@recipe)
-        format.html { redirect_to @menu, notice: 'Recipe was successfully created.' }
-        format.json { render json: {status: '200'}, status: :created }
-      else
-        format.html { render :new }
-        format.json { render json: @menu.errors, status: :unprocessable_entity }
-      end
-      @menus = current_user.menus_with_recipes
-	  format.js { render 'menus/_menus.js.erb' }
-    end
-  end
-
+  
   def remove_recipe
   	respond_to do |format|
       if @menu.remove_recipe(@recipe)

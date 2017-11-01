@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
+
+    @order.ok! if params[:attention]
   end
   
   def update
@@ -16,29 +18,25 @@ class OrdersController < ApplicationController
       redirect_to recipes_path, success: 'Order is saved.'
     else
       flash[:error] = 'Please correct your order.'
-      redirect_to edit_order_path(@order)
+      render :edit
     end
   end
 
   def create
   	menu  = current_user.current_menu
 
-    # if menu.active?
-      @order = Order.new({
-    	  user_id: current_user.id,
-    	  menu_id: menu.id,
-    	  order_items_attributes: order_items_params
-    	})
+    @order = Order.new({
+  	  user_id: current_user.id,
+  	  menu_id: menu.id,
+  	  order_items_attributes: order_items_params
+  	})
 
-      if @order.save
-        redirect_to new_order_delivery_path(@order), success: 'Order was successfully created.'
-      else
-        flash[:error] = 'Please correct your order.'
-        render :new
-      end
-    # else
-    #   redirect_to recipes_path, notice: 'Menu is already ordered, please edit the current one'
-    # end
+    if @order.save
+      redirect_to new_order_delivery_path(@order), success: 'Order was successfully created.'
+    else
+      flash[:error] = 'Please correct your order.'
+      render :new
+    end
 
   end
 

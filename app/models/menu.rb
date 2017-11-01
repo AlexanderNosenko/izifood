@@ -21,18 +21,10 @@ class Menu < ApplicationRecord
   
   validates :user_id, presence: true
   
-  enum status: [:active, :ordered], _prefix: true
-    
-  def add_recipe(recipe)
-    menu_recipe = MenuRecipe.new(menu: self, recipe: recipe)
-    if !menu_recipe.save
-    	self.errors[:menu_recipes] << menu_recipe.errors
- 		  return false
-   	else
-   		return true
-   	end
+  def handle_change
+    active_order.handle_menu_change if active_order
   end
-
+  
   def remove_recipe(recipe)
   	menu_recipe = MenuRecipe.where(menu: self, recipe: recipe).first
     if !menu_recipe.destroy
@@ -62,30 +54,14 @@ class Menu < ApplicationRecord
   end
 
   def active_order
-    @active_order ||= Order.active_orders_for(self).first
+    @active_order ||= Order.active_order_for(self)
   end
 
-  def ordered!
-    update_attribute(:status, 'ordered')
-  end
-
-  def active?
-    active_order.nil?
-  end
-  
   def quantity_for(rec_ing)
-  	# quantity = 0;
-   #  quantities.each do |rc|
-  	#   next if rc.ingredient_id != ingredient.id
-   # 	  quantity += rc.calc_quantity
-   #  end
-   #  quantity
-
-   recipe_ingredients.map { |ri|
+    recipe_ingredients.map { |ri|
     next if ri.title != rec_ing.title
-   	  ri.quantity
-    }.reject { |q| q.nil? || q.empty? }.join(" + ").prepend("|") + "|"
-
+      ri.quantity
+    }.reject { |q| q.nil? || q.empty? }.join(QuantityMatch::JOIN_SYM)
   end
   
   def recipe_ingredients
@@ -97,8 +73,8 @@ class Menu < ApplicationRecord
   	Menu.create(user: user, title: 'First menu', main: true)
   end
 
-  def self.current_menu(menus)
-  	menus.where('(deliver_on <= :deliver_on OR deliver_on is NULL) AND main = :main', { deliver_on: DateTime.new + 1.day, main: true }).first
-  end
+  # def self.current_menu(menus)
+  # 	menus.where('(deliver_on <= :deliver_on OR deliver_on is NULL) AND main = :main', { deliver_on: DateTime.new + 1.day, main: true }).first
+  # end
 
 end

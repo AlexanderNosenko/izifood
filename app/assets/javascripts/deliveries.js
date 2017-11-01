@@ -21,7 +21,6 @@ function showLoadingAnimation(i){
   dots = getDots(i);
   $('.loading>span').text(dots);
 }
-console.log("como")
 function handleLoading(check_url){
   setInterval(function(){
     $.get( check_url, function( status ) {
