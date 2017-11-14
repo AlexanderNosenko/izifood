@@ -1,0 +1,15 @@
+<%= render partial: 'delivery_addresses/form' %>
+<% if @delivery && @delivery_slots %>
+  <%= form_for(@delivery, html: {class: "order-form"}, url: url) do |f| %>
+    <%= hidden_field_tag "delivery[address_id]", @delivery_adress.id %>
+    <%= f.hidden_field "deliver_on" %>
+    <%= f.hidden_field "cost_value" %>
+    <%= f.hidden_field "cost_currency" %>
+  <% end %>
+  <%= @delivery_slots.html_safe %>
+<% else %>
+  <script>handleLoading("<%= job_status_url(@job_id) %>")</script>
+  <div class="loading">
+    We are working <span></span>
+  </div>
+<%  end %>

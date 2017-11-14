@@ -1,0 +1,3 @@
+$('.flashes').replaceWith("<%= escape_javascript( render 'layouts/flashes' ) %>")
+$('.delivery-address-wrapper').replaceWith("<%= escape_javascript( render 'form' ) %>")
+$('[name="delivery[address_id]"]').val(<%= @delivery_adress.id %>)

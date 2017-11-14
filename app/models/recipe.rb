@@ -29,6 +29,7 @@ class Recipe < ApplicationRecord
   mount_uploaders :desc_images, DescriptionImageUploader
 
   has_many :recipe_ingredients, dependent: :destroy
+  has_many :recipe_tags, through: :recipes_tags
   
   enum r_type: { Inne: 0, Obiad: 1, Deser: 2, Zupa: 3, Przystawka: 4, Kolacja: 5, Napój: 6, Śniadanie: 7, 'Ciasto słodkie' => 8 }, _prefix: true
   enum prep_time: { Inne: 0, Szybko: 1, Średnio: 2, Długo: 3 }, _prefix: true
@@ -40,6 +41,24 @@ class Recipe < ApplicationRecord
   enum cuisine: { Inna: 0,  polska: 1, włoska: 2, skandynawska: 3, japońska: 4, indyjska: 5 }, _prefix: true
 
   enum status: [:unchecked, :ok], _prefix: true
+
+  def self.filter(params)
+    tag_ids = [params[:category], params[:filter]].reject{ |r| r.blank?}
+      
+    if tag_ids.any?
+      joins(<<-EOS
+        JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
+        WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
+      EOS
+      )
+    else
+      self
+    end
+  end
+
+  def self.search(q = nil)
+    self.where('title ~* ?', q)
+  end
 
   def self.create_from(data)
   	r = Recipe.new
@@ -66,6 +85,29 @@ class Recipe < ApplicationRecord
   	else
   		raise 'An error has occured'
   	end
+
+
+    # RecipeTag.destroy_all
+    # Recipe.pluck(:r_type).uniq.each do |cat|
+    #   RecipeTag.create(title: cat, _type: 'category')
+    # end
+    # Recipe.pluck(:main_ingredient).uniq do |tag|
+    #   begin
+        
+    #     RecipeTag.create(title: tag, _type: 'filter')
+    #   rescue Exception => e
+        
+    #   end
+    # end
+    # cd
+    # RecipesTag.destroy_all
+    # Recipe.all.each do |recipe|
+    #   category = RecipeTag.categories.find_by(title: recipe.r_type)
+    #   filter = RecipeTag.filters.find_by(title: recipe.main_ingredient)
+    #   RecipesTag.create(recipe: recipe, tag: category)
+    #   RecipesTag.create(recipe: recipe, tag: filter)      
+    # end
+    
   end
   def self.convert_to_enum
   	

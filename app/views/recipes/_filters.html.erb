@@ -1,0 +1,18 @@
+<div class="recipe-filters">
+  <div class="categories">
+    <% categories.each do |category| %>
+      <div class="btn <%= active_filter(category.id, 'btn-success') %> category-filter">
+        <%= link_to category.title, recipe_filters(:category, category.id) %>
+      </div>
+    <% end %>  
+    <%= link_to 'Clear category', recipe_filters(:category, nil) %>
+  </div>
+  <div class="filters">
+    <% filters.each do |_filter| %>
+      <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
+        <%= link_to _filter.title, recipe_filters(:filter, _filter.id) %>
+      </div>
+    <% end %>
+    <%= link_to 'Clear filter', recipe_filters(:filter, nil) %>
+  </div>  
+</div>

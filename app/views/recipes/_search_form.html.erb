@@ -1,0 +1,3 @@
+<%= form_tag(recipes_path, method: "get", remote: true, id: 'recipes-search-form') do %>
+  <%= text_field_tag(:q, '', id: 'recipes-search-field') %>
+<% end %>

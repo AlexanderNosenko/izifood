@@ -1,0 +1,7 @@
+<%= render partial: 'form', locals: { url: order_delivery_path(params[:order_id], @delivery.id) } %>
+<script>
+  $(document).ready(function(){
+    data = "<%= @delivery.to_json %>".replace(/&quot;/g, '"')
+    setSlot(JSON.parse(data))
+  })
+</script>

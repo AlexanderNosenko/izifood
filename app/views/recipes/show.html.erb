@@ -3,10 +3,19 @@
   <%= @recipe.title %>
 </p>
 
+<% @recipe.images.each do |img| %>
+  <%= image_tag img, width: 200 %>
+<% end %>
+
 <p>
   <strong>Description:</strong>
-  <%= @recipe.description %>
+  <% @recipe.description.each_with_index do |step, index| %>
+    <p>
+      <%= image_tag @recipe.desc_images[index] if @recipe.desc_images[index]%>
+    </p>
+    <p>
+      <%= step %>
+    </p>
+  <% end %>
 </p>
-
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>

@@ -17,6 +17,8 @@
 }
 
 .ingredients{
+  /*width: 60%;*/
+  margin: 0px auto;
   .recipe-block{
     .recipe{
       height: 100px;
@@ -34,7 +36,8 @@
       .ingredient{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        /*justify-content: space-between;*/
+        justify-content: center;
         height: 90px;
         margin: 10px;
         div{

@@ -6,9 +6,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= include_page_css params[:controller] %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
     <!-- Debug here -->
     <%= include_page_js params[:controller] %>
+    <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>    
   </head>
 
   <body>
@@ -28,6 +29,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="<%= nav_bar_status('/') %>"><%=link_to 'Home', "/" %></li>              
+              <li><%= render partial: 'recipes/search_form' %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">My Menus</a></li>

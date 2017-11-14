@@ -1,17 +1,13 @@
 class DeliveriesController < ApplicationController
+  before_action :set_delivery, only: %i(edit update)
+
   def index
   end
 
   def new
-    slots = DeliverySlot.fresh_for(:tesco)
-    if slots.any?
-      @delivery_slots = slots.first.content_html
-      @delivery = Delivery.new({ order_id: params[:order_id] })
-    else
-      job_ids = DeliverySlot.update_slots
-      @job_id = job_ids[:tesco]
-      flash[:notice] = 'We are checking fot available slots'
-    end
+    prepare_slots
+    @delivery = Delivery.new({ order_id: params[:order_id] })
+    @delivery_adress = current_user.default_address
   end
 
   def create
@@ -24,8 +20,36 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  private 
+  def edit
+    prepare_slots
+    @delivery_adress = @delivery.address
+  end
 
+  def update
+    if @delivery.update(prepared_params)
+      redirect_to recipes_path, notice: 'Delivery is updated.'
+    else
+      redirect_to edit_order_delivery_path(params[:order_id], params[:id]), notice: "Unnown error occured"
+    end
+  end
+
+  private
+  
+  def set_delivery
+    @delivery = current_user.deliveries.find_by!(id: params[:id], order_id: params[:order_id])
+  end
+
+  def prepare_slots
+    slots = DeliverySlot.fresh_for(:tesco)
+    if slots.any?
+      @delivery_slots = slots.first.content_html      
+    else
+      job_ids = DeliverySlot.update_slots
+      @job_id = job_ids[:tesco]
+      flash[:notice] = 'We are checking fot available slots'
+    end
+  end
+  
   def prepared_params
     times = delivery_params[:deliver_on].scan(/\d\d:\d\d/)
     
@@ -35,7 +59,8 @@ class DeliveriesController < ApplicationController
       time_to: times[1],
       cost_value: delivery_params[:cost_value],
       cost_currency: delivery_params[:cost_currency],
-      order_id: params[:order_id]
+      order_id: params[:order_id],
+      address: DeliveryAddress.find(delivery_params[:address_id])
     }
   end
 
@@ -46,7 +71,8 @@ class DeliveriesController < ApplicationController
       :time_to,
       :cost_currency,
       :cost_value,
-      :order_id
+      :address_id
+      # :order_id
     ]
   end
 

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :recipes
     resources :recipe_ingredients
     resources :search_duplicates
+    resources :quantity_matches
 
     patch 'utils/update_matches', to: 'utils#update_matches', as: 'utils_update_matches'
     patch 'utils/update_slots', to: 'utils#update_slots', as: 'utils_update_slots'
@@ -35,9 +36,10 @@ Rails.application.routes.draw do
   # delete 'remove_recipe/:recipe_id', to: 'menus#remove_recipe', as: 'remove_recipe'
 
   resources :orders do 
-    resources :delivery, controller: "deliveries", only: %i(new)
-    post 'delivery', to: 'deliveries#create'
+    resources :delivery, controller: "deliveries", only: %i(new create edit update)
+    # post 'delivery', to: 'deliveries#create'
   end
+  resources :delivery_addresses, only: %i(create update)
 
   resources :ingredients, only: %i(index)
   get '/job_status/:job_id', to: 'orders#job_status', as: 'job_status'

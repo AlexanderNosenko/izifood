@@ -1,4 +1,7 @@
-<h1>Orders Page</h1>
+<h1>Order for <%= @order.menu.title %> </h1>
 <div class="container">
   <%= render partial: 'form_with_search', locals: {submit_btn_text: 'Order' }%>
+  <!-- <div class="live-search">
+    <%= render 'live_search' %>
+  </div> -->
 </div>

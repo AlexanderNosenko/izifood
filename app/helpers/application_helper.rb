@@ -1,8 +1,8 @@
 module ApplicationHelper
   def include_page_css(controller_name)
-  	if (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset("#{controller_name}.scss")
-  		stylesheet_link_tag controller_name
-  	end
+    if (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset("#{controller_name}.scss")
+      stylesheet_link_tag controller_name
+    end
   end
 
   def include_page_js(controller_name)
@@ -12,8 +12,9 @@ module ApplicationHelper
   end
 
   def nav_bar_status(path)
-  	current_page?(path) ? "active" : ""
-  end 
+    current_page?(path) ? "active" : ""
+  end
+
   def flash_class_for(klass)
     case klass.to_sym
       when :success
@@ -27,5 +28,34 @@ module ApplicationHelper
       else
         ""
       end
+  end
+
+  def recipe_filters(type, id)
+    # filters = @_request.parameters[:filters].to_a
+    # categories = @_request.parameters[:categories].to_a
+
+    # params = {
+    #   categories: type != :filter ? categories|[id.to_s] : categories,
+    #   filters: type == :filter ? filters|[id.to_s] : filters
+    # }
+
+    filter = @_request.parameters[:filter]
+    category = @_request.parameters[:category]
+
+    params = {
+      category: type == :category ? id : category,
+      filter: type == :filter ? id : filter
+    }#.reject { |a, d| as}
+    # params = {}
+    # params[:category] = id if type == :category
+    # params[:filter] = id if type == :filter
+    
+    recipes_path(params)
+  end
+
+  def active_filter(id, default_style)
+    ids = [@_request.parameters[:filter], @_request.parameters[:category]].reject { |f| f.blank? }
+
+    ids.include?(id) ? 'btn-info' : default_style
   end
 end

@@ -14,8 +14,11 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :menu     
   has_one :delivery, dependent: :destroy
-  has_many :order_items, dependent: :delete_all
+  has_many :order_items, dependent: :delete_all  
   
+  has_many :recipe_ingredients, through: :order_items
+  has_many :recipes, through: :recipe_ingredients
+
   accepts_nested_attributes_for :order_items
 
   validates_uniqueness_of :menu_id, scope: [:deliver_on, :user_id]
@@ -36,7 +39,7 @@ class Order < ApplicationRecord
   end
 
   def items
-    order_items 
+    order_items.includes(:recipe_ingredient)
   end
   
   def remove_not_mentioned!(order_items_new)
@@ -52,10 +55,32 @@ class Order < ApplicationRecord
   end
   
   def handle_menu_change
+    recalculate_order
     self.update_attribute(:status, "user_attention")
   end
   
   private
+
+  def recalculate_order
+    recipes_ids = menu.recipes.pluck(:id)#.uniq#.push(nil) #TODO handle custom order_items
+    
+    included_recipes_ids = recipes.pluck(:id).uniq
+    new_recipes_ids = recipes_ids - included_recipes_ids
+
+    items.each do |item|
+      item.destroy unless recipes_ids.include?(item.recipe_ingredient.recipe_id)
+    end
+    
+
+    new_recipe_ingredient = RecipeIngredient.where(recipe_id: new_recipes_ids).uniq { |r| r.title }
+    new_recipe_ingredient.each do |rec_ing|
+      items.create({
+        ingredient_id: rec_ing.possible_ingredients.first&.id,
+        quantity: menu.quantity_for(rec_ing), 
+        recipe_ingredient: rec_ing
+      })
+    end
+  end
 
   def no_active_orders
     if Order.active_order_for(menu)

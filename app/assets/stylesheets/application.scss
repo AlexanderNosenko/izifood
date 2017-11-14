@@ -45,6 +45,8 @@ body{
     background: white;
   }
   .user-menus{
+    overflow-y: auto;
+    max-height: 248px;
     .order-btn{
       margin: 10px;
       position: absolute;
@@ -74,6 +76,11 @@ body{
       }
     }
     .order-controls{
+      display: flex;
+      justify-content: space-evenly;
+      div{
+        padding: 7px 0px;
+      }
     }
   }
 }

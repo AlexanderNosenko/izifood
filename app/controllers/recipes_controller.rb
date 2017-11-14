@@ -1,12 +1,27 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
-  
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.page(params[:page]).per(6)
+    recipes = Recipe.filter(params)
+    recipes = recipes.search(params[:q]) if params[:q]
+    recipes = recipes.page(params[:page]).per(6)
+    
+    locals = {
+      recipes: recipes,
+      categories: RecipeTag.categories,
+      filters: RecipeTag.filters
+    }
+    
+    respond_to do |format|
+      # if @recipe.update(recipe_params)
+        format.html { render locals: locals }
+        format.js { render 'recipes/_list.js.erb', locals: locals }
+      # end
+    end
+    
   end
 
   # GET /recipes/1

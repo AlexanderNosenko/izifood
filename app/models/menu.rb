@@ -21,10 +21,16 @@ class Menu < ApplicationRecord
   
   validates :user_id, presence: true
   
+  after_initialize :set_defaul_title, if: ->(record){ record.title.nil? }
+
+  def set_defaul_title
+    self.title = "Menu #{self.id}"
+  end
+
   def handle_change
     active_order.handle_menu_change if active_order
   end
-  
+
   def remove_recipe(recipe)
   	menu_recipe = MenuRecipe.where(menu: self, recipe: recipe).first
     if !menu_recipe.destroy
@@ -59,9 +65,10 @@ class Menu < ApplicationRecord
 
   def quantity_for(rec_ing)
     recipe_ingredients.map { |ri|
-    next if ri.title != rec_ing.title
+      next if ri.title != rec_ing.title
       ri.quantity
-    }.reject { |q| q.nil? || q.empty? }.join(QuantityMatch::JOIN_SYM)
+    }.reject { |q| q.nil? || q.empty? }
+     .join(QuantityMatch::JOIN_SYM)
   end
   
   def recipe_ingredients

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025222317) do
+ActiveRecord::Schema.define(version: 20171113113654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,22 @@ ActiveRecord::Schema.define(version: 20171025222317) do
     t.string "time_from", null: false
     t.string "time_to", null: false
     t.bigint "order_id", null: false
+    t.bigint "delivery_address_id", null: false
     t.index ["deliver_on"], name: "index_deliveries_on_deliver_on"
+    t.index ["delivery_address_id"], name: "index_deliveries_on_delivery_address_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
+
+  create_table "delivery_addresses", force: :cascade do |t|
+    t.string "title", default: "Home 1"
+    t.string "address", null: false
+    t.string "flat_number", null: false
+    t.jsonb "details", null: false
+    t.boolean "default", default: false, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_delivery_addresses_on_user_id"
   end
 
   create_table "delivery_slots", force: :cascade do |t|
@@ -135,6 +149,14 @@ ActiveRecord::Schema.define(version: 20171025222317) do
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
+  create_table "recipe_tags", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "_type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title", "_type"], name: "index_recipe_tags_on_title_and__type", unique: true
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "title", null: false
     t.string "images", default: [], null: false, array: true
@@ -163,6 +185,15 @@ ActiveRecord::Schema.define(version: 20171025222317) do
     t.index ["prep_type"], name: "index_recipes_on_prep_type"
     t.index ["r_type"], name: "index_recipes_on_r_type"
     t.index ["veg"], name: "index_recipes_on_veg"
+  end
+
+  create_table "recipes_tags", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipes_tags_on_recipe_id"
+    t.index ["tag_id"], name: "index_recipes_tags_on_tag_id"
   end
 
   create_table "search_duplicates", force: :cascade do |t|

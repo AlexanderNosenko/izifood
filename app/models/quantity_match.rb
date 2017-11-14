@@ -1,6 +1,6 @@
 class QuantityMatch < ApplicationRecord
   belongs_to :origin, class_name: 'QuantityMatch', optional: true
-  has_many :children, class_name: 'QuantityMatch'
+  has_many :children, class_name: 'QuantityMatch', foreign_key: 'origin_id', dependent: :destroy
 
   SPACE = /[[:space:]]/
   JOIN_SYM = " + "
@@ -11,13 +11,14 @@ class QuantityMatch < ApplicationRecord
     #   quantity += 
     # }.inject(0, :+)
      
-      new_q = ""
+    new_q = ""
 
     adapt_quantity(_quantity).split(JOIN_SYM).map do |part|
       new_q += parse_weight(part).to_s
     end
     new_q
   end
+
   def self.parse_weight(part)
     part.split(SPACE).each_slice(2) do |q|
       weight = self.to_weight(q[1])
@@ -28,6 +29,7 @@ class QuantityMatch < ApplicationRecord
       end
     end
   end
+  
   def self.to_weight(_quantity)
     saved_match = QuantityMatch.find_by(key: _quantity)
     if saved_match
@@ -39,9 +41,6 @@ class QuantityMatch < ApplicationRecord
     else
       _quantity
     end
-    # _q_ = self.split(/[[:space:]]/)
-
-    # case _q_[0]
     # when 'ml', 'g', 'szczypta'
     #   1 
     # when 'łyzeczka'
@@ -49,31 +48,13 @@ class QuantityMatch < ApplicationRecord
     # when 'łyzka', 'łyzki', 'łyżki', 'łyżka'
     #   16
     # when 'szkl'
-    #   case _q_[1]
-    #   when 'mleko'
-    #     245
-    #   when 'kasza'
-    #     128
-    #   else
-    #     raise ArgumentError("No specification for #{_q_}")
-    #   end
+    #   245   
     # when 'szt', 'sztuki'
-    #   case _q_[1]
-    #   when 'jajko'
-    #     1
-    #   when 'ziemniaki'
-    #     200
-    #   when 'buraki'
-    #     240
-    #   else
-    #     raise ArgumentError("No specification for #{_q_}")
-    #   end
+    #   1
     # when 'litry'
     #   1000
-    # else
-    #   raise ArgumentError("No specification for #{_q_}")
-    # end
   end
+  
   def self.adapt_quantity(_quantity)
     _quantity
       .gsub(/\d\/\d/) { |fraction| fraction.to_number }

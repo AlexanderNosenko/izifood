@@ -10,9 +10,7 @@ function init_ingredient_selectors(){
     })
   load_count = 1
 }
-$(document).ready(function(){
-  init_ingredient_selectors()
-})
+
 $(document).on('ready', function(){
   // Order Items managment
   $(document).on('click', '.remove-order-item-btn', function(){

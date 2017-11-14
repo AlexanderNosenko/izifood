@@ -21,9 +21,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :menus, dependent: :destroy
+  has_many :delivery_addresses, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :deliveries, through: :orders
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  alias_attribute :addresses, :delivery_addresses
 
   def current_menu
   	if menus.count == 0
@@ -34,6 +39,10 @@ class User < ApplicationRecord
   	end
   end
   
+  def default_address
+    delivery_addresses.find_or_initialize_by(default: true)
+  end
+
   def menus_with_recipes
   	menus.includes(:recipes).order(created_at: :asc)
   end

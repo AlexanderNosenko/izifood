@@ -1,20 +1,10 @@
 <div class="container">
-  <h1>Recipes</h1>
+  <%= render partial: 'filters', locals: {
+      categories: categories,
+      filters: filters
+    } %>
   <div class="recipes">
-    <% @recipes.each do |recipe| %>
-      <div class="recipe">
-        <div class="recipe-main-image"
-        style="background-image: url('<%=recipe.images[0].url%>');"></div>
-        <div class="recipe-content-overlay">
-          <div class="title"><%= recipe.title %></div>
-          <!-- <div class="description"><%= recipe.description %></div> -->
-          <div class="details-link"><%= link_to 'Show', recipe %></div>
-          <div class="add-to-menu-btn">
-            <%= link_to 'Add', menu_recipes_path({recipe_id: recipe}), remote: true, method: :post%>
-          </div>
-        </div>
-      </div>
-    <% end %>  
+    <%= render recipes %>
   </div>
-  <%= paginate @recipes %>
+  <%= paginate recipes %>
 </div>

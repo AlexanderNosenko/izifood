@@ -13,14 +13,15 @@
 
 class Delivery < ApplicationRecord
   belongs_to :order
-  
-  validates :deliver_on, 
-			:cost_value, 
-			:cost_currency, 
-			:time_from, 
-			:time_to, presence: true
+  belongs_to :address, class_name: "DeliveryAddress", foreign_key: :delivery_address_id
 
-  validate :no_deliveries_set
+  validates :deliver_on, 
+            :cost_value, 
+            :cost_currency, 
+            :time_from, 
+            :time_to, presence: true
+
+  validate :no_deliveries_set, if: -> { new_record? }
 
   def no_deliveries_set
     if Delivery.where('order_id = ?', order_id).count != 0

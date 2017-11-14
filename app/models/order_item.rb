@@ -13,11 +13,11 @@
 
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :ingredient
+  belongs_to :ingredient, optional: true
   belongs_to :recipe_ingredient
 
-  validates :ingredient, presence: { message: 'Please choose an ingredient' }
-  validates :quantity, presence: true
+  validates :ingredient, presence: { message: ->(object, data) {"Please choose an ingredient for #{object.recipe_ingredient.title}" } }
+  # validates :quantity, presence: true
 
   def possible_ingredients(limit = 0)
     recipe_ingredient.possible_ingredients(limit)
