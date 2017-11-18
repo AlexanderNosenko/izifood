@@ -1,19 +1,19 @@
 //= require jquery.geocomplete.min
-function toggleMap(event){
-  if(this.state.lat&&this.state.lng){
-      $('.map_canvas').toggleClass('map-show')
+// function toggleMap(event){
+//   if(this.state.lat&&this.state.lng){
+//       $('.map_canvas').toggleClass('map-show')
 
-      let map_center = new google.maps.LatLng(this.state.lat, this.state.lng);
-      let map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 16,
-          center: map_center,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-      let marker = new google.maps.Marker({
-          position: map_center,
-          map: map
-      });
-  }
+//       let map_center = new google.maps.LatLng(this.state.lat, this.state.lng);
+//       let map = new google.maps.Map(document.getElementById("map"), {
+//           zoom: 16,
+//           center: map_center,
+//           mapTypeId: google.maps.MapTypeId.ROADMAP
+//       });
+//       let marker = new google.maps.Marker({
+//           position: map_center,
+//           map: map
+//       });
+//   }
   // this.handleLocationChange({
   //  formatted_address: "Shit, Ass, kurbva",
   //  geometry: {
@@ -23,7 +23,7 @@ function toggleMap(event){
   //    }
   //  }
   // });
-}
+// }
 function handleLocationChange(e){
   var location = {
       location: e.formatted_address.trim(),
@@ -63,10 +63,10 @@ function formatAddress(data){
 }
 
 function parseAddressWithSchema(data, schema){
-  let result = "";
+  var result = "";
   
-  schema.forEach((elem) => {
-    let component = getAddressComponent(data, elem.type);
+  schema.forEach(function(elem){
+    var component = getAddressComponent(data, elem.type);
 
     if(!component || component == '')
       throw "Wrong address format"
@@ -79,7 +79,7 @@ function parseAddressWithSchema(data, schema){
 
 function getAddressComponent(data, type){
   for (i in data) {
-    let component = data[i];
+    var component = data[i];
     if( component.types[0] == type ) return component;
   }
 }
@@ -87,7 +87,7 @@ function getAddressComponent(data, type){
 $(document).on('ready', function(){
   $(".gmaps-input").geocomplete()
     .bind("geocode:result", function(event, result){
-      let address = "";
+      var address = "";
       try{
         address = formatAddress(result.address_components);
         var details = JSON.stringify(result.address_components);
