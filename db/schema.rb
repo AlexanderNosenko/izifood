@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113113654) do
+ActiveRecord::Schema.define(version: 20171115092143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,31 @@ ActiveRecord::Schema.define(version: 20171113113654) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount", precision: 5, scale: 2, null: false
+    t.bigint "user_id", null: false
+    t.integer "_type", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "info", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["_type"], name: "index_payments_on__type"
+    t.index ["info"], name: "index_payments_on_info"
+    t.index ["status"], name: "index_payments_on_status"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.integer "_type", default: 0, null: false
+    t.integer "for", default: 0, null: false
+    t.jsonb "info", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["_type"], name: "index_promotions_on__type"
+    t.index ["for"], name: "index_promotions_on_for"
+    t.index ["info"], name: "index_promotions_on_info"
+  end
+
   create_table "quantity_matches", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -205,6 +230,17 @@ ActiveRecord::Schema.define(version: 20171113113654) do
     t.index ["value"], name: "index_search_duplicates_on_value", unique: true
   end
 
+  create_table "user_promotions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "promotion_id", null: false
+    t.jsonb "info", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["info"], name: "index_user_promotions_on_info"
+    t.index ["promotion_id"], name: "index_user_promotions_on_promotion_id"
+    t.index ["user_id"], name: "index_user_promotions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -230,6 +266,9 @@ ActiveRecord::Schema.define(version: 20171113113654) do
   add_foreign_key "order_items", "recipe_ingredients"
   add_foreign_key "orders", "menus"
   add_foreign_key "orders", "users"
+  add_foreign_key "payments", "users"
   add_foreign_key "quantity_matches", "quantity_matches", column: "origin_id"
   add_foreign_key "search_duplicates", "ingredient_searches", column: "origin_id"
+  add_foreign_key "user_promotions", "promotions"
+  add_foreign_key "user_promotions", "users"
 end

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: quantity_matches
+#
+#  id         :integer          not null, primary key
+#  key        :string
+#  value      :string
+#  quantifier :string
+#  origin_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class QuantityMatch < ApplicationRecord
   belongs_to :origin, class_name: 'QuantityMatch', optional: true
   has_many :children, class_name: 'QuantityMatch', foreign_key: 'origin_id', dependent: :destroy

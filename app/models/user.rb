@@ -24,6 +24,9 @@ class User < ApplicationRecord
   has_many :delivery_addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :deliveries, through: :orders
+  has_many :payments, dependent: :delete_all
+  has_many :user_promotions
+  has_many :promotions, through: :user_promotions, dependent: :delete_all
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -43,6 +46,22 @@ class User < ApplicationRecord
     delivery_addresses.find_or_initialize_by(default: true)
   end
 
+  def active_member?
+    Payment.for_current_month_by?(self)
+  end
+
+  def used_trial_promo?
+    Promotion.of_action('trial').applied_for?(self)
+  end
+
+  def give_trial_promo!
+    Promotion.of_action('trial').apply_to(self)
+  end
+
+  def give_influencer_promo!
+    Promotion.of_action('influencer_coupon').apply_to(self)
+  end
+  
   def menus_with_recipes
   	menus.includes(:recipes).order(created_at: :asc)
   end

@@ -8,6 +8,7 @@
 #  deliver_on :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default("ok"), not null
 #
 
 require 'test_helper'

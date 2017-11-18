@@ -9,6 +9,9 @@ class RecipesController < ApplicationController
     recipes = recipes.search(params[:q]) if params[:q]
     recipes = recipes.page(params[:page]).per(6)
     
+    # current_user.give_trial_promo!
+    # current_user.give_influencer_promo!
+
     locals = {
       recipes: recipes,
       categories: RecipeTag.categories,

@@ -50,6 +50,9 @@ gem 'selenium-webdriver'
 gem 'headless'
 gem 'rest-client'
 
+# Structure apps seed under db/seeds/*
+gem 'seedbank'
+
 # Backups
 gem 'whenever', require: false
 gem 'backup',   require: false
@@ -58,6 +61,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_girl'
+  
+  # Easy fake data
+  gem 'faker'
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'better_errors'
@@ -69,6 +76,13 @@ group :development, :test do
   gem 'capistrano-postgresql', '~> 4.2.0' 
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+
+  # gem 'minitest-rails'
+  # Customizable Minitest output formats
+  # gem 'minitest-reporters'
+  # Minitest-compatible test helpers for rails
+  # gem 'shoulda'
+
 end
 
 group :development do

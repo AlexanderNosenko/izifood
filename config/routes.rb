@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'recipes#index'
-
+  
   mount_roboto
   devise_for :users, :controllers => { :sessions => "sessions" }
 
@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     resources :recipe_ingredients
     resources :search_duplicates
     resources :quantity_matches
-
+    resources :promotions
+    resources :user_promotions
+    resources :payments
+  
     patch 'utils/update_matches', to: 'utils#update_matches', as: 'utils_update_matches'
     patch 'utils/update_slots', to: 'utils#update_slots', as: 'utils_update_slots'
 
@@ -42,5 +45,13 @@ Rails.application.routes.draw do
   resources :delivery_addresses, only: %i(create update)
 
   resources :ingredients, only: %i(index)
+  
+  resources :accounts, only: %i(edit update)
+  get '/renew_membership', to: 'accounts#renew_membership', as: :renew_membership
+  patch '/renew_membership', to: 'accounts#update_membership'
+  patch '/use_membership_promo', to: 'accounts#use_membership_promo', as: :use_membership_promo
+
+  get '/promo/:id', to: 'promotions#use_promo', as: :use_promo
+
   get '/job_status/:job_id', to: 'orders#job_status', as: 'job_status'
 end

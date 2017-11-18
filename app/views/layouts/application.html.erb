@@ -32,6 +32,7 @@
               <li><%= render partial: 'recipes/search_form' %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to 'My Account', edit_account_path(current_user) %></li>
               <li><a href="#">My Menus</a></li>
               <li><a href="#">My Orders</a></li>
               <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>

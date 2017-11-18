@@ -21,6 +21,7 @@ class DeliveriesController < ApplicationController
   end
 
   def edit
+    current_user.active_member?
     prepare_slots
     @delivery_adress = @delivery.address
   end
