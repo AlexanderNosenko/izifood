@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   def edit
     
   end
-  
+
   def renew_membership
   end
 

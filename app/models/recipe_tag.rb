@@ -15,5 +15,7 @@ class RecipeTag < ApplicationRecord
 
   has_many :recipes, through: :recipes_tags
 
+  # mount_uploaders :icon, RecipeTagIconUploader
+
   enum _type: [:category, :filter]
 end

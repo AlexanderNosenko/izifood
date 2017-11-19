@@ -1,0 +1,34 @@
+.live-search{
+  form{
+  width: 97%;
+    margin: auto;
+  }
+  height: 400px;
+  background: white;
+  padding-top: 27px;
+  .search-results{
+    display: none;
+    max-height: 261px;
+    overflow-y: scroll;
+    background: white;
+    width: 97%;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    .ingredient:hover{
+      background: #ccc;
+    }
+    .ingredient{
+      height: 60px;
+      div{
+        display: inline-block;
+      }
+      .image{
+        margin: 5px;
+        img{
+          height: 50px;
+        }
+      }
+    }
+  }
+}

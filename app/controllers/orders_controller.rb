@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
   def index
   end
 
+  def new
+    @order = current_user.current_menu.to_order
+  end
+
   def edit
     @order = Order.find(params[:id])
 
@@ -42,10 +46,6 @@ class OrdersController < ApplicationController
 
   def job_status
     render json: Sidekiq::Status::status(params[:job_id])
-  end
-
-  def new
-  	@order = current_user.current_menu.to_order
   end
 
   private 

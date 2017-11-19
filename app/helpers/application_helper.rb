@@ -55,7 +55,10 @@ module ApplicationHelper
 
   def active_filter(id, default_style)
     ids = [@_request.parameters[:filter], @_request.parameters[:category]].reject { |f| f.blank? }
+    ids.include?(id.to_s) ? default_style : ""
+  end
 
-    ids.include?(id) ? 'btn-info' : default_style
+  def filter_icon_url(icon_name)
+    "/assets/" + icon_name.to_s
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115092143) do
+ActiveRecord::Schema.define(version: 20171025222317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,22 +23,8 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.string "time_from", null: false
     t.string "time_to", null: false
     t.bigint "order_id", null: false
-    t.bigint "delivery_address_id", null: false
     t.index ["deliver_on"], name: "index_deliveries_on_deliver_on"
-    t.index ["delivery_address_id"], name: "index_deliveries_on_delivery_address_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
-  end
-
-  create_table "delivery_addresses", force: :cascade do |t|
-    t.string "title", default: "Home 1"
-    t.string "address", null: false
-    t.string "flat_number", null: false
-    t.jsonb "details", null: false
-    t.boolean "default", default: false, null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_delivery_addresses_on_user_id"
   end
 
   create_table "delivery_slots", force: :cascade do |t|
@@ -95,7 +81,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0, null: false
     t.index ["deliver_on"], name: "index_menus_on_deliver_on"
     t.index ["main"], name: "index_menus_on_main"
     t.index ["recurring"], name: "index_menus_on_recurring"
@@ -127,31 +112,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.decimal "amount", precision: 5, scale: 2, null: false
-    t.bigint "user_id", null: false
-    t.integer "_type", default: 0, null: false
-    t.integer "status", default: 0, null: false
-    t.jsonb "info", default: {}, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["_type"], name: "index_payments_on__type"
-    t.index ["info"], name: "index_payments_on_info"
-    t.index ["status"], name: "index_payments_on_status"
-    t.index ["user_id"], name: "index_payments_on_user_id"
-  end
-
-  create_table "promotions", force: :cascade do |t|
-    t.integer "_type", default: 0, null: false
-    t.integer "for", default: 0, null: false
-    t.jsonb "info", default: {}, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["_type"], name: "index_promotions_on__type"
-    t.index ["for"], name: "index_promotions_on_for"
-    t.index ["info"], name: "index_promotions_on_info"
-  end
-
   create_table "quantity_matches", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -172,14 +132,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.string "title", default: "", null: false
     t.integer "match", default: 0, null: false
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
-  end
-
-  create_table "recipe_tags", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "_type", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["title", "_type"], name: "index_recipe_tags_on_title_and__type", unique: true
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -212,15 +164,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.index ["veg"], name: "index_recipes_on_veg"
   end
 
-  create_table "recipes_tags", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
-    t.bigint "tag_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_recipes_tags_on_recipe_id"
-    t.index ["tag_id"], name: "index_recipes_tags_on_tag_id"
-  end
-
   create_table "search_duplicates", force: :cascade do |t|
     t.string "value", null: false
     t.bigint "origin_id", null: false
@@ -228,17 +171,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.datetime "updated_at", null: false
     t.index ["origin_id"], name: "index_search_duplicates_on_origin_id"
     t.index ["value"], name: "index_search_duplicates_on_value", unique: true
-  end
-
-  create_table "user_promotions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "promotion_id", null: false
-    t.jsonb "info", default: {}, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["info"], name: "index_user_promotions_on_info"
-    t.index ["promotion_id"], name: "index_user_promotions_on_promotion_id"
-    t.index ["user_id"], name: "index_user_promotions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -266,9 +198,6 @@ ActiveRecord::Schema.define(version: 20171115092143) do
   add_foreign_key "order_items", "recipe_ingredients"
   add_foreign_key "orders", "menus"
   add_foreign_key "orders", "users"
-  add_foreign_key "payments", "users"
   add_foreign_key "quantity_matches", "quantity_matches", column: "origin_id"
   add_foreign_key "search_duplicates", "ingredient_searches", column: "origin_id"
-  add_foreign_key "user_promotions", "promotions"
-  add_foreign_key "user_promotions", "users"
 end

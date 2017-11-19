@@ -34,12 +34,8 @@ class User < ApplicationRecord
   alias_attribute :addresses, :delivery_addresses
 
   def current_menu
-  	if menus.count == 0
-  	  Menu.create_first_menu_for(self)
-  	else
-	    menus.find_by(main: true)#TODO change name column
-      # Menu.current_menu(menus)
-  	end
+  	menus.find_by(main: true)#TODO change name column
+    # Menu.current_menu(menus)  	
   end
   
   def default_address

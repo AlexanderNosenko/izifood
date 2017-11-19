@@ -29,7 +29,8 @@ class Recipe < ApplicationRecord
   mount_uploaders :desc_images, DescriptionImageUploader
 
   has_many :recipe_ingredients, dependent: :destroy
-  has_many :recipe_tags, through: :recipes_tags
+  has_many :recipes_tags
+  has_many :recipe_tags, through: :recipes_tags, source: 'tag'
   
   enum r_type: { Inne: 0, Obiad: 1, Deser: 2, Zupa: 3, Przystawka: 4, Kolacja: 5, Napój: 6, Śniadanie: 7, 'Ciasto słodkie' => 8 }, _prefix: true
   enum prep_time: { Inne: 0, Szybko: 1, Średnio: 2, Długo: 3 }, _prefix: true
@@ -46,17 +47,23 @@ class Recipe < ApplicationRecord
     tag_ids = [params[:category], params[:filter]].reject{ |r| r.blank?}
       
     if tag_ids.any?
-      joins(<<-EOS
-        JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
-        WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
-      EOS
-      )
+      self
+        .joins('JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id')
+        .where('recipes_tags.tag_id': tag_ids)
+      # joins(<<-EOS
+      #   JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
+      #   WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
+      # EOS
+      # )
     else
       self
     end
   end
 
   def self.search(q = nil)
+    
+    #   .where('recipes_tags.tag_id = ?', 1).to_sql
+    # cd
     self.where('title ~* ?', q)
   end
 
@@ -85,30 +92,20 @@ class Recipe < ApplicationRecord
   	else
   		raise 'An error has occured'
   	end
-
-
-    # RecipeTag.destroy_all
-    # Recipe.pluck(:r_type).uniq.each do |cat|
-    #   RecipeTag.create(title: cat, _type: 'category')
-    # end
-    # Recipe.pluck(:main_ingredient).uniq do |tag|
-    #   begin
-        
-    #     RecipeTag.create(title: tag, _type: 'filter')
-    #   rescue Exception => e
-        
-    #   end
-    # end
-    # cd
-    # RecipesTag.destroy_all
-    # Recipe.all.each do |recipe|
-    #   category = RecipeTag.categories.find_by(title: recipe.r_type)
-    #   filter = RecipeTag.filters.find_by(title: recipe.main_ingredient)
-    #   RecipesTag.create(recipe: recipe, tag: category)
-    #   RecipesTag.create(recipe: recipe, tag: filter)      
-    # end
-    
   end
+
+  def register_tag(title, type)
+    tag = RecipeTag.find_or_create_by(title: title, _type: type)
+    RecipesTag.create(recipe: self, tag: tag)
+  end
+
+  def self.update_tags_and_filters
+    Recipe.all.each do |recipe|
+      recipe.register_tag(recipe.r_type, 'category')
+      recipe.register_tag(recipe.main_ingredient, 'filter')         
+    end  
+  end
+
   def self.convert_to_enum
   	
   	e_r_type = { 0 => :Inne, 1 => :Obiad, 2 => :Deser, 3 => :Zupa, 4 => :Przystawka, 

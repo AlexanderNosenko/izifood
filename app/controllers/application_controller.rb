@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
   
   def check_for_membership!
-    unless current_user.active_member?
+    unless current_user&.active_member?
       redirect_to renew_membership_path
     end
   end

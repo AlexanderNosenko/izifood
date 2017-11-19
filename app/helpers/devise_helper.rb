@@ -21,11 +21,10 @@ module DeviseHelper
     !resource.errors.empty?
   end
 
-  def error_for(field, _resource = nil)
+  def error_for(field, resource)
     errors_html = ""
-    resource = _resource if _resource
 
-    resource.errors.messages[field.to_sym].map do |error|
+    resource&.errors&.messages&.try(:[], field.to_sym).to_a.map do |error|
       errors_html = errors_html + "<div class='alert alert-danger error'>" + error + "</div>"
     end
 

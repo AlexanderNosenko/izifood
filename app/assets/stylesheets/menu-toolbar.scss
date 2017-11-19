@@ -1,0 +1,109 @@
+.menus-toolbar{
+  position: fixed; 
+  transition: all 0.25s ease-out;
+  background: white;
+  width: 350px;
+  min-height: 350px;
+  display: block;
+  top: 70px;
+  left: calc(100% - 127px);
+  
+  &:hover{
+    z-index: 1;
+    left: calc(100% - 370px);
+  }
+  
+  .menus-navigation{
+    display: flex;
+
+    .menu-buttons{
+      margin: 5px;
+      width: 80%;
+    }
+    .tools{
+      margin: 5px;
+      width: 20%;
+      text-align: right;
+    }
+  }
+  .user-menus{
+    overflow-y: auto;
+    max-height: 248px;
+
+    .menu-block{
+      background: white;
+      
+      ::-webkit-scrollbar { 
+        display: none; 
+      }
+
+      .user-menu{
+        .no-recipes{
+          text-align: center;
+          width: 100%;
+          top: 44%;
+          position: absolute;
+        }
+        .recipe{
+          width: 94%;
+          margin: 3%;
+          div{
+              display: inline-block;
+          }
+          .title{
+            max-width: 196px;
+            vertical-align: middle;
+          }
+          .image{
+            display: inline-block;
+          }
+          .image > img{
+            width: 113px;
+          }
+          .remove-recipe-btn{
+            float: right;
+            top: 0px;
+            right: 12px;
+          }
+        }
+      }
+    }
+    .order-btn{
+      margin: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0px;
+    }
+    .menu-controls{
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      .delivery-controls, .order-controls{
+        display: flex;
+        width: 100%;
+        min-height: 50px;
+        flex-direction: row-reverse;
+
+        .btn{
+          margin-right: 10px;
+          height: fit-content;
+        }
+      }
+      .delivery-controls{
+        .set-delivery-btn{
+          margin-right: 10px;
+        }
+      }
+      .order-controls{
+        display: flex;
+        justify-content: space-evenly;
+
+        div{
+          padding: 7px 0px;
+        }
+      }
+    }
+  }
+}

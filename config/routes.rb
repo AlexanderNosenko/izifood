@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'recipes#index'
   
   mount_roboto
-  devise_for :users, :controllers => { :sessions => "sessions" }
+  devise_for :users, :controllers => { :sessions => "sessions", :registrations => "registrations" }
 
   namespace :admin do
     resources :users
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :promotions
     resources :user_promotions
     resources :payments
+    resources :recipe_tags
   
     patch 'utils/update_matches', to: 'utils#update_matches', as: 'utils_update_matches'
     patch 'utils/update_slots', to: 'utils#update_slots', as: 'utils_update_slots'

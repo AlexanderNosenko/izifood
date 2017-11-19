@@ -42,7 +42,7 @@ class Menu < ApplicationRecord
   end
 
   def to_order
-    o = Order.new({ user_id: self.user.id, menu_id: self.id })
+    o = Order.new({ user_id: self.user_id, menu_id: self.id })
     o.order_items = recipe_ingredients.uniq { |r| r.title }.map do |rec_ing|
       OrderItem.new({ 
         order_id: o.id, 
