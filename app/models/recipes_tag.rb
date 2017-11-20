@@ -12,4 +12,6 @@
 class RecipesTag < ApplicationRecord
   belongs_to :recipe
   belongs_to :tag, class_name: 'RecipeTag'
+
+  validates_uniqueness_of :recipe_id, scope: :tag_id
 end

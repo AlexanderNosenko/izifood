@@ -41,10 +41,12 @@ module ApplicationHelper
 
     filter = @_request.parameters[:filter]
     category = @_request.parameters[:category]
+    search = @_request.parameters[:q]
 
     params = {
       category: type == :category ? id : category,
-      filter: type == :filter ? id : filter
+      filter: type == :filter ? id : filter,
+      q: search
     }#.reject { |a, d| as}
     # params = {}
     # params[:category] = id if type == :category

@@ -28,6 +28,8 @@ class Recipe < ApplicationRecord
   mount_uploaders :images, RecipeImageUploader
   mount_uploaders :desc_images, DescriptionImageUploader
 
+  has_many :menu_recipes, dependent: :destroy
+
   has_many :recipe_ingredients, dependent: :destroy
   has_many :recipes_tags
   has_many :recipe_tags, through: :recipes_tags, source: 'tag'
@@ -44,28 +46,32 @@ class Recipe < ApplicationRecord
   enum status: [:unchecked, :ok], _prefix: true
 
   def self.filter(params)
+    res = self
+
     tag_ids = [params[:category], params[:filter]].reject{ |r| r.blank?}
       
     if tag_ids.any?
-      self
-        .joins('JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id')
-        .where('recipes_tags.tag_id': tag_ids)
+      res = joins('INNER JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id')
+        .where('recipes_tags.tag_id': tag_ids).distinct
       # joins(<<-EOS
       #   JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
       #   WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
       # EOS
-      # )
-    else
-      self
+      # )    
     end
+
+    unless params[:q].blank?
+      res = res.where('title ~* ?', params[:q])
+      # ActiveSupport::Inflector.transliterate(q).to_s
+    end 
+    
+    res
   end
 
-  def self.search(q = nil)
+  # def self.search(q)
+  #   cd
     
-    #   .where('recipes_tags.tag_id = ?', 1).to_sql
-    # cd
-    self.where('title ~* ?', q)
-  end
+  # end
 
   def self.create_from(data)
   	r = Recipe.new
@@ -94,16 +100,16 @@ class Recipe < ApplicationRecord
   	end
   end
 
-  def register_tag(title, type)
-    tag = RecipeTag.find_or_create_by(title: title, _type: type)
-    RecipesTag.create(recipe: self, tag: tag)
-  end
-
   def self.update_tags_and_filters
     Recipe.all.each do |recipe|
       recipe.register_tag(recipe.r_type, 'category')
       recipe.register_tag(recipe.main_ingredient, 'filter')         
     end  
+  end
+
+ def register_tag(title, type)
+    tag = RecipeTag.find_or_create_by(title: title, _type: type)
+    RecipesTag.create(recipe: self, tag: tag)
   end
 
   def self.convert_to_enum

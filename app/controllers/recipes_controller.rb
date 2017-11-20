@@ -5,13 +5,10 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    Recipe.update_tags_and_filters    
+    # Recipe.update_tags_and_filters    
 
     recipes = Recipe.filter(params)
-    recipes = recipes.search(params[:q]) if params[:q]
-
-    recipes = recipes.page(params[:page]).per(6)
-    
+      .page(params[:page]).per(6)
     # current_user.give_trial_promo!
     # current_user.give_influencer_promo!
 

@@ -21,22 +21,25 @@ $(document).on('ready', function(){
       $('.glass').addClass('active');
     }
     
-    var location = window.location.href;
-    if(!location.includes('?')) location = location + "?"
+    // var location = window.location.href;
+    // if(!location.includes('?')) location = location + "?"
 
-    var queryParam = "&q=" + $('#recipes-search-field').val();
+    // var queryParam = "&q=" + $('#recipes-search-field').val();
 
-    if(location.match(/&q=\w*/))
-      var new_location = location.replace(/&q=\w*/, queryParam); 
-    else
-      var new_location = location + queryParam
+    // if(location.match(/&q=\w*/))
+    //   var new_location = location.replace(/&q=\w*/, queryParam); 
+    // else
+    //   var new_location = location + queryParam
 
-    window.history.pushState('page2', 'Title', new_location);
-    $('#recipes-search-form').submit();
+    // window.history.pushState('page2', 'Title', new_location);
+    // $('#recipes-search-form').submit();
   }
 
 
   $('#recipes-search-field').on('input', function(){
+    searchRecipes()
+  })
+  $('#recipes-search-form>.btn').on('click', function(){
     searchRecipes()
   })
 

@@ -16,7 +16,18 @@ body{
   padding-left: 0px; 
   padding-right: 0px; 
 } 
+.navbar{
+  .container-fluid{
+    width: 70%;
+  }
+  .navbar-brand{
+    img{
+      width: 112px;
+    }
+  }
+}
 $search-icon-width: 38px;
+$accent-color: #46b8da;
 
 #recipes-search-form{
   display: flex;
@@ -24,13 +35,10 @@ $search-icon-width: 38px;
   input{
       width: 100%;
       height: 45px;
-      /*background-color: rgba(255, 255, 255, 0.1);*/
-      border: 1px solid #46b8da;
+      border: 1px solid $accent-color;
       border-radius: 5px;
       padding-left: $search-icon-width + 10px;
       font-size: 1.2em;
-      /*font-size: 1em;*/
-      /*color: #FFF; */
       &:focus{
         outline: none;
       }
@@ -69,6 +77,16 @@ $search-icon-width: 38px;
       }
     }
   }
+  .search-btn{
+    background: $accent-color;
+    margin-left: 10px;
+    color: white;
+    &:hover{
+      background: #46b8da;
+      margin-left: 10px;
+      color: white;
+    }
+  }
 }
 
 
@@ -91,11 +109,12 @@ $search-icon-width: 38px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 100px;
+    max-height: 100px;
+    transition: max-height .5s;
     overflow: hidden;
-    /*transition: height 2s;*/
     &.full-height{
-      height: 100%;
+      max-height: 184px;
+      transition: max-height .5s;
     }
 
     a{
@@ -123,7 +142,7 @@ $search-icon-width: 38px;
       }
 
       &.active-category, &:hover{
-        border: 1px solid #46b8da;
+        border: 1px solid $accent-color;
         /*color: #fff;*/
         background-color: #5bc0de;
       }
@@ -153,4 +172,56 @@ $search-icon-width: 38px;
   .filters{
     padding: 8px;
   }
+}
+
+
+
+
+/*.footer-nav{
+  width: 100%;
+  height: 80px;
+  background: white;
+}
+.footer-link{
+  display: inline-block;
+  padding: 20px;
+}
+.footer-link:hover{
+  background: #fafafa;
+}
+.footer-link.navbar-brand{
+  float: none;
+}
+.footer-link>a{
+  font-size: 2em;
+  color: #1ABDD4;
+}
+.footer-link>a:hover{
+  color: #009688;
+  text-decoration: none;
+}*/
+/*.main-wrapper{
+  height: 100%;
+}
+.wrapper{
+  height: 100%;
+  margin-bottom: -110px;
+}
+html, body{
+  height: 100%;
+  margin: 0;
+}*/
+
+footer .copyright{
+    padding-top: 42px;
+    font-size: 1.5em;
+    margin-bottom: 0px;
+}
+footer{
+    width: 100%;
+    height: 110px;
+    top: calc(100%); 
+    background: #1ABDD4;
+    color: white;
+    text-align: center;
 }
