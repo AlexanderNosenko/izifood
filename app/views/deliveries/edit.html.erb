@@ -1,4 +1,9 @@
-<%= render partial: 'form', locals: { url: order_delivery_path(params[:order_id], @delivery.id) } %>
+<div class="order-delivery-wrapper">
+  <%= render partial: 'delivery_addresses/form' %>
+  <h3>Pick a slot</h3>
+  <%= render partial: 'form', locals: { url: order_delivery_path(params[:order_id], @delivery.id) } %>
+</div>
+
 <script>
   $(document).ready(function(){
     data = "<%= @delivery.to_json %>".replace(/&quot;/g, '"')

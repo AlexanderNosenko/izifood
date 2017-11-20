@@ -11,8 +11,10 @@
 	<%= hidden_field_tag 'order[order_items_attributes][][quantity]', order_item.quantity %>
 
 	<div class="title">
-		<%= order_item.recipe_ingredient.title %>
-		<%= " ( #{order_item.quantity} ) " %>
+		<span><%= order_item.recipe_ingredient.title %></span>
+		<span class="ingredient-quantity" >
+			<%= order_item.quantity.present? ? "( #{order_item.quantity} )" : "" %>
+		</span>
 	</div>
 	
 	<%= render partial: 'order_items/possible_ingredients', locals: {

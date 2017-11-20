@@ -38,10 +38,6 @@ class Order < ApplicationRecord
     ).first
     #TODO AND deliveries.time_from < time '03:00'
   end
-
-  def items
-    order_items.includes(:recipe_ingredient)
-  end
   
   def remove_not_mentioned!(order_items_new)
     new_ids = order_items_new.pluck(:id)
@@ -88,5 +84,8 @@ class Order < ApplicationRecord
       errors.add(:order, "Menu is already ordered, please edit the current one or create new.")
     end  
   end
-  
+  private
+  def items
+    order_items.includes(:recipe_ingredient)
+  end
 end

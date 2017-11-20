@@ -5,7 +5,7 @@
   <div class="ingredients">
     <div class="recipe-block">
       <div class="recipe-ingredients">
-        <% @order.items.each do |item| %>
+        <% @order.order_items.each do |item| %>
           <%= render item, locals: {form: form} %>    
         <% end %>
       </div>    
@@ -17,5 +17,5 @@
       <div class="custom-ingredients"></div>
     </div>
   </div>
-  <%= form.submit submit_btn_text, class: "btn btn-success" %>
+  <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
 <% end %>

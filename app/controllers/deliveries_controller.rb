@@ -16,7 +16,7 @@ class DeliveriesController < ApplicationController
     if delivery.save
       redirect_to recipes_path, notice: 'Delivery is set.'
     else
-      redirect_to new_order_delivery_path(params[:order_id]), notice: "Error Delivery is already set"
+      redirect_to new_order_delivery_path(params[:order_id])
     end
   end
 
@@ -53,7 +53,9 @@ class DeliveriesController < ApplicationController
   
   def prepared_params
     times = delivery_params[:deliver_on].scan(/\d\d:\d\d/)
-    
+    adress = DeliveryAddress.find_by(id: delivery_params[:address_id].to_i)
+    flash[:error] =  "Please fill in adress" if adress.nil?
+
     {
       deliver_on: DateTime.parse(delivery_params[:deliver_on]),
       time_from: times[0],
@@ -61,7 +63,7 @@ class DeliveriesController < ApplicationController
       cost_value: delivery_params[:cost_value],
       cost_currency: delivery_params[:cost_currency],
       order_id: params[:order_id],
-      address: DeliveryAddress.find(delivery_params[:address_id])
+      address: adress
     }
   end
 

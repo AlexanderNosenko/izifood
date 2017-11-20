@@ -1,1 +1,5 @@
-<%= render partial: 'form', locals: { url: order_delivery_index_path } %>
+<div class="order-delivery-wrapper">
+  <%= render partial: 'delivery_addresses/form' %>
+  <h3>Pick a slot</h3>
+  <%= render partial: 'form', locals: { url: order_delivery_index_path } %>
+</div>

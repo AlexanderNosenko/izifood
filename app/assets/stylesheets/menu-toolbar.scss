@@ -1,17 +1,18 @@
 .menus-toolbar{
-  position: fixed; 
+  /*position: fixed; */
+  margin: auto;
   transition: all 0.25s ease-out;
   background: white;
   width: 350px;
   min-height: 350px;
   display: block;
   top: 70px;
-  left: calc(100% - 127px);
+  /*left: calc(100% - 127px);*/
   
-  &:hover{
+  /*&:hover{
     z-index: 1;
     left: calc(100% - 370px);
-  }
+  }*/
   
   .menus-navigation{
     display: flex;

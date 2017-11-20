@@ -1,6 +1,6 @@
 <div class="recipe-filters">
   <!-- <div class="recipe-filters__categories-wrapper"> -->
-    <div class="recipe-filters__categories">
+    <div class="recipe-filters__categories <%= (params[:filter].present? || params[:q].present?) ? 'full-height' : '' %>">
       <% categories.each do |category| %>
         <div class="recipe-filters__categories__category-tag-wrapper">
           <%= link_to recipe_filters(:category, category.id) do %>
@@ -14,7 +14,20 @@
             </div>
           <% end %>  
         </div>
-      <% end %>  
+      <% end %>
+      <div class="recipe-filters__search">
+        <%= render partial: 'recipes/search_form' %>
+      </div>
+      <div class="filters">
+        <% filters.each do |_filter| %>
+          <%= link_to recipe_filters(:filter, _filter.id) do %>
+            <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
+              <%= _filter.title %>
+            </div>
+          <% end %>
+        <% end %>
+        <%= link_to 'Clear filter', recipe_filters(:filter, nil) %>
+      </div>
     </div>
     <div class="recipe-filters__categories-controlls-wrapper">
       <div class="recipe-filters__categories__category-tag-wrapper">
@@ -24,28 +37,18 @@
           </div>
         </div>
       </div>
-      <div class="recipe-filters__categories__category-tag-wrapper">
-        <%= link_to recipe_filters(:category, nil) do %>
-          <div class="btn recipe-filters__categories__category-filter clear-filters-btn">
-            <div class="recipe-filters__categories__category-filter__content">
-              Clear category
+      <% if params[:category] %>
+        <div class="recipe-filters__categories__category-tag-wrapper">
+          <%= link_to recipe_filters(:category, nil) do %>
+            <div class="btn recipe-filters__categories__category-filter clear-filters-btn">
+              <div class="recipe-filters__categories__category-filter__content">
+                Clear category
+              </div>
             </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <!-- </div> -->
-  <div class="recipe-filters__search">
-    <%= render partial: 'recipes/search_form' %>
-  </div>
-  <div class="filters">
-    <% filters.each do |_filter| %>
-      <%= link_to recipe_filters(:filter, _filter.id) do %>
-        <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
-          <%= _filter.title %>
+          <% end %>
         </div>
       <% end %>
-    <% end %>
-    <%= link_to 'Clear filter', recipe_filters(:filter, nil) %>
-  </div>  
+    </div>
+  <!-- </div> -->
+  
 </div>

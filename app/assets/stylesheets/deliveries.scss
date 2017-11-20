@@ -4,8 +4,28 @@
   background-color: #e7eef8!important;
   box-shadow: 0 0 0 4px rgba(0, 141, 200, 0.4);
 }
-.delivery-address-form{
-  width: 50%;
+
+.order-delivery-wrapper{
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  .delivery-address-wrapper{
+    margin-bottom: 50px;
+    .delivery-address-form{
+      .fields{
+        display: flex;
+        .form-group{
+          width: 50%;
+          margin-left: 10px;
+        }
+      }
+      .btn{
+        float: right;
+      }
+    }  
+  }
+
 }
 /*.slot-selector{
   position: absolute!important;

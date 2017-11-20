@@ -1,40 +1,20 @@
 <div class="delivery-address-wrapper">
-  <style>
-    .map_canvas{
-    opacity: 0;
-    transition: opacity 0.5s; 
-    }
-    .map-show{
-        position: absolute!important;
-        z-index: 1000;
-        transition: opacity 0.5s;
-        opacity: 1;
-        width: 100%;
-        height: 215px;
-        transition: opacity 0.5s;
-        box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-        top: -215px;
-    }
-    .location-input {
-        width: 100%;
-        display: inline-block;
-        margin-right: 10px;
-    }
-    #location-picker-sbm{
-        width: 20%;
-    }
-  </style>
-
+  <h3>Delivery Information</h3>
   <%= form_for(@delivery_adress, html: {class: "delivery-address-form"}, remote: true) do |f| %>
     <!-- <Button id="location-picker-sbm" onClick={this.toggleMap.bind(this)}>Map</Button> -->
-    <div class="form-group">
-      <div id="map" className="map_canvas"></div>
-      <%= f.label :destination %>
-      <%= f.text_field :address, class:"form-control gmaps-input", placeholder: "Krolewska 17, Warszawa, Polska" %>
-      <%= f.text_field :flat_number, class:"form-control", placeholder: "Flat number" %>
-      <%= f.hidden_field :details, id: 'adress-details' %>
-      <%= f.hidden_field :default %>
-      <%= f.submit "Save", class: "btn btn-sucess" %>
+    <div id="map" className="map_canvas"></div>
+    <div class="fields">
+      <div class="form-group">
+        <%= f.label :destination %>
+        <%= f.text_field :address, class:"form-control gmaps-input", placeholder: "Krolewska 17, Warszawa, Polska" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :flat_number %>
+        <%= f.text_field :flat_number, class:"form-control", placeholder: "Flat number" %>
+      </div>  
     </div>
+    <%= f.hidden_field :details, id: 'adress-details' %>
+    <%= f.hidden_field :default %>
+    <%= f.submit "Save", class: "btn btn-sucess" %>
   <% end %>
 </div>

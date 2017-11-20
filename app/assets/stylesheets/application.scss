@@ -2,10 +2,30 @@
 @import "bootstrap";
 @import "menu-toolbar";
 /*@import "order-live-search";*/
+@import "recipe-filters";
+
+html{
+  position: relative;
+  min-height: 100%;
+}
 
 body{
   background: #fafafa;
+  margin-bottom: 110px; /* Margin bottom by footer height */
 }
+main{
+  overflow: -webkit-paged-x;
+}
+
+/*.main-wrapper{
+  height: 100%;
+}
+.wrapper{
+  height: 100%;
+  margin-bottom: -110px;
+}*/
+
+
 .flashes{
   z-index: 1000160000;
   width: fit-content;
@@ -15,10 +35,15 @@ body{
 .container-fluid{
   padding-left: 0px; 
   padding-right: 0px; 
-} 
+}
+
 .navbar{
   .container-fluid{
     width: 70%;
+  }
+  .menus-badge{
+    background: $accent-color;
+    margin-left: 5px;
   }
   .navbar-brand{
     img{
@@ -26,202 +51,31 @@ body{
     }
   }
 }
-$search-icon-width: 38px;
-$accent-color: #46b8da;
 
-#recipes-search-form{
-  display: flex;
-  width: 80%;
-  input{
-      width: 100%;
-      height: 45px;
-      border: 1px solid $accent-color;
-      border-radius: 5px;
-      padding-left: $search-icon-width + 10px;
-      font-size: 1.2em;
-      &:focus{
-        outline: none;
-      }
-      &::placeholder{
-        /*font-size: 1em;*/
-        /*color: #FFF;*/
-      }
-  }
-  .search-icon{
-    background-image: url('/assets/search-icon-small.png');
-    background-position: center;
-    background-size: cover;
-    z-index: 1000;
-    position: absolute;
-    opacity: 0;
-    transition: 0.2s;
-    width: $search-icon-width;
-    height: $search-icon-width + 1px;
-    cursor: pointer;
-    margin-top: 3px;
-    margin-left: 5px;
-
+.pagination{
+  .page-item{
     &.active{
-      margin-left: 5px;
-      opacity: 1;
-    }
-
-    &.cross{
-      margin-left: -16px;
-      &.active{
-        margin-left: 5px;
-      }
-      background-image: url('/assets/cross-on.png');
-      &:hover{
-        background-image: url('/assets/cross-off.png');
+      .page-link{
+        background-color: $accent-color;
+        border-color: darken($accent-color, 10%);
       }
     }
   }
-  .search-btn{
-    background: $accent-color;
-    margin-left: 10px;
-    color: white;
-    &:hover{
-      background: #46b8da;
-      margin-left: 10px;
-      color: white;
-    }
-  }
 }
-
-
-.recipe-filters{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 23px;
-  /*&__search{
-    display: flex;
-    flex-direction: row;
-    
-    form{
-      width: 70%;
-    }
-  }*/
-  &__search{
-    padding: 8px;
-  }
-  &__categories{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-height: 100px;
-    transition: max-height .5s;
-    overflow: hidden;
-    &.full-height{
-      max-height: 184px;
-      transition: max-height .5s;
-    }
-
-    a{
-      height: fit-content;
-
-      margin:10px 0 0 2%;
-      flex-grow: 1;
-    }
-    &__category-tag-wrapper{
-      width: calc(100% * (1/4) - 10px - 1px);
-    }
-
-    &__category-filter{
-      /*display: flex;
-      justify-content: space-between;*/      
-
-      border: 1px solid black;
-      color: black;
-      margin: 10px;
-      width: calc(100% - 14px);
-      height: 72px;
-
-      &__content{
-        width: fit-content;
-      }
-
-      &.active-category, &:hover{
-        border: 1px solid $accent-color;
-        /*color: #fff;*/
-        background-color: #5bc0de;
-      }
-      /*&__title{
-        float: right;
-      }*/
-      &__icon{
-        /*float: left;*/
-        height: 60px;
-      }
-    }
-  }
-  .more-categories-btn{
-    div{
-      width: 100%;
-      padding: 15px;
-    }
-    height: 60px;
-  }
-  &__categories-controlls-wrapper{
-
-    display: flex;
-    .clear-filters-btn{
-      @extend .more-categories-btn;
-    }
-  }
-  .filters{
-    padding: 8px;
-  }
-}
-
-
-
-
-/*.footer-nav{
-  width: 100%;
-  height: 80px;
-  background: white;
-}
-.footer-link{
-  display: inline-block;
-  padding: 20px;
-}
-.footer-link:hover{
-  background: #fafafa;
-}
-.footer-link.navbar-brand{
-  float: none;
-}
-.footer-link>a{
-  font-size: 2em;
-  color: #1ABDD4;
-}
-.footer-link>a:hover{
-  color: #009688;
-  text-decoration: none;
-}*/
-/*.main-wrapper{
-  height: 100%;
-}
-.wrapper{
-  height: 100%;
-  margin-bottom: -110px;
-}
-html, body{
-  height: 100%;
-  margin: 0;
-}*/
 
 footer .copyright{
-    padding-top: 42px;
-    font-size: 1.5em;
-    margin-bottom: 0px;
+  padding-top: 42px;
+  font-size: 1.5em;
+  margin-bottom: 0px;
 }
 footer{
-    width: 100%;
-    height: 110px;
-    top: calc(100%); 
-    background: #1ABDD4;
-    color: white;
-    text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 110px;
+  /*top: calc(100%); */
+  background: #1ABDD4;
+  color: white;
+  text-align: center;
+  /*line-height: 60px;*/
 }
