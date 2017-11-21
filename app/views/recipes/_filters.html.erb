@@ -6,10 +6,10 @@
           <%= link_to recipe_filters(:category, category.id) do %>
             <div class="btn recipe-filters__categories__category-filter <%= active_filter(category.id, 'active-category') %>">
               <div class="recipe-filters__categories__category-filter__content">
-                <img class="recipe-filters__categories__category-filter__icon" src="<%= filter_icon_url(category.icon) %>">
-                <!--  alt="<%= category.title %>" -->
-                <%= category.title %>
-                <!-- <span class="category-filter__title"><%= category.title %></span> -->  
+                <%= image_tag category.icon.to_s, class: "recipe-filters__categories__category-filter__icon" %>
+                <!-- <span class="category-filter__title"> -->
+                  <%= category.title %>
+                <!-- </span>   -->
               </div>
             </div>
           <% end %>  

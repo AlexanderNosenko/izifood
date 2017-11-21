@@ -107,7 +107,7 @@ $search-icon-width: 38px;
       opacity: 0;
       width: $search-icon-width;
       height: $search-icon-width + 1px;
-      background-image: url('/assets/search-icon-small.png');
+      background-image: image-url("search-icon-small.png");
       background-position: center;
       background-size: cover;
       transition: 0.2s;
@@ -133,9 +133,9 @@ $search-icon-width: 38px;
           margin-left: 9px;
           z-index: 0;
         }
-        background-image: url('/assets/cross-on.png');
+        background-image: image-url('cross-on.png');
         &:hover{
-          background-image: url('/assets/cross-off.png');
+          background-image: image-url('cross-off.png');
         }
       }
     }
