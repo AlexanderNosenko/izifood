@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= include_page_css params[:controller] %>
     <%= javascript_include_tag 'application' %>
-    <!-- Debug here -->
     <%= include_page_js params[:controller] %>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>    
   </head>

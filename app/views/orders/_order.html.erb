@@ -1,0 +1,64 @@
+<div class="order-card">
+  <%= order_status_ribbon(order) %>
+  <div class="order-info">
+    <% if order.delivery.nil? %>
+      <div class="set-delivery">
+        <span class="set-delivery-text">No delivery set, You can do it</span>
+        <%= link_to 'Choose slot', new_order_delivery_path(order), class: "btn btn-primary set-delivery-btn" %>
+      </div>
+    <% end %>
+    <div class="order-delivery-info">
+      <% if order.delivery %>
+        <div class="delivery-date">
+          <span class="day-name">THU</span>
+          <span class="day-number"><%= order.delivery.deliver_on.day %></span>
+          <span class="month">NOV</span>
+        </div>
+        <div class="adress-info">
+          <span class="address"><%= "#{order.delivery.address.address}, #{order.delivery.address.flat_number}" %></span>
+          <span class="time"><%= "#{order.delivery.time_from} - #{order.delivery.time_to}" %></span>
+          <span class="order-id">
+            <span>Order: </span>
+            <span><%= order.id %></span>
+          </span>
+        </div>
+      <% else %>
+        <div class="delivery-date">
+          <span class="day-name">THU</span>
+          <span class="day-number">23</span>
+          <span class="month">NOV</span>
+        </div>
+        <div class="adress-info">
+          <span class="address">Aleja Jana Pawla 43, 22</span>
+          <span class="time">10:00 - 12:00</span>
+          <span class="order-id">
+            <span>Order: </span>
+            <span>ap2j2nf2nf902fn2203nf</span>
+          </span>
+        </div>
+      <% end %>
+    </div>
+    <div class="menu-info">
+      <div class="menu-description">
+        <span class="title">
+          <%= order.menu.title %>
+          -
+          <span class="recipes-count">
+            <%= "#{order.menu.recipes.count} recipes" %>
+          </span>
+        </span>
+        <span class="description"><%= short_description(order.menu) %></span>
+      </div>
+      
+    </div>
+  </div>
+  <div class="order-controlls">
+    <div class="controlls-info <%= order.delivery ? '' : 'disabled' %>">
+      Info
+    </div>
+    <div class="controlls-buttons">
+      <button class="btn btn-danger disabled btn-cancel">Cancel</button>  
+      <%= link_to 'Edit', edit_order_path(order), class: "btn btn-primary btn-edit" %>
+    </div>
+  </div>
+</div>

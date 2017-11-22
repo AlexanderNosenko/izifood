@@ -63,4 +63,32 @@ module ApplicationHelper
   def filter_icon_url(icon_name)
     "/assets/" + icon_name.to_s
   end
+
+  def order_status_ribbon(order)
+    status_class = ""
+    status_text = ""
+
+    case order.delivery
+    when nil
+      status_class = 'white'
+      status_text = "New"
+    else
+      status_class = 'red'
+      status_text = "Pending"
+    end
+
+    html = <<-HTML
+    <div class="corner-ribbon order-status #{status_class}">
+      #{status_text}
+    </div>
+    HTML
+
+    html.html_safe
+  end
+
+  def short_description(menu)
+    "( " + menu.recipes.map { |recipe|
+      recipe.title[0..15] + "..."
+    }.join(", ") + " )"
+  end
 end

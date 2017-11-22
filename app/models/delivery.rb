@@ -24,6 +24,10 @@ class Delivery < ApplicationRecord
 
   validate :no_deliveries_set, if: -> { new_record? }
 
+  def date
+    "#{deliver_on} #{time_from}-#{time_to}"
+  end
+
   def no_deliveries_set
     if Delivery.where('order_id = ?', order_id).count != 0
       errors.add(:delivery_set, "can't delivery order more then 1 time")

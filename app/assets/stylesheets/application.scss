@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "variables";
 @import "menu-toolbar";
 /*@import "order-live-search";*/
 @import "recipe-filters";
@@ -19,7 +20,6 @@ main{
 
 /*.main-wrapper{
   height: 100%;
-}
 .wrapper{
   height: 100%;
   margin-bottom: -110px;
@@ -51,7 +51,9 @@ main{
     }
   }
 }
-
+[role="navigation"]{
+  text-align: center;
+}
 .pagination{
   .page-item{
     &.active{

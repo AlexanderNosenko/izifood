@@ -22,7 +22,7 @@
             My Menus<span class="badge menus-badge"><%= @menus.count %></span>
           </a>
         </li>
-        <li><a href="#">My Orders</a></li>
+        <li><%= link_to 'My Orders', orders_path %></li>
         <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
       </ul>
     </div><!--/.nav-collapse -->

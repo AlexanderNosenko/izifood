@@ -2,6 +2,15 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   
   def index
+    orders = current_user.orders
+                         .includes(:delivery)
+                         .order('deliveries.id ASC')
+                         .page(params[:page])
+                         .per(4)
+
+    render locals: {
+      orders: orders
+    }
   end
 
   def new
@@ -56,7 +65,7 @@ class OrdersController < ApplicationController
       :recipe_ingredient_id, 
       :quantity, 
       :ingredient_id
-   ]
+    ]
   end
 
   def order_items_params

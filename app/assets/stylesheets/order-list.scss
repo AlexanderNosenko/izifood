@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700');
+
+body{
+  background: #f0f0f0;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.corner-ribbon{
+  width: 130px;
+  margin-left: 51%;
+  margin-top: 16px;
+  background: #e43;
+  text-align: center;
+  /*line-height: 50px;*/
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(45deg);
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+
+/* Colors */
+
+.corner-ribbon.white{background: #f0f0f0; color: #555;}
+.corner-ribbon.black{background: #333;}
+.corner-ribbon.grey{background: #999;}
+.corner-ribbon.blue{background: #39d;}
+.corner-ribbon.green{background: #2c7;}
+.corner-ribbon.turquoise{background: #1b9;}
+.corner-ribbon.purple{background: #95b;}
+.corner-ribbon.red{background: #e43;}
+.corner-ribbon.orange{background: #e82;}
+.corner-ribbon.yellow{background: #ec0;}
+
+
+@import "variables";
+.orders-section{
+  .pending-orders{
+
+  }
+  .order-card{
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    margin-bottom: 10px;
+
+    .order-info{
+      display: flex;
+      padding: 10px;
+      
+      .set-delivery{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 326px;
+        height: 96px;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: 4px 5px 6px rgba(0,0,0,.3);
+        /* display: none; */
+        margin-top: -21px;
+        color: white;
+        .set-delivery-text{
+          text-align: center;
+          padding: 10px;
+        }
+        .set-delivery-btn{
+          width: 100px;
+          margin: auto;
+        }
+      }
+
+      .order-delivery-info{
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+        div{
+          /*width: 50%;*/
+        }
+
+        .delivery-date{
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+
+          .day-name{
+
+          }
+          .day-numbe{
+
+          }
+          .month{
+
+          }
+        }
+
+        .adress-info{
+          display: flex;
+          flex-direction: column;
+      
+          .address{
+
+          }
+          .time{
+            
+          }
+          .order-id{
+            
+          }
+        }
+
+        &.no-delivery-overlay{
+          .set-delivery{
+            display: flex;
+            .set-delivery-text{
+            
+            }
+            .set-delivery-btn{
+
+            }
+          }
+        }
+      }
+
+      .menu-info{
+        width: 50%;
+        .menu-description{
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          .title{
+
+          }
+          .description{
+            margin: auto;
+            color: grey;
+            width: 60%;
+            font-size: 0.9em;
+          }
+        }
+        .recipes-count{
+
+        }
+      }
+    }
+    
+    .order-controlls{
+      display: flex;
+      padding: 13px;
+      .controlls-info{
+        &.disabled{
+          opacity: 0;
+        }
+        text-align: center;
+        width: 50%;
+      }
+      .controlls-buttons{
+        text-align: right;
+        width: 50%;
+        .btn-cancel{
+
+        }
+        .btn-edit{
+          
+        }
+      }
+    }
+    .corner-ribbon.order-status{
+      margin-left: 87%;
+      margin-top: 20px;
+    }
+  }
+}
+
+
+
+
+
+

@@ -39,14 +39,12 @@ Rails.application.routes.draw do
   # post '/menus/add_recipe/:recipe_id', to: '#createadd_recipe', as: 'add_recipe'
   # delete 'remove_recipe/:recipe_id', to: 'menus#remove_recipe', as: 'remove_recipe'
 
-  resources :orders do 
+  resources :orders do
     resources :delivery, controller: "deliveries", only: %i(new create edit update)
     # post 'delivery', to: 'deliveries#create'
   end
   resources :delivery_addresses, only: %i(create update)
-
   resources :ingredients, only: %i(index)
-  
   resources :accounts, only: %i(edit update)
   get '/renew_membership', to: 'accounts#renew_membership', as: :renew_membership
   patch '/renew_membership', to: 'accounts#update_membership'

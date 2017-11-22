@@ -2,6 +2,7 @@
 @import "cs-select";
 @import "cs-skin-elastic";
 @import "ingredient-selector";
+@import "order-list";
 
 .container{
   width: 60%;
@@ -34,6 +35,8 @@
   height: 46px;
   float: right;
 }
+
+
 .ingredients{
   /*width: 60%;*/
   margin: 0px auto;
