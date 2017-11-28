@@ -6,8 +6,6 @@ class RecipesController < ApplicationController
   def index
     # Recipe.update_tags_and_filters    
 
-  result = RubyProf.profile do
-    
     recipes = Recipe.filter(params)
       .page(params[:page]).per(6)
     # current_user.give_trial_promo!
@@ -32,9 +30,6 @@ class RecipesController < ApplicationController
       format.html { render locals: locals }
       format.js { render 'recipes/_list.js.erb', locals: locals }
     end
-  end
-  printer = RubyProf::MultiPrinter.new(result)
-  printer.print(:path => "./public/profiler", :profile => "profile")
   
   end
 

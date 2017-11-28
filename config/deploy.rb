@@ -57,16 +57,16 @@ set :sidekiq_processes, 1
 set :linked_files, %w{config/secrets.yml config/application.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle, public}
 
-Rake::Task["puma:start"].reenable
+# Rake::Task["puma:start"].reenable
 namespace :deploy do
-  desc "Fix deploy:puma:restart bug"
-  task :puma_restart_fix do
-    on roles(:app) do 
-      execute("cd #{current_path}; /usr/local/rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec puma -C #{shared_path}/puma.rb --daemon")
-    end
-  end
+  # desc "Fix deploy:puma:restart bug"
+  # task :puma_restart_fix do
+  #   on roles(:app) do 
+  #     execute("cd #{current_path}; /usr/local/rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec puma -C #{shared_path}/puma.rb --daemon")
+  #   end
+  # end
 
-  after 'puma:restart', 'deploy:puma_restart_fix'
+  # after 'puma:restart', 'deploy:puma_restart_fix'
   
   desc "Update crontab with whenever"
   task :update_cron do
