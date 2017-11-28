@@ -24,18 +24,21 @@ class RecipeIngredient < ApplicationRecord
     limit_index = limit - 1
     bandwith = limit_index - most_popular_ingredients.count
 
-    @ingredients ||= Ingredient.search(title).reject { |i|
-      most_popular_ingredients.pluck(:id).include?(i.id)
-    }.sort_by { |r| 
-      r["updated_at"] 
-    }
+    @ingredients ||= ( Ingredient.search(title)  - most_popular_ingredients )
+    @ingredients = @ingredients.sort_by { |r| r["updated_at"] }
+
     result = [].concat(most_popular_ingredients).concat(@ingredients[0..bandwith])
     result[0..limit_index]
   end
 
   def most_popular_ingredients
-    ingredients = Ingredient.where(id: ranked_order_items.pluck(:ingredient_id))
-    @most_popular_ingredients ||= sort_by_rank(ingredients)
+    if @most_popular_ingredients
+      @most_popular_ingredients
+    else
+      #todo refactor sort_by_rank
+      ingredients = Ingredient.where(id: ranked_order_items.pluck(:ingredient_id))
+      @most_popular_ingredients = sort_by_rank(ingredients)
+    end
   end
   
   def update_match
@@ -54,19 +57,22 @@ class RecipeIngredient < ApplicationRecord
 
   def ranked_order_items
     popularity_sql = <<-EOS
-      SELECT b.*,
-             (SELECT Count(o.*) 
-              FROM   order_items o 
-                     INNER JOIN recipe_ingredients 
-                             ON recipe_ingredients.id = o.recipe_ingredient_id 
-              WHERE  o.recipe_ingredient_id = '#{self.id}' 
-                     AND o.ingredient_id = b.ingredient_id
-              ) AS count 
-      FROM   order_items b
-      WHERE  b.recipe_ingredient_id = '#{self.id}'
-      ORDER  BY count DESC
+      SELECT DISTINCT on (z.ingredient_id) * 
+      FROM (
+        SELECT DISTINCT b.*,
+               (SELECT Count(o.*) 
+                FROM   order_items o 
+                       INNER JOIN recipe_ingredients 
+                               ON recipe_ingredients.id = o.recipe_ingredient_id 
+                WHERE  o.recipe_ingredient_id = '#{self.id}' 
+                       AND o.ingredient_id = b.ingredient_id
+                ) AS count 
+        FROM   order_items b
+        WHERE  b.recipe_ingredient_id = '#{self.id}'
+        ORDER  BY count DESC
+      ) z
     EOS
-    @ranked_order_items ||= OrderItem.find_by_sql(popularity_sql).uniq { |b| b.ingredient_id }
+    @ranked_order_items ||= OrderItem.find_by_sql(popularity_sql)
   end
 
   def self.add_ingredients_from(data, recipe)
