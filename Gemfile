@@ -34,7 +34,8 @@ gem 'roboto', '~> 0.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'active_model_serializers'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis'
+gem 'redis-namespace'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Authorization
@@ -46,6 +47,8 @@ gem "administrate"
 #Background jobs
 gem 'sidekiq'
 gem 'sidekiq-status'
+gem 'sidekiq-middleware'
+
 gem 'selenium-webdriver'
 gem 'headless'
 gem 'rest-client'

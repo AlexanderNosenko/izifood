@@ -1,1 +1,10 @@
 $accent-color: #46b8da;
+$grey: #E0E0E0;
+
+
+::-webkit-scrollbar { 
+  width: 4px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: $accent-color;
+}

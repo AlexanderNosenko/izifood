@@ -1,4 +1,22 @@
 $(document).on('ready', function(){
+  
+  // Slots grid
+  var slotsGrid = [];
+
+  $('.slot-grid__table:first>tbody>tr').each(function(i){
+    slotsGrid[i] = []
+    $(this).find('.slot-grid--item').each(function(j){
+      slotsGrid[i][j] = {
+        status: !$(this).hasClass('unavailable'),
+        button: $(this)
+      }
+    })    
+  })
+  // console.log(slotsGrid)
+  var slotsGridTransposed = slotsGrid[0].map(function(col, i){ return slotsGrid.map(function(row){return row[i]}) });
+  // console.log(slotsGridTransposed)
+
+
   //Slot Selector
   var slot_selectors = [];
   var slot_selector_bar_matches = {};
@@ -25,7 +43,7 @@ $(document).on('ready', function(){
     slot_selectors[current_slot_selector].show();
   })
   
-  $('.available-slot--button').on('click', function(){
+  $(document).on('click', '.available-slot--button', function(){
     var dateTimeString = $(this).find('.visually-hidden').text();
     var deliveryCostValue = $(this).find('.value').text()
     var deliveryCostCurrency = $(this).find('.currency').text()
@@ -36,5 +54,32 @@ $(document).on('ready', function(){
     // console.log($('[name="delivery[deliver_on]"]'))
     // console.log(dateTimeString, deliveryCostValue, deliveryCostCurrency)
     $('.order-form').submit()
+  })
+  
+
+
+  // Toggle slots MOBILE
+  $('.day-selector__day-date').on('click', function(){
+    var date = $(this).closest('.day-selector__list-item').data('date')
+    
+    $(this).closest('.slot-selector--single-week').find('.day-selector__list-item').each(function(index){
+      if($(this).data('date') == date){
+        $('.slot-list:first').find('li').each(function(timeIndex){
+          $(this).removeClass('available')
+          $(this).removeClass('unavailable')
+          
+          var status = slotsGridTransposed[index][timeIndex].status;
+          var button = slotsGridTransposed[index][timeIndex].button;
+          var slotClass = status ? 'available' : 'unavailable';
+          
+          $(this).addClass(slotClass)
+
+          if(status)
+            $(this).find('.status').html(button.clone())
+          else
+            $(this).find('.status').html('<span class="unavailable-slot-text" data-reactid="336"><span data-reactid="338">Unavailable</span></span>')
+        })
+      }
+    })
   })
 });

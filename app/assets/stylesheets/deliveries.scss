@@ -4,7 +4,9 @@
   background-color: #e7eef8!important;
   box-shadow: 0 0 0 4px rgba(0, 141, 200, 0.4);
 }
-
+.group-selector.no-border{
+  background: none;
+}
 .order-delivery-wrapper{
   width: 60%;
   margin: auto;
@@ -26,6 +28,12 @@
     }  
   }
 
+}
+
+@media (max-width:947px) {
+  .order-delivery-wrapper{
+    width: 90%;
+  }  
 }
 /*.slot-selector{
   position: absolute!important;

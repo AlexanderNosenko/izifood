@@ -1,9 +1,40 @@
+@import 'variables';
+
+.modal-body{
+  background: $grey;
+}
+.modal-header{
+  .title-section{
+    text-align: center;
+    height: 45px;
+    border-bottom: 1px solid $grey;
+  }
+}
+
+/*::-webkit-scrollbar { 
+  display: block!important;
+}*/
+
+.menus-navigation{
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  border-bottom: 1px solid $grey;
+
+  .menu-buttons{
+    /*display: flex;*/
+    margin: 5px;
+    width: 80%;
+  }
+  .tools{
+    margin: 5px;
+    width: 20%;
+    text-align: right;
+  }
+}
 .menus-toolbar{
-  /*position: fixed; */
   margin: auto;
   transition: all 0.25s ease-out;
-  background: white;
-  width: 350px;
   min-height: 350px;
   display: block;
   top: 70px;
@@ -14,31 +45,19 @@
     left: calc(100% - 370px);
   }*/
   
-  .menus-navigation{
-    display: flex;
-
-    .menu-buttons{
-      margin: 5px;
-      width: 80%;
-    }
-    .tools{
-      margin: 5px;
-      width: 20%;
-      text-align: right;
-    }
-  }
+  
   .user-menus{
-    overflow-y: auto;
-    max-height: 248px;
+    overflow-y: scroll;
+    max-height: 300px;
 
     .menu-block{
-      background: white;
       
-      ::-webkit-scrollbar { 
-        display: none; 
-      }
-
+    
       .user-menu{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        
         .no-recipes{
           text-align: center;
           width: 100%;
@@ -46,25 +65,28 @@
           position: absolute;
         }
         .recipe{
-          width: 94%;
-          margin: 3%;
-          div{
-              display: inline-block;
-          }
-          .title{
-            max-width: 196px;
-            vertical-align: middle;
-          }
+          display: flex;
+          margin-bottom: 10px;
+          background: white;
+          
           .image{
+            height: 100px;
+            width: 100px;
+            background-size: cover; 
+            background-position: 50%;
             display: inline-block;
           }
-          .image > img{
-            width: 113px;
+
+          .title{
+            vertical-align: middle;
+            padding: 10px;
+            width: 76%;
           }
-          .remove-recipe-btn{
-            float: right;
-            top: 0px;
-            right: 12px;
+          
+          .remove-recipe-btn{  
+            width: 3%;
+            text-align: right;
+            margin-top: 6px;
           }
         }
       }
@@ -101,8 +123,13 @@
         display: flex;
         justify-content: space-evenly;
 
-        div{
+        .delivery-info{
           padding: 7px 0px;
+          span{
+            &.title{
+              font-weight: bold;
+            }
+          }
         }
       }
     }

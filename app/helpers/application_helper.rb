@@ -78,8 +78,10 @@ module ApplicationHelper
     end
 
     html = <<-HTML
-    <div class="corner-ribbon order-status #{status_class}">
-      #{status_text}
+    <div class="corner-ribbon-wrapper">
+      <div class="corner-ribbon order-status #{status_class}">
+        #{status_text}
+      </div>  
     </div>
     HTML
 

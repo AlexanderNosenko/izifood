@@ -16,15 +16,10 @@ body{
 }
 main{
   overflow: -webkit-paged-x;
+  &.main-wrapper{
+    padding-top: 65px;
+  }
 }
-
-/*.main-wrapper{
-  height: 100%;
-.wrapper{
-  height: 100%;
-  margin-bottom: -110px;
-}*/
-
 
 .flashes{
   z-index: 1000160000;
@@ -32,12 +27,21 @@ main{
   position: fixed;
   right: 2%;
 }
+
+/*.container{
+  width: 60%;
+}*/
+
 .container-fluid{
   padding-left: 0px; 
   padding-right: 0px; 
 }
 
 .navbar{
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  
   .container-fluid{
     width: 70%;
   }
@@ -81,3 +85,9 @@ footer{
   text-align: center;
   /*line-height: 60px;*/
 }
+/*
+@media (max-width: 1130px){
+  .container{
+    width: initial!important;
+  }  
+}*/

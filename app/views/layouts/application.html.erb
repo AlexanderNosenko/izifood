@@ -9,12 +9,13 @@
     <%= javascript_include_tag 'application' %>
     <%= include_page_js params[:controller] %>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>    
+    <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
   </head>
 
   <body>
     <%= render partial: 'layouts/menus_modal' %>
+    <%= render partial: 'layouts/navigation' %>
     <main role="main" class="main-wrapper container-fluid">
-      <%= render partial: 'layouts/navigation' %>
       <!-- <div class="container"> -->
         <%= render partial: 'layouts/flashes' %>          
         <%= yield %>

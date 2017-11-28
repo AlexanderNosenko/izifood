@@ -1,16 +1,4 @@
-<div class="menus-toolbar">
-  <div class="menus-navigation">
-    <div class="menu-buttons">
-      <% @menus.each do |menu| %>
-        <button class="btn <%= menu.main ? 'btn-info' : '' %> menu-togle-btn" data-id="<%= menu.id %>">
-          <%= "Menu #{menu.id}"%>
-        </button>
-      <% end %>  
-    </div>
-    <div class="tools pull-right">
-      <%= link_to '+', menus_path, method: :post, class: 'btn btn-success'%>
-    </div>
-  </div>
+<div class="menus-toolbar">  
   <div class="user-menus">
     <%= render @menus %>
   </div>

@@ -4,16 +4,6 @@
 @import "ingredient-selector";
 @import "order-list";
 
-.container{
-  width: 60%;
-}
-::-webkit-scrollbar { 
-  display: none;
-  width: 4px;
-}
-::-webkit-scrollbar-thumb{
-  background-color: $accent-color;
-}
 .dashed-border{
   /*Horizontal*/
   width: 100%;

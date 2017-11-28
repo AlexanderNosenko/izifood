@@ -5,6 +5,7 @@
   <% if ingredients.length > 0 %>
     <% ingredients.map do |ing| %>
       <option 
+        <%= ing.id == selected ? 'selected' : '' %>        
         value="<%= ing.id %>"        
         data-image="<%= ing.image.url || image_path('ing-default.jpg') %>">
         <%= ing&.title %>

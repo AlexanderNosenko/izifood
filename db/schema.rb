@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115092143) do
+ActiveRecord::Schema.define(version: 20171127160632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "uuid-ossp"
 
   create_table "deliveries", force: :cascade do |t|
     t.date "deliver_on", null: false
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20171115092143) do
     t.string "vendor", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }
   end
 
   create_table "ingredient_searches", force: :cascade do |t|

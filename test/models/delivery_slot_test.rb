@@ -12,7 +12,8 @@
 require 'test_helper'
 
 class DeliverySlotTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should return same id for a backgroud job" do
+    job_ids = 4.times.map { DeliverySlot.update_slots[:tesco] }
+    job_ids.each { |job_id| assert_equal job_ids[0], job_id }
+  end
 end

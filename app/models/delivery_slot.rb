@@ -11,6 +11,7 @@
 
 class DeliverySlot < ApplicationRecord
   EXPIRE_IN = 3
+  $redis = Redis::Namespace.new("izifood", :redis => Redis.new)
 
   validates :content_html, 
             :vendor, presence: true
@@ -51,9 +52,20 @@ class DeliverySlot < ApplicationRecord
       job_ids = {}
       vendors.map do |vendor|
         job_id = DeliverySlotsWorker.perform_async(vendor)
+
+        if job_id
+          $redis.set("last_slots_job", job_id) 
+        else
+          job_id = $redis.get("last_slots_job")
+        end
+
         job_ids[vendor.to_sym] = job_id
       end
       job_ids
+    end
+
+    def clean_job_status_cache
+      $redis.del("last_slots_job")
     end
   end
   

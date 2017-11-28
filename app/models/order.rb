@@ -84,6 +84,10 @@ class Order < ApplicationRecord
       errors.add(:order, "Menu is already ordered, please edit the current one or create new.")
     end  
   end
+
+  # def self.pending
+    
+  # end
   private
   def items
     order_items.includes(:recipe_ingredient)

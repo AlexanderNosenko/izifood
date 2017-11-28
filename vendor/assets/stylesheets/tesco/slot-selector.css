@@ -7,14 +7,13 @@ table td,
 ul {
     list-style-type: none
 }
-.button,
-button {
-    line-height: 38px;
+.button {
     display: block;
     width: 100%;
     height: 40px;
     margin: 10px 0;
     padding: 0;
+    line-height: 38px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -29,8 +28,7 @@ button {
     font-size: 18px
 }
 
-.button.button-primary,
-button.button-primary {
+.button.button-primary, .button-primary {
     color: #fff;
     border: 1px solid #00539f;
     background-color: #00539f;
@@ -42,16 +40,15 @@ button.button-primary {
     transition-duration: .3s
 }
 
-.button.button-primary:active,
-button.button-primary:active {
+.button.button-primary:active, .button-primary:active {
     border: 1px solid #003b71;
     background-color: #003b71
 }
 
 .button.button-primary:focus,
 .button.button-primary:hover,
-button.button-primary:focus,
-button.button-primary:hover {
+.button-primary:focus,
+.button-primary:hover {
     border-color: #00539f;
     -webkit-box-shadow: 0 0 0 4px rgba(0, 83, 159, .4);
     box-shadow: 0 0 0 4px rgba(0, 83, 159, .4);
@@ -60,13 +57,13 @@ button.button-primary:hover {
 
 .button.button-primary:focus *,
 .button.button-primary:hover *,
-button.button-primary:focus *,
-button.button-primary:hover * {
+.button-primary:focus *,
+.button-primary:hover * {
     text-decoration: underline
 }
 
 .button.button-secondary,
-button.button-secondary {
+.button-secondary {
     color: #00539f;
     border: 1px solid #00539f;
     background-color: #fff;
@@ -79,7 +76,7 @@ button.button-secondary {
 }
 
 .button.button-secondary:active,
-button.button-secondary:active {
+.button-secondary:active {
     background-color: #e7eef8;
     outline: none;
     -webkit-transition: all .05s ease-in;
@@ -88,8 +85,8 @@ button.button-secondary:active {
 
 .button.button-secondary:focus,
 .button.button-secondary:hover,
-button.button-secondary:focus,
-button.button-secondary:hover {
+.button-secondary:focus,
+.button-secondary:hover {
     border-color: #00539f;
     -webkit-box-shadow: 0 0 0 4px rgba(0, 83, 159, .4);
     box-shadow: 0 0 0 4px rgba(0, 83, 159, .4);
@@ -98,32 +95,32 @@ button.button-secondary:hover {
 
 .button.button-secondary:focus *,
 .button.button-secondary:hover *,
-button.button-secondary:focus *,
-button.button-secondary:hover * {
+.button-secondary:focus *,
+.button-secondary:hover * {
     text-decoration: underline
 }
 
 .button.button-promo-red,
-button.button-promo-red {
+.button-promo-red {
     color: #fff;
     border: 1px solid #ee1c2e;
     background-color: #ee1c2e
 }
 
 .button.button-secondary-white,
-button.button-secondary-white {
+.button-secondary-white {
     color: #00539f;
     border: 1px solid #00539f;
     background-color: #fff
 }
 
 .button.button-secondary-white:hover,
-button.button-secondary-white:hover {
+.button-secondary-white:hover {
     background-color: #dfe9f6
 }
 
 .button.button-secondary-white:active,
-button.button-secondary-white:active {
+.button-secondary-white:active {
     background-color: #e7eef8;
     outline: none;
     -webkit-transition: all .05s ease-in;
@@ -131,13 +128,13 @@ button.button-secondary-white:active {
 }
 
 .button.button-transparent,
-button.button-transparent {
+.button-transparent {
     color: #00539f;
     border: 1px solid #b4b4b4
 }
 
 .button.button-disabled,
-button.button-disabled {
+.button-disabled {
     cursor: default;
     color: #999;
     border: none;
@@ -146,13 +143,13 @@ button.button-disabled {
 }
 
 .button.button-disabled:hover,
-button.button-disabled:hover {
+.button-disabled:hover {
     background-color: #ebebeb;
     border: none
 }
 
 .button.small,
-button.small {
+.small {
     line-height: 28px;
     height: 30px;
     margin: 12px 0 0;
@@ -161,7 +158,7 @@ button.small {
 }
 
 .button.full-width,
-button.full-width {
+.full-width {
     font-size: 16px;
     padding: 22px 0;
     line-height: 5px;
@@ -207,7 +204,6 @@ button::-moz-focus-inner {
     padding: 0;
     border: 0
 }
-
 
 .visually-hidden {
     border: 0;
@@ -870,37 +866,42 @@ screen and (min-resolution:1.5dppx) {
 
 .day-selector {
     display: table;
+    border-bottom: 1px solid #ccc;
     width: 100%;
     table-layout: fixed;
     overflow: hidden
 }
 
-.day-selector-column {
+.day-selector__column {
     display: table-cell;
     text-align: center;
     vertical-align: middle
 }
 
-.day-selector-column--arrow {
+.day-selector__column--arrow {
     width: 29px;
     vertical-align: top
 }
 
-.day-selector {
-    border-bottom: 1px solid #ccc
+.day-selector__column--arrow a {
+    display: block
 }
 
-.day-selector.stock-android .day-selector-contents {
-    overflow: hidden;
-    -webkit-overflow-scrolling: initial;
-    white-space: normal
+.day-selector__list {
+    margin-bottom: -1px
 }
 
-.day-selector.stock-android .day-selector--list {
+.day-selector--stock-android .day-selector__list {
     text-align: center
 }
 
-.day-selector.stock-android .day-selector--list-item {
+.day-selector__list-item {
+    display: inline-block;
+    width: 14%;
+    margin-bottom: 5px
+}
+
+.day-selector--stock-android .day-selector__list-item {
     border-top: 1px solid #ebebeb;
     border-left: 1px solid #ebebeb;
     border-bottom: 3px solid #fff;
@@ -908,35 +909,11 @@ screen and (min-resolution:1.5dppx) {
     padding-top: 3px
 }
 
-.day-selector.stock-android .day-selector--list-item:last-child {
+.day-selector--stock-android .day-selector__list-item:last-child {
     border-right: 1px solid #ebebeb
 }
 
-.day-selector-contents {
-    white-space: nowrap
-}
-
-.day-selector-arrow {
-    vertical-align: top;
-    display: inline-block;
-    width: 20px!important
-}
-
-.day-selector-arrow.unable {
-    background: none
-}
-
-.day-selector .day-selector--list {
-    margin-bottom: -1px
-}
-
-.day-selector .day-selector--list-item {
-    display: inline-block;
-    width: 14%;
-    margin-bottom: 5px
-}
-
-.day-selector .day-selector--list-item a {
+.day-selector__list-item div {
     line-height: 1;
     display: block;
     text-align: center;
@@ -944,41 +921,32 @@ screen and (min-resolution:1.5dppx) {
     color: #333
 }
 
-.day-selector .day-selector--list-item a span {
-    display: inline-block;
-    padding-bottom: 5px
-}
-
-.day-selector .day-selector--list-item a span:nth-of-type(2) {
-    padding-bottom: 1px
-}
-
-.day-selector .day-selector--list-item a:focus .day-selector--day,
-.day-selector .day-selector--list-item a:hover .day-selector--day {
+.day-selector__list-item div:focus .day-selector__day-date,
+.day-selector__list-item div:hover .day-selector__day-date {
     border-color: #00539f;
     -webkit-box-shadow: 0 0 0 4px rgba(0, 83, 159, .4);
     box-shadow: 0 0 0 4px rgba(0, 83, 159, .4)
 }
 
-.day-selector .day-selector--list-item a:focus .day-selector--day .day-selector--day-value,
-.day-selector .day-selector--list-item a:hover .day-selector--day .day-selector--day-value {
+.day-selector__list-item div:focus .day-selector__day-date__value,
+.day-selector__list-item div:hover .day-selector__day-date__value {
     text-decoration: underline
 }
 
-.day-selector--weekday {
+.day-selector__list-item span {
+    display: inline-block;
+    padding-bottom: 5px
+}
+
+.day-selector__list-item span:nth-of-type(2) {
+    padding-bottom: 1px
+}
+
+.day-selector__day-name {
     font-size: 10px
 }
 
-.day-selector--list-item.unavailable .day-selector--day {
-    color: #999
-}
-
-.day-selector--list-item.unavailable.selected .day-selector--day {
-    background-color: #ebebeb;
-    color: #666
-}
-
-.day-selector--day {
+.day-selector__day-date {
     padding-top: 7px;
     color: #00539f;
     font-size: 18px;
@@ -993,9 +961,22 @@ screen and (min-resolution:1.5dppx) {
     transition-duration: .3s
 }
 
-.day-selector--list-item.selected .day-selector--day {
+.day-selector__day-date:hover{
+    cursor: pointer;
+}
+
+.day-selector__list-item--unavailable .day-selector__day-date {
+    color: #999
+}
+
+.day-selector__list-item--selected .day-selector__day-date {
     background-color: #00539f;
     color: #fff
+}
+
+.day-selector__list-item--selected.day-selector__list-item--unavailable .day-selector__day-date {
+    background-color: #ebebeb;
+    color: #666
 }
 
 .group-selector {
@@ -1015,8 +996,8 @@ screen and (min-resolution:1.5dppx) {
     margin: 20px 0 12px
 }
 
-.group-selector--list-item a:focus .radio-button,
-.group-selector--list-item a:hover .radio-button {
+.group-selector--list-item div:focus .radio-button,
+.group-selector--list-item div:hover .radio-button {
     border-color: #008dc8;
     -webkit-box-shadow: 0 0 0 4px rgba(0, 141, 200, .4);
     box-shadow: 0 0 0 4px rgba(0, 141, 200, .4)
@@ -1619,6 +1600,27 @@ screen and (min-resolution:1.5dppx) {
 }
 
 @media (min-width:600px) {
+    .slot-selector--single-week .day-selector__column--arrow {
+        vertical-align: middle
+    }
+    .slot-selector--single-week .day-selector__list-item {
+        display: block;
+        float: left;
+        width: 11.80555556%;
+        margin-left: .34722222%;
+        margin-right: .34722222%;
+        padding: 25px 0 17px;
+        border-right: 0;
+        display: inline-block;
+        width: 13.5%
+    }
+    .slot-selector--single-week .day-selector__day-name {
+        text-transform: uppercase;
+        font-size: 14px
+    }
+    .slot-selector--single-week .day-selector__day-date {
+        font-size: 18px
+    }
     .slot-selector {
         border: none;
         margin: 0
