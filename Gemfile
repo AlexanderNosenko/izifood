@@ -63,7 +63,7 @@ gem 'backup',   require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'factory_girl'
+  gem 'factory_bot'
   
   # Easy fake data
   gem 'faker'
@@ -86,6 +86,10 @@ group :development, :test do
   # Minitest-compatible test helpers for rails
   # gem 'shoulda'
 
+  # Profiler
+  gem 'ruby-prof'
+  gem 'rails-perftest'
+
 end
 
 group :development do
@@ -95,8 +99,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  # Profiler
-  gem 'ruby-prof'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

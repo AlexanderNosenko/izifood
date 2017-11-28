@@ -1,12 +1,10 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   # GET /recipes
   # GET /recipes.json
   def index
     # Recipe.update_tags_and_filters    
-
     recipes = Recipe.filter(params)
       .page(params[:page]).per(6)
     # current_user.give_trial_promo!

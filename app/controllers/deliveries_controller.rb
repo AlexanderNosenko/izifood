@@ -42,6 +42,7 @@ class DeliveriesController < ApplicationController
 
   def prepare_slots
     slots = DeliverySlot.fresh_for(:tesco)
+
     if slots.any?
       @delivery_slots = slots.first.content_html      
     else

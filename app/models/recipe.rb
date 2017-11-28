@@ -107,7 +107,7 @@ class Recipe < ApplicationRecord
     end  
   end
 
- def register_tag(title, type)
+  def register_tag(title, type)
     tag = RecipeTag.find_or_create_by(title: title, _type: type)
     RecipesTag.create(recipe: self, tag: tag)
   end

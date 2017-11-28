@@ -12,6 +12,6 @@ class ActiveSupport::TestCase
   # Rake::Task["db:seed"].invoke
 
 
-  include FactoryGirl::Syntax::Methods
-  FactoryGirl.find_definitions
+  include FactoryBot::Syntax::Methods
+  FactoryBot.find_definitions
 end

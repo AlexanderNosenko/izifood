@@ -1,7 +1,7 @@
 $(document).on('ready', function(){
   
   // Slots grid
-  var slotsGrid = [];
+  var slotsGrid = [], slotsGridTransposed = [];
 
   $('.slot-grid__table:first>tbody>tr').each(function(i){
     slotsGrid[i] = []
@@ -13,7 +13,8 @@ $(document).on('ready', function(){
     })    
   })
   // console.log(slotsGrid)
-  var slotsGridTransposed = slotsGrid[0].map(function(col, i){ return slotsGrid.map(function(row){return row[i]}) });
+  if (slotsGrid.length > 0)
+    slotsGridTransposed = slotsGrid[0].map(function(col, i){ return slotsGrid.map(function(row){return row[i]}) });
   // console.log(slotsGridTransposed)
 
 

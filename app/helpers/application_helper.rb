@@ -17,17 +17,17 @@ module ApplicationHelper
 
   def flash_class_for(klass)
     case klass.to_sym
-      when :success
-        "success"
-      when :notice
-        "info"
-      when :error
-        "danger"
-      when :warning
-        "warning"
-      else
-        ""
-      end
+    when :success
+      "success"
+    when :notice
+      "info"
+    when :error
+      "danger"
+    when :warning
+      "warning"
+    else
+      ""
+    end
   end
 
   def recipe_filters(type, id)

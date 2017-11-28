@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PromotionTest < ActiveSupport::TestCase
   setup do
-    @user = user = FactoryGirl::create(:user)
+    @user = user = FactoryBot::create(:user)
   end
 
   test "should assign trial promotion for user" do

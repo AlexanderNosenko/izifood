@@ -3,7 +3,7 @@ require 'InfluencerCouponPromotion'
 
 class InfluencerCouponPromotionTest < ActiveSupport::TestCase
   setup do
-    @user = user = FactoryGirl::create(:user)
+    @user = user = FactoryBot::create(:user)
   end
 
   test "should create payment for the next month" do

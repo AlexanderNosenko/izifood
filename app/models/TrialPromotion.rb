@@ -1,12 +1,12 @@
 class TrialPromotion
-  DB_ACTION_STRING = 'trial'
+  # DB_ACTION_STRING = 'trial'
   
   def initialize(user_promotion)
     @user_promotion = user_promotion  
   end
   
   def self.db_promotion
-    Promotion.find_by!("info ->> 'action' = ?", self::DB_ACTION_STRING)
+    Promotion.find_by!("info ->> 'action' = ?", 'trial')
   end
 
   def go

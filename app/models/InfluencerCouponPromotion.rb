@@ -1,16 +1,16 @@
 class InfluencerCouponPromotion
-  DB_ACTION_STRING = 'influencer_coupon'
+  # DB_ACTION_STRING = 'influencer_coupon'
   
   def initialize(user_promotion)
     @user_promotion = user_promotion  
   end
   
   def self.db_promotion
-    Promotion.where("info ->> 'action' = ?", self::DB_ACTION_STRING).first
+    Promotion.where("info ->> 'action' = ?", 'influencer_coupon').first
   end
 
   def go
-    current_month = Time.now.strftime('%m.%Y')
+    # current_month = Time.now.strftime('%m.%Y')
 
     @user_promotion.user.payments.create({
       amount: 0,
