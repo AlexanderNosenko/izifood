@@ -14,24 +14,24 @@ class OrdersController < ApplicationController
   end
 
   def new
-  result = RubyProf.profile do
+  # result = RubyProf.profile do
     @order = current_user.current_menu.to_order
-    render :new
-  end
-  printer = RubyProf::MultiPrinter.new(result)
-  printer.print(:path => "./public/profiler", :profile => "profile")
+    # render :new
+  # end
+  # printer = RubyProf::MultiPrinter.new(result)
+  # printer.print(:path => "./public/profiler", :profile => "profile")
   end
 
   def edit
-  result = RubyProf.profile do
+  # result = RubyProf.profile do
   
     @order = Order.find(params[:id])
 
     @order.ok! if params[:attention]
-    render :edit
-  end
-  printer = RubyProf::MultiPrinter.new(result)
-  printer.print(:path => "./public/profiler", :profile => "profile")
+  #   render :edit
+  # end
+  # printer = RubyProf::MultiPrinter.new(result)
+  # printer.print(:path => "./public/profiler", :profile => "profile")
   end
   
   def update
