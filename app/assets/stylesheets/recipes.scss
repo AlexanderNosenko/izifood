@@ -1,101 +1,101 @@
 .recipes{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	.recipe{
-		flex-basis: 350px;
-		min-height: 350px;
-		margin-bottom: 20px;
-		.recipe-main-image, .recipe-content-overlay{
-			background-size: cover;
-			background-position: center;
-			width: 350px;
-		  min-height: 350px;
-			position: absolute;
-			transition: background 0.5s;
-		}
-		
-		.recipe-content-overlay{
-			.content{
-				height: 280px;
-				.title{
-			    width: 100%;
-			    color: white;
-			    font-size: 1.5em;
-			    text-align: center;
-			    padding: 7px;
-			    background: rgba(0,0,0,0.4);
-				}
-				.details-link{
-					opacity: 0;
-					transition: opacity 0.5s;
-				    width: 100%;
-				    text-align: center;
-				    margin-top: 33%;
-				    a {
-						font-size: 2em;
-					    color: white;
-						text-decoration: underline;
-					}
-				}
-			}
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .recipe{
+    flex-basis: 350px;
+    min-height: 350px;
+    margin-bottom: 20px;
+    .recipe-main-image, .recipe-content-overlay{
+      background-size: cover;
+      background-position: center;
+      width: 350px;
+      min-height: 350px;
+      position: absolute;
+      transition: background 0.5s;
+    }
+    
+    .recipe-content-overlay{
+      .content{
+        height: 280px;
+        .title{
+          width: 100%;
+          color: white;
+          font-size: 1.5em;
+          text-align: center;
+          padding: 7px;
+          background: rgba(0,0,0,0.4);
+        }
+        .details-link{
+          opacity: 0;
+          transition: opacity 0.5s;
+            width: 100%;
+            text-align: center;
+            margin-top: 33%;
+            a {
+            font-size: 2em;
+              color: white;
+            text-decoration: underline;
+          }
+        }
+      }
 
-			&:hover{
-				background: rgba(0, 0, 0, 0.5);
-				.details-link, .add-to-menu-btn{
-					opacity: 1;
-				}
-			}
-		}
-		
-		.add-to-menu-btn{
-			width: 62px;
-	    height: 62px;	    
-			float: right;
-	    background-image: image-url("add-recipe-to-menu_1.png");
-	    background-size: contain;
-	    opacity: 0;
-	    transition: opacity 0.5s;
-	    margin-right: 8px;
-	    transition: all .4s;
-	    
-	    &:hover{
-				transform: scale(1.1);
-			}
-		}
-	}
+      &:hover{
+        .content .title{
+          text-decoration:underline!important;
+        }
+
+        background: rgba(0, 0, 0, 0.5);
+        .details-link, .add-to-menu-btn{
+          opacity: 1;
+        }
+      }
+    }
+    
+    .add-to-menu-btn{
+      width: 62px;
+      height: 62px;     
+      float: right;
+      background-image: image-url("add-recipe-to-menu_1.png");
+      background-size: contain;
+      opacity: 0;
+      transition: opacity 0.5s;
+      margin-right: 8px;
+      transition: all .4s;
+      
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+  }
 }
-/*$mobile-recipe-width: 500px;
 
-@media screen and (min-width: 500px) and (max-width: 900px) {
+$mobile-recipe-width: 290px;
+
+@media screen and (min-width: 300px) and (max-width: 350px) {
   .recipes{
-		.recipe{
-			flex-basis: $mobile-recipe-width;
-			min-height: $mobile-recipe-width;
-			.recipe-main-image, .recipe-content-overlay{
-				width: $mobile-recipe-width;
-			  min-height: $mobile-recipe-width;
-			}
-			
-			.recipe-content-overlay{
-				.content{
-					height: 280px;
-					.title{
-				    width: 100%;
-				    font-size: 1.5vw;
-				    padding: 7px;
-					}
-					.details-link{
-				    width: 100%;
-				    margin-top: 33%;
-				    a {
-							font-size: 2vw;
-						}
-					}
-				}
-			}
-		}
-	}
+    .recipe{
+      flex-basis: $mobile-recipe-width;
+      min-height: $mobile-recipe-width;
+      .recipe-main-image, .recipe-content-overlay{
+        width: $mobile-recipe-width;
+        min-height: $mobile-recipe-width;
+      }
+      
+      .recipe-content-overlay{
+        .content{
+          height: 2/3 * $mobile-recipe-width + 30px;
+          .title{
+            width: 100%;
+            padding: 7px;
+          }
+          .details-link{
+            width: 100%;
+            margin-top: 33%;
+          }
+        }
+      }
+    }
+  }
 }
-*/

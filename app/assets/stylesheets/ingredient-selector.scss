@@ -59,3 +59,23 @@ div.cs-skin-elastic {
     }
   }
 }
+
+@media (max-width: 600px) {
+  $title-padding-mobile: 9% 6% 0% 33%;
+
+  .cs-placeholder{
+    padding: 0.7em!important;
+    height: 100%;
+    span{
+      padding: $title-padding-mobile;
+    }
+  }
+
+  div.cs-skin-elastic {
+    .cs-options{
+      span{
+        padding: $title-padding-mobile;
+      }
+    }
+  }
+}

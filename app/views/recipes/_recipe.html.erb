@@ -3,8 +3,10 @@
   style="background-image: url('<%=recipe.images[0].url%>');"></div>
   <div class="recipe-content-overlay">
     <div class="content">
-      <div class="title"><%= recipe.title %></div>  
-      <div class="details-link"><%= link_to 'Show', recipe %></div>
+      <%= link_to recipe do %>
+        <div class="title"><%= recipe.title %></div>  
+      <% end %>
+      <!-- <div class="details-link"><%= link_to 'Show', recipe %></div> -->
     </div>
     <!-- <div class="description"><%= recipe.description %></div> -->
       <%= link_to menu_recipes_path({recipe_id: recipe}), remote: true, method: :post do %>

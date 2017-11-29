@@ -2,6 +2,6 @@
   <h1>My orders</h1>
   <section class="orders-section pending-orders">
     <%= render orders %>
+    <%= will_paginate orders, inner_window: 2, outer_window: 0 %>
   </section>
-  <%= paginate orders %>
 </div>

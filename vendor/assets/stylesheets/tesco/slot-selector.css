@@ -5,6 +5,7 @@ table {
 table caption,
 table td,
 ul {
+    padding: 0px;
     list-style-type: none
 }
 .button {
@@ -215,56 +216,21 @@ button::-moz-focus-inner {
     position: absolute;
     width: 1px
 }
-.extra-large-only,
-.large-only,
-.medium-only {
-    display: none
+.day-selector__column--arrow{
+    display: none!important;
+}
+@media (max-width: 450px){
+    .tabheader {
+        width: 87px;
+    }
 }
 
-@media (max-width:599px) {
-    .hidden-small {
+@media (max-width:900px) {
+    .hidden-small:not(.slot-selector--single-week) {
         display: none
     }
 }
-
-@media (max-width:767px) {
-    .hidden-small-medium {
-        display: none
-    }
-}
-
-@media (min-width:600px) {
-    .hidden-medium-small,
-    .small-only {
-        display: none
-    }
-}
-
-@media (min-width:600px) and (max-width:767px) {
-    .hidden-medium-small-only {
-        display: none
-    }
-    .medium-small-only {
-        display: inherit
-    }
-}
-
-@media (min-width:768px) {
-    .hidden-medium {
-        display: none!important
-    }
-}
-
-@media (min-width:768px) and (max-width:991px) {
-    .hidden-medium-only {
-        display: none
-    }
-    .medium-only {
-        display: inherit
-    }
-}
-
-@media (min-width:992px) {
+@media (min-width:900px) {
     .hidden-large {
         display: none!important
     }
@@ -273,335 +239,8 @@ button::-moz-focus-inner {
     }
 }
 
-@media (min-width:1200px) {
-    .hidden-extra-large {
-        display: none
-    }
-    .extra-large-only {
-        display: inherit
-    }
-}
-
-.grid {
-    padding-top: 12px;
-    padding-bottom: 12px
-}
-
-@media (min-width:768px) {
-    .grid {
-        padding-top: 24px;
-        padding-bottom: 24px
-    }
-}
-
-@media (min-width:992px) {
-    .grid {
-        padding-top: 24px;
-        padding-bottom: 24px
-    }
-}
-
-@media (min-width:1200px) {
-    .grid {
-        padding-top: 24px;
-        padding-bottom: 24px
-    }
-}
-
-.grid:after {
-    content: "";
-    display: table;
-    clear: both
-}
-.slots-hub {
-    background: #f6f6f6
-}
-
-.slots-hub .page-title {
-    color: #333;
-    padding: 24px 0 10px;
-    margin: 0
-}
-
-.slots-hub--header {
-    position: relative
-}
-
-.slots-hub--header-image {
-    background: url(../../images/slots-hub/apple_@2x.png) no-repeat 100% 100%;
-    -webkit-background-size: contain;
-    background-size: contain;
-    position: absolute;
-    bottom: 0;
-    right: 23px;
-    width: 80%;
-    height: 100%;
-    max-height: 100px
-}
-
-.slots-hub--page-intro {
-    color: #666;
-    font-weight: lighter;
-    padding-bottom: 22px;
-    width: 50%;
-    font-size: 15px
-}
-
-.slots-hub--section {
-    background: #fff;
-    border: 1px solid #b4b4b4;
-    border-radius: 5px;
-    margin-top: 15px;
-    position: relative
-}
-
-.slots-hub--section a {
-    display: inline-block;
-    width: 100%
-}
-
-.slots-hub--section:first-child {
-    margin-top: 0
-}
-
-.slots-hub--section.slots-hub--section {
-    padding: 18px 12px
-}
-
-.slots-hub--section.delivery .slots-hub--section-image:after {
-    background-image: url(../../images/slots-hub/delivery_van@2x.png)
-}
-
-.slots-hub--section.delivery .slots-hub--price-stamp {
-    background-image: url(../../images/slots-hub/price-from.png)
-}
-
-.slots-hub--section.collection .slots-hub--section-image:after {
-    background-image: url(../../images/slots-hub/collection_@2x.png)
-}
-
-.slots-hub--section.collection .slots-hub--price-stamp {
-    background-image: url(../../images/slots-hub/price-free.png)
-}
-
-.slots-hub--section.deliverysaver .slots-hub--section-title {
-    font-weight: 400
-}
-
-.slots-hub--section.deliverysaver .slots-hub--section-image:after {
-    background-image: url(../../images/slots-hub/collection_normal.png)
-}
-
-@media screen and (-moz-min-device-pixel-ratio:1.5),
-screen and (-webkit-min-device-pixel-ratio:1.5),
-screen and (min-device-pixel-ratio:1.5),
-screen and (min-resolution:1.5dppx) {
-    .slots-hub--section.deliverysaver .slots-hub--section-image:after {
-        background-image: url(../../images/slots-hub/collection_@2x.png)
-    }
-}
-
-.slots-hub--section.deliverysaver .slots-hub--price-stamp {
-    background-image: url(../../images/slots-hub/ping_delivery_saver_normal.png);
-    background-position: 50%;
-    right: 45px
-}
-
-@media screen and (-moz-min-device-pixel-ratio:1.5),
-screen and (-webkit-min-device-pixel-ratio:1.5),
-screen and (min-device-pixel-ratio:1.5),
-screen and (min-resolution:1.5dppx) {
-    .slots-hub--section.deliverysaver .slots-hub--price-stamp {
-        background-image: url(../../images/slots-hub/ping_delivery_saver_@2x.png)
-    }
-}
-
-.slots-hub--section.deliverysaver .slots-hub--section-cta.icon-chevron_right {
-    padding-right: 100px
-}
-
-.slots-hub--section-image {
-    max-width: 400px
-}
-
-.slots-hub--section-image:after {
-    content: " ";
-    display: block;
-    width: 80%;
-    background-position: 0 0;
-    padding-bottom: 40%
-}
-
-.slots-hub--price-stamp,
-.slots-hub--section-image:after {
-    background-repeat: no-repeat;
-    -webkit-background-size: contain;
-    background-size: contain
-}
-
-.slots-hub--price-stamp {
-    background-position: 0 18px;
-    width: 20%;
-    height: 100%;
-    max-width: 58px;
-    position: absolute;
-    top: 0;
-    right: 18px
-}
-
-.slots-hub--section-cta.icon-chevron_right {
-    background-position: 100%;
-    height: auto;
-    width: 100%;
-    padding-right: 30px
-}
-
-.slots-hub--section-title {
-    color: #00539f;
-    font-weight: 400;
-    font-size: 20px
-}
-
-.slots-hub--section-title-part {
-    color: #ee1c2e
-}
-
-.slots-hub--section-title-part:after {
-    content: " "
-}
-
-.slots-hub--section-title-part:first-child {
-    color: #00539f
-}
-
-.slots-hub--section-intro {
-    color: #333;
-    font-weight: lighter;
-    font-size: 15px
-}
-
-.slots-hub--fine-print {
-    color: #666;
-    font-weight: lighter;
-    margin: 12px
-}
-
-.option-tabs--collection-tabheader-link,
-.option-tabs--delivery-tabheader-link {
-    border: 1px solid #b4b4b4;
-    border-bottom: 0;
-    border-radius: 6px 6px 0 0;
-    background-color: #f2f9ff;
-    display: block;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    height: 44px;
-    line-height: 1;
-    padding: 12px 0;
-    text-align: center
-}
-
-.active .option-tabs--collection-tabheader-link,
-.active .option-tabs--delivery-tabheader-link {
-    background-color: #fff
-}
-
-.option-tabs--collection-tabheader-link:focus *,
-.option-tabs--collection-tabheader-link:hover *,
-.option-tabs--delivery-tabheader-link:focus *,
-.option-tabs--delivery-tabheader-link:hover * {
-    text-decoration: underline
-}
-
-.option-tabs--collection-tabheader-link.disabled,
-.option-tabs--delivery-tabheader-link.disabled {
-    background-color: #ebebeb;
-    color: #999
-}
-
-.option-tabs--collection-tabheader-link.disabled:focus *,
-.option-tabs--collection-tabheader-link.disabled:hover *,
-.option-tabs--delivery-tabheader-link.disabled:focus *,
-.option-tabs--delivery-tabheader-link.disabled:hover * {
-    text-decoration: none
-}
-
-.option-tabs--delivery-tabheader-link {
-    color: #00539f
-}
-
-.option-tabs--collection-tabheader-link {
-    color: #ee1c2e
-}
-
-.no-flexbox .option-tabs--collection-tabheader,
-.no-flexbox .option-tabs--delivery-tabheader,
-.no-js .option-tabs--collection-tabheader,
-.no-js .option-tabs--delivery-tabheader {
-    width: 50%
-}
-
-.option-tabs--collection-point-notice,
-.option-tabs--delivery-tabitem,
-.option-tabs--full-width {
-    padding-bottom: 15px
-}
-
-.option-tabs--more-link {
-    display: block;
-    cursor: pointer;
-    margin-top: 13px
-}
-
-.option-tabs--more-link>.icon-chevron_right {
-    -webkit-background-size: 20px 20px;
-    background-size: 20px 20px;
-    height: 10px;
-    width: 20px
-}
-
-.option-tabs .accordion {
-    margin: 10px -18px -12px;
-    padding: 0 0 28px 6px
-}
-
-.option-tabs .accordion--label {
-    background-color: #f0f8ff;
-    border-bottom: none;
-    padding-left: 12px
-}
-
-.option-tabs .accordion--icon {
-    margin-right: 6px
-}
-
-.option-tabs .accordion--content {
-    padding: 3px 12px 12px;
-    background-color: #f0f8ff
-}
-
-.option-tabs .tabs--content {
-    border-radius: 0 0 6px 6px;
-    margin-left: -20px;
-    padding-left: 20px;
-    margin-right: -12px;
-    padding-right: 12px
-}
-
-.option-tabs .tabs--content .text-link {
-    padding-top: 12px;
-    line-height: 24px
-}
-
-.option-tabs--collection-tabitem .accordion--content,
-.option-tabs--delivery-tabitem .accordion--content {
-    background-color: #f0f8ff
-}
-
-.no-js.no-flexbox.no-flexboxlegacy.no-csstransforms3d.no-csstransitions .option-tabs--collection-tabitem .accordion--label,
-.no-js.no-flexbox.no-flexboxlegacy.no-csstransforms3d.no-csstransitions .option-tabs--delivery-tabitem .accordion--label {
-    display: none
+.slot-selector--day-selector{
+    display: none;
 }
 
 .no-js.no-flexbox.no-flexboxlegacy.no-csstransforms3d.no-csstransitions .option-tabs--collection-tabitem .option-tabs--content,
@@ -648,11 +287,6 @@ screen and (min-resolution:1.5dppx) {
     background: #fff;
     padding: 0 12px 10px 2000px;
     margin: -21px -12px -10px -2000px
-}
-
-.selected-slot-map--map-wrapper {
-    height: 292px;
-    display: none
 }
 
 .selected-slot-map--map-wrapper.has-postcode-search .map--wrapper {
@@ -1170,9 +804,9 @@ screen and (min-resolution:1.5dppx) {
     text-transform: uppercase
 }
 
-.slot-selector--week-tabheader-link {
+/*.slot-selector--week-tabheader-link {
     display: none
-}
+}*/
 
 .slot-selector .tabs--content {
     border-radius: 0;
@@ -1189,9 +823,9 @@ screen and (min-resolution:1.5dppx) {
     width: 25%
 }
 
-.hidden-our-charges {
+/*.hidden-our-charges {
     display: none
-}
+}*/
 
 .our-charges-bottom-padding {
     padding-bottom: 12px
@@ -1253,6 +887,90 @@ screen and (min-resolution:1.5dppx) {
     top: -1px;
     border-top: 1px solid #b4b4b4
 }
+
+.slot-selector--single-week .day-selector__column--arrow {
+    vertical-align: middle
+}
+.slot-selector--single-week .day-selector__list-item {
+    display: block;
+    float: left;
+    width: 11.80555556%;
+    margin-left: .34722222%;
+    margin-right: .34722222%;
+    padding: 25px 0 17px;
+    border-right: 0;
+    display: inline-block;
+    width: 13.5%
+}
+.slot-selector--single-week .day-selector__day-name {
+    text-transform: uppercase;
+    font-size: 14px
+}
+.slot-selector--single-week .day-selector__day-date {
+    font-size: 18px
+}
+.slot-selector {
+    border: none;
+    margin: 0
+}
+.slot-selector .text-link {
+    padding: 10px 25px 0
+}
+.slot-selector .slot-selector--tab-content {
+    margin: 0
+}
+.slot-selector .tabs--content {
+    border: 1px solid #ccc
+}
+.slot-selector--day-selector {
+    border-top: 1px solid #b4b4b4;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin: 0
+}
+.flexbox .slot-selector .tabs-header-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+.slot-selector .tabs--content {
+    border-radius: 6px
+}
+.slot-selector--week-tabheader {
+    padding: 10px 3px 0
+}
+.slot-selector--week-tabheader:first-child {
+    padding-left: 0
+}
+.slot-selector--week-tabheader:last-child {
+    padding-right: 0
+}
+.slot-selector--week-tabheader.slot-selector--4-week-tab-space .slot-selector--week-tabheader-link {
+    font-size: 14px
+}
+.slot-selector--week-tabheader-link {
+    border: 1px solid #b4b4b4;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    background-color: #f2f9ff;
+    display: block;
+    font-weight: 700;
+    height: 44px;
+    line-height: 1;
+    padding: 12px 0;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 18px 0 30px
+}
+.active .slot-selector--week-tabheader-link {
+    background-color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700
+}
+
 
 @media (min-width:600px) {
     .book-a-slot--delivery-address {
@@ -1324,9 +1042,9 @@ screen and (min-resolution:1.5dppx) {
         display: block;
         min-height: 88px
     }
-    .option-tabs .accordion--label {
+    /*.option-tabs .accordion--label {
         display: none
-    }
+    }*/
     .option-tabs--content {
         min-height: 88px;
         display: table;
@@ -1596,91 +1314,6 @@ screen and (min-resolution:1.5dppx) {
     }
     .group-selector--title {
         font-size: 18px
-    }
-}
-
-@media (min-width:600px) {
-    .slot-selector--single-week .day-selector__column--arrow {
-        vertical-align: middle
-    }
-    .slot-selector--single-week .day-selector__list-item {
-        display: block;
-        float: left;
-        width: 11.80555556%;
-        margin-left: .34722222%;
-        margin-right: .34722222%;
-        padding: 25px 0 17px;
-        border-right: 0;
-        display: inline-block;
-        width: 13.5%
-    }
-    .slot-selector--single-week .day-selector__day-name {
-        text-transform: uppercase;
-        font-size: 14px
-    }
-    .slot-selector--single-week .day-selector__day-date {
-        font-size: 18px
-    }
-    .slot-selector {
-        border: none;
-        margin: 0
-    }
-    .slot-selector .text-link {
-        padding: 10px 25px 0
-    }
-    .slot-selector .slot-selector--tab-content {
-        margin: 0
-    }
-    .slot-selector .tabs--content {
-        border: 1px solid #ccc
-    }
-    .slot-selector--day-selector {
-        border-top: 1px solid #b4b4b4;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        margin: 0
-    }
-    .flexbox .slot-selector .tabs-header-container {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex
-    }
-    .slot-selector .tabs--content {
-        border-radius: 6px
-    }
-    .slot-selector--week-tabheader {
-        padding: 10px 3px 0
-    }
-    .slot-selector--week-tabheader:first-child {
-        padding-left: 0
-    }
-    .slot-selector--week-tabheader:last-child {
-        padding-right: 0
-    }
-    .slot-selector--week-tabheader.slot-selector--4-week-tab-space .slot-selector--week-tabheader-link {
-        font-size: 14px
-    }
-    .slot-selector--week-tabheader-link {
-        border: 1px solid #b4b4b4;
-        border-bottom: 0;
-        border-radius: 6px 6px 0 0;
-        background-color: #f2f9ff;
-        display: block;
-        font-weight: 700;
-        height: 44px;
-        line-height: 1;
-        padding: 12px 0;
-        text-align: center;
-        font-family: Helvetica, Arial, sans-serif;
-        font-weight: 400;
-        font-size: 16px;
-        padding: 18px 0 30px
-    }
-    .active .slot-selector--week-tabheader-link {
-        background-color: #fff;
-        font-family: Helvetica, Arial, sans-serif;
-        font-weight: 700
     }
 }
 

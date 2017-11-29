@@ -5,8 +5,7 @@ class OrdersController < ApplicationController
     orders = current_user.orders
                          .includes(:delivery)
                          .order('deliveries.id ASC')
-                         .page(params[:page])
-                         .per(4)
+                         .paginate(:page => params[:page], :per_page => 6)
 
     render locals: {
       orders: orders

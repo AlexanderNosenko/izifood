@@ -61,8 +61,30 @@ main{
 [role="navigation"]{
   text-align: center;
 }
+
 .pagination{
+  display: block;
+  width: fit-content;
+  padding-left: 0;
+  margin: 19px auto;
+  border-radius: 4px;
+
+  li > span{
+    padding: 0px!important;
+  }
   .page-item{
+    &.last, &.first, &.next, &.prev{
+      a{
+        width: fit-content;
+      }
+    }
+    span, a{
+      display: block;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      padding: 5px;
+    }
     &.active{
       .page-link{
         background-color: $accent-color;
@@ -88,9 +110,19 @@ footer{
   text-align: center;
   /*line-height: 60px;*/
 }
-/*
-@media (max-width: 1130px){
-  .container{
-    width: initial!important;
-  }  
-}*/
+
+@media (max-width: 400px){
+  .pagination{
+
+    .page-item{
+      &.next, &.prev{
+        display: none;
+      }
+      span, a{
+        width: 32px;
+        height: 32px;
+        padding: 5px;
+      }
+    }
+  }
+}

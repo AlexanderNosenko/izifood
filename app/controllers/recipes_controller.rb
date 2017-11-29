@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
     # Recipe.update_tags_and_filters    
 
     recipes = Recipe.filter(params)
-      .page(params[:page]).per(6)
+      .paginate(:page => params[:page], :per_page => 6)
     # current_user.give_trial_promo!
     # current_user.give_influencer_promo!
 

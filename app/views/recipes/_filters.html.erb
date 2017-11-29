@@ -20,13 +20,24 @@
       </div>
       <div class="filters">
         <% filters.each do |_filter| %>
-          <%= link_to recipe_filters(:filter, _filter.id) do %>
+          <% if params[:filter] == _filter.id.to_s %>
             <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
+              <%= link_to recipe_filters(:filter, nil) do %>
+                <span class="remove-filter">X</span>
+              <% end %>
               <%= _filter.title %>
             </div>
+          <% else %>
+            <%= link_to recipe_filters(:filter, _filter.id) do %>
+              <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
+                <%= _filter.title %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
-        <%= link_to 'Clear filter', recipe_filters(:filter, nil) %>
+        <%= link_to recipe_filters(:filter, nil) do %>
+          <span class="btn <%= params[:filter].nil? ? '' : 'btn-default' %>">Clear filters</span>
+        <% end %>
       </div>
     </div>
     <div class="recipe-filters__categories-controlls-wrapper">

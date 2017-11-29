@@ -196,8 +196,40 @@ body{
   }
 }
 
-
-
-
-
-
+@media (max-width: 600px) {
+  .orders-section{
+    .order-card{
+      .order-info{
+        .order-delivery-info{
+          
+          .adress-info{
+            display: none;
+          }
+        }
+        .menu-info{
+          width: initial;
+          .menu-description {
+            text-align: left;
+            .description{
+              width:initial;
+            }
+          }
+        }
+        .order-controlls{
+          .controlls-info{
+            display: none;
+          }
+          .controlls-buttons{
+            width: initial;
+          }
+        }
+        .set-delivery{
+          width: 134px;
+          .set-delivery-text{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
