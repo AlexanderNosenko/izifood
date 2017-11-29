@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'My Account', edit_account_path(current_user) %></li>
         <li id="menus-nav-elem">
-          <a class="btn" data-toggle="modal" data-target="#menus-modal" >
+          <a data-toggle="modal" data-target="#menus-modal" >
             My Menus<span class="badge menus-badge"><%= @menus.count %></span>
           </a>
         </li>

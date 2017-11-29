@@ -41,7 +41,8 @@ gem 'redis-namespace'
 # Authorization
 gem 'devise'
 # Pagination
-gem 'kaminari'
+# gem 'kaminari'
+gem 'will_paginate', '>= 3.1'
 # Admin panel
 gem "administrate"
 #Background jobs

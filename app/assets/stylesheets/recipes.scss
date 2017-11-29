@@ -22,7 +22,7 @@
 				.title{
 			    width: 100%;
 			    color: white;
-			    font-size: 1.5vw;
+			    font-size: 1.5em;
 			    text-align: center;
 			    padding: 7px;
 			    background: rgba(0,0,0,0.4);
@@ -34,7 +34,7 @@
 				    text-align: center;
 				    margin-top: 33%;
 				    a {
-						font-size: 2vw;
+						font-size: 2em;
 					    color: white;
 						text-decoration: underline;
 					}
@@ -66,3 +66,36 @@
 		}
 	}
 }
+/*$mobile-recipe-width: 500px;
+
+@media screen and (min-width: 500px) and (max-width: 900px) {
+  .recipes{
+		.recipe{
+			flex-basis: $mobile-recipe-width;
+			min-height: $mobile-recipe-width;
+			.recipe-main-image, .recipe-content-overlay{
+				width: $mobile-recipe-width;
+			  min-height: $mobile-recipe-width;
+			}
+			
+			.recipe-content-overlay{
+				.content{
+					height: 280px;
+					.title{
+				    width: 100%;
+				    font-size: 1.5vw;
+				    padding: 7px;
+					}
+					.details-link{
+				    width: 100%;
+				    margin-top: 33%;
+				    a {
+							font-size: 2vw;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+*/

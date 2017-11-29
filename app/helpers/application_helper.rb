@@ -1,4 +1,15 @@
 module ApplicationHelper
+ 
+  def will_paginate(collection_or_options = nil, options = {})
+    if collection_or_options.is_a? Hash
+      options, collection_or_options = collection_or_options, nil
+    end
+    unless options[:renderer]
+      options = options.merge :renderer => MyCustomLinkRenderer
+    end
+    super *[collection_or_options, options].compact
+  end
+  
   def include_page_css(controller_name)
     if (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset("#{controller_name}.scss")
       stylesheet_link_tag controller_name
