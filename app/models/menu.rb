@@ -22,13 +22,25 @@ class Menu < ApplicationRecord
   validates :user_id, presence: true
   
   after_initialize :set_defaul_title, if: ->(record){ record.title.nil? }
-
   def set_defaul_title
     self.title = "Menu #{self.id}"
   end
 
+  #Can be called from menu_recipe when updated
   def handle_change
     active_order.handle_menu_change if active_order
+  end
+
+  #TODO refactor + handle case when current_manu is set, and is not the one deleted
+  def update_current_menu!
+    user_menus = self.user.menus.order(created_at: :asc)
+    Menu.where(id: user_menus.pluck(:id)).update_all(main: false)
+    
+    if self.destroyed?
+      user_menus.first.update_attribute(:main, true)  
+    else
+      Menu.find(self.id).update_attribute(:main, true)
+    end
   end
 
   def remove_recipe(recipe)
@@ -52,11 +64,6 @@ class Menu < ApplicationRecord
       })
     end
     o
-  end
-
-  def active_menu!
-    Menu.where(user_id: user_id).update_all(main: false)
-    update_attribute(:main, true)
   end
 
   def active_order

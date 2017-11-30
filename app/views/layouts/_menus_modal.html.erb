@@ -15,6 +15,7 @@
               <button class="btn <%= menu.main ? 'btn-info' : '' %> menu-togle-btn" data-id="<%= menu.id %>">
                 <%= "Menu #{menu.id}"%>
               </button>
+              <%= link_to "X", menu_path(menu), method: :delete, class: "menu-delete-btn",  data: { confirm: "Are you sure?" } %>
             <% end %>  
           </div>
           <div class="tools pull-right">

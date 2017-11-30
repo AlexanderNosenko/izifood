@@ -13,6 +13,8 @@
 <script>
   $(".alert.alert-dismissable").show();
   setTimeout(function(){
-    $(".alert.alert-dismissable").fadeTo(500, 0);  
+    $(".alert.alert-dismissable").fadeTo(500, 0, function(){
+      $('.flashes').remove();
+    });
   }, 5000)
 </script>

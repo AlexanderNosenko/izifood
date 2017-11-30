@@ -2,21 +2,15 @@ class MenusController < ApplicationController
   before_action :authenticate_user!
   # protect_from_forgery with: :exception
   
-  before_action :set_menu, only: [:add_recipe, :remove_recipe, :show, :edit, :destroy]
+  before_action :set_menu, only: [:add_recipe, :remove_recipe, :show, :edit]
   before_action :set_recipe, only: [:add_recipe, :remove_recipe]
-
-  def index
-  	@menus = User.first.menus
-  	cd
-  end
-
-  def new
-  end
   
   def update
     menu = Menu.find(params[:id])
 
-    if menu.active_menu!
+    if menu.save
+      menu.update_current_menu!
+      
       render json: {success: menu.main}
     else
       render json: {success: false}
@@ -24,15 +18,32 @@ class MenusController < ApplicationController
   end
 
   def create
-    menu = Menu.new()
-    menu.user = current_user
+    menu = current_user.menus.new
 
     if menu.save
-      flash[:success] = "New menu is created!"
-      redirect_to recipes_path
-    else
+      menu.update_current_menu!
 
+      flash[:success] = "New menu is created!"
+    else
+      flash[:error] = "Menu Error!"
     end
+
+    redirect_to recipes_path
+  end
+
+  def destroy
+    menu = current_user.menus.find(params[:id])
+
+    if menu.destroy!
+      menu.update_current_menu!
+
+      flash[:success] = "Menu is deleted!"
+      # render json: {success: menu.main}
+    else
+      flash[:success] = "Menu Error!"
+      # render json: {success: false}
+    end
+    redirect_to recipes_path
   end
   
   def remove_recipe

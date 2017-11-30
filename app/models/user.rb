@@ -35,9 +35,8 @@ class User < ApplicationRecord
 
   def current_menu
   	menus.find_by(main: true)#TODO change name column
-    # Menu.current_menu(menus)  	
   end
-  
+
   def default_address
     delivery_addresses.find_or_initialize_by(default: true)
   end
