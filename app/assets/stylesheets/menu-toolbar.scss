@@ -25,10 +25,13 @@
     /*display: flex;*/
     margin: 5px;
     width: 80%;
+    .menu-togle-btn{
+      margin: 2px;
+    }
   }
   .tools{
     margin: 5px;
-    width: 20%;
+    /*width: 20%;*/
     text-align: right;
   }
 }
@@ -86,7 +89,7 @@
           .remove-recipe-btn{  
             width: 3%;
             text-align: right;
-            margin-top: 6px;
+            margin: 6px 8px 0px 0px;
           }
         }
       }

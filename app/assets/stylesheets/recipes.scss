@@ -71,9 +71,9 @@
   }
 }
 
-$mobile-recipe-width: 270px;
+$mobile-recipe-width: 300px;
 
-@media screen and (min-width: 280px) and (max-width: 350px) {
+@media (max-width: 400px) {
   .recipes{
     .recipe{
       flex-basis: $mobile-recipe-width;

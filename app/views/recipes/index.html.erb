@@ -1,8 +1,5 @@
 <div class="container">
-  <%= render partial: 'filters', locals: {
-      categories: categories,
-      filters: filters
-    } %>
+  <%= render partial: 'filters', locals: local_assigns %>
   <div class="recipes">
     <%= render recipes %>
   </div>

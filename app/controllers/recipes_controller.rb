@@ -5,25 +5,24 @@ class RecipesController < ApplicationController
   # GET /recipes.json
   def index
     # Recipe.update_tags_and_filters    
-
-    recipes = Recipe.filter(params)
-      .paginate(:page => params[:page], :per_page => 6)
     # current_user.give_trial_promo!
     # current_user.give_influencer_promo!
 
-    categories = RecipeTag.categories
-      .where("title <> 'Inne'")
-      .order(created_at: :desc)
-    
+    recipes = Recipe.filter(params)
+      .paginate(:page => params[:page], :per_page => 6)
+      # .where("title <> 'Inne'")
+
+    categories = RecipeCategory.order(order: :desc)
     categories = prepend_chosen(categories, params[:category])
     
-    filters = RecipeTag.filters
+    filters = RecipeTag.filters.order(order: :desc)
     filters = prepend_chosen(filters, params[:filter])
 
     locals = {
       recipes: recipes,
       categories: categories,
-      filters: filters
+      filters: filters,
+      show_all_filters: params[:category].present? || params[:filter].present? || params[:q].present?
     }
     
     respond_to do |format|

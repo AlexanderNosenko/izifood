@@ -41,6 +41,15 @@ module ApplicationHelper
     end
   end
 
+
+  def clear_filters
+    recipes_path({
+      category: nil,
+      filter: nil,
+      q: nil
+    })
+  end
+  
   def recipe_filters(type, id)
     # filters = @_request.parameters[:filters].to_a
     # categories = @_request.parameters[:categories].to_a
@@ -67,10 +76,14 @@ module ApplicationHelper
   end
 
   def active_filter(id, default_style)
-    ids = [@_request.parameters[:filter], @_request.parameters[:category]].reject { |f| f.blank? }
+    ids = [@_request.parameters[:filter]].reject { |f| f.blank? }
     ids.include?(id.to_s) ? default_style : ""
   end
 
+  def active_category(id, default_style)
+    ids = [@_request.parameters[:category]].reject { |f| f.blank? }
+    ids.include?(id.to_s) ? default_style : ""
+  end
   def filter_icon_url(icon_name)
     "/assets/" + icon_name.to_s
   end

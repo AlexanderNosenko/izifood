@@ -46,6 +46,7 @@ $(document).on('ready', function(){
   $('#reset-search').on('click', function(){
     $('#recipes-search-field').val('')
     searchRecipes()
+    $('#recipes-search-form').submit();
   });
 
   $('.more-categories-btn').on('click', function(){

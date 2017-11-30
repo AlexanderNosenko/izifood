@@ -10,19 +10,20 @@ Rails.application.routes.draw do
     resources :delivery_slots
     resources :ingredients
     resources :ingredient_searches
-    resources :ingredient_translations
+    # resources :ingredient_translations
     resources :menus
-    resources :menu_recipes
+    # resources :menu_recipes
     resources :orders
-    resources :order_items
+    # resources :order_items
     resources :recipes
-    resources :recipe_ingredients
+    # resources :recipe_ingredients
     resources :search_duplicates
     resources :quantity_matches
     resources :promotions
     resources :user_promotions
     resources :payments
     resources :recipe_tags
+    resources :recipe_categories
   
     patch 'utils/update_matches', to: 'utils#update_matches', as: 'utils_update_matches'
     patch 'utils/update_slots', to: 'utils#update_slots', as: 'utils_update_slots'

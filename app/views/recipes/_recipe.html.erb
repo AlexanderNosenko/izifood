@@ -1,6 +1,6 @@
 <div class="recipe">
-  <div class="recipe-main-image"
-  style="background-image: url('<%=recipe.images[0].url%>');"></div>
+  <% recipe.main_ingredient %>
+  <div class="recipe-main-image" style="background-image: url('<%=recipe.images[0].url%>');"></div>
   <div class="recipe-content-overlay">
     <div class="content">
       <%= link_to recipe do %>

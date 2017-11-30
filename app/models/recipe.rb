@@ -34,6 +34,9 @@ class Recipe < ApplicationRecord
   has_many :recipes_tags
   has_many :recipe_tags, through: :recipes_tags, source: 'tag'
   
+  has_one :recipes_category
+  has_one :category, through: :recipes_category
+  
   enum r_type: { Inne: 0, Obiad: 1, Deser: 2, Zupa: 3, Przystawka: 4, Kolacja: 5, Napój: 6, Śniadanie: 7, 'Ciasto słodkie' => 8 }, _prefix: true
   enum prep_time: { Inne: 0, Szybko: 1, Średnio: 2, Długo: 3 }, _prefix: true
   enum prep_type: { Inne: 0, Marynowanie: 1, Gotowane: 2, Smażone: 3, Pieczenie: 4, Duszone: 5}, _prefix: true
@@ -48,24 +51,30 @@ class Recipe < ApplicationRecord
   def self.filter(params)
     res = self
 
-    tag_ids = [params[:category], params[:filter]].reject{ |r| r.blank?}
-      
-    if tag_ids.any?
-      res = joins('INNER JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id')
-        .where('recipes_tags.tag_id': tag_ids).distinct
-      # joins(<<-EOS
-      #   JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
-      #   WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
-      # EOS
-      # )    
+    if params[:category].present?
+      res = joins(:recipes_category)
+        .where("recipes_categories.category_id": params[:category])
     end
 
-    unless params[:q].blank?
-      res = res.where('title ~* ?', params[:q])
+    if params[:filter].present?
+      res = res.joins(:recipes_tags)
+        .where("recipes_tags.tag_id": params[:filter])
+        # .where("recipe_tags._type": :filter)
+    end
+
+    if params[:q].present?
       # ActiveSupport::Inflector.transliterate(q).to_s
+      res = res.where('title ~* ?', params[:q])
     end 
+
+    #TODO default ordering, popularity?
     
-    res
+    # joins(<<-EOS
+    #   JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id 
+    #   WHERE recipes_tags.tag_id IN (#{tag_ids.join(',')})
+    # EOS
+    # )    
+    res.distinct
   end
 
   # def self.search(q)
@@ -101,6 +110,10 @@ class Recipe < ApplicationRecord
   end
 
   def self.update_tags_and_filters
+    RecipeCategory.destroy_all
+    RecipeTag.destroy_all
+    RecipesTag.destroy_all
+
     Recipe.all.each do |recipe|
       recipe.register_tag(recipe.r_type, 'category')
       recipe.register_tag(recipe.main_ingredient, 'filter')         
@@ -108,8 +121,13 @@ class Recipe < ApplicationRecord
   end
 
   def register_tag(title, type)
-    tag = RecipeTag.find_or_create_by(title: title, _type: type)
-    RecipesTag.create(recipe: self, tag: tag)
+    if type == 'category'
+      cat = RecipeCategory.find_or_create_by(title: title)
+      RecipesCategory.create(recipe: self, category: cat)
+    else
+      tag = RecipeTag.find_or_create_by(title: title, _type: type)
+      RecipesTag.create(recipe: self, tag: tag)
+    end
   end
 
   def self.convert_to_enum

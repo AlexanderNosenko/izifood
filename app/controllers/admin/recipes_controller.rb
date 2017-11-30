@@ -15,7 +15,7 @@ module Admin
       end
       resources = resources.includes(*resource_includes) if resource_includes.any?
       resources = order.apply(resources)
-      resources = resources.order(status: :asc).page(params[:page]).per(records_per_page)
+      resources = resources.order(status: :asc).paginate(:page => params[:page], :per_page => records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
       render locals: {

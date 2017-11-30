@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class RecipeTagDashboard < Administrate::BaseDashboard
+class RecipeCategoryDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,11 +8,12 @@ class RecipeTagDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    parent: Field::BelongsTo.with_options(class_name: "RecipeCategory"),
     id: Field::Number,
-    title: Field::String,
-    _type: Field::String.with_options(searchable: false),
     order: Field::Number,
+    title: Field::String,
     icon: Field::String,
+    parent_id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -23,21 +24,21 @@ class RecipeTagDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :parent,
     :id,
-    :title,
     :order,
-    :_type,
-    :icon,
+    :title,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :parent,
     :id,
-    :title,
-    :_type,
     :order,
+    :title,
     :icon,
+    :parent_id,
     :created_at,
     :updated_at,
   ].freeze
@@ -46,16 +47,17 @@ class RecipeTagDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :title,
+    :parent,
     :order,
-    :_type,
+    :title,
     :icon,
+    :parent_id,
   ].freeze
 
-  # Overwrite this method to customize how recipe tags are displayed
+  # Overwrite this method to customize how recipe categories are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(recipe_tag)
-  #   "RecipeTag ##{recipe_tag.id}"
+  # def display_resource(recipe_category)
+  #   "RecipeCategory ##{recipe_category.id}"
   # end
 end

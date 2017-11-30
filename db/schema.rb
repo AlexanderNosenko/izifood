@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127160632) do
+ActiveRecord::Schema.define(version: 20171130091700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,18 @@ ActiveRecord::Schema.define(version: 20171127160632) do
     t.index ["quantifier"], name: "index_quantity_matches_on_quantifier"
   end
 
+  create_table "recipe_categories", force: :cascade do |t|
+    t.integer "order", default: 0
+    t.string "title", null: false
+    t.string "icon"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order"], name: "index_recipe_categories_on_order"
+    t.index ["parent_id"], name: "index_recipe_categories_on_parent_id"
+    t.index ["title"], name: "index_recipe_categories_on_title"
+  end
+
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id"
     t.string "quantity", null: false
@@ -178,6 +190,7 @@ ActiveRecord::Schema.define(version: 20171127160632) do
 
   create_table "recipe_tags", force: :cascade do |t|
     t.string "title", null: false
+    t.integer "order", default: 0
     t.integer "_type", default: 0, null: false
     t.string "icon"
     t.datetime "created_at", null: false
@@ -213,6 +226,15 @@ ActiveRecord::Schema.define(version: 20171127160632) do
     t.index ["prep_type"], name: "index_recipes_on_prep_type"
     t.index ["r_type"], name: "index_recipes_on_r_type"
     t.index ["veg"], name: "index_recipes_on_veg"
+  end
+
+  create_table "recipes_categories", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_recipes_categories_on_category_id"
+    t.index ["recipe_id"], name: "index_recipes_categories_on_recipe_id"
   end
 
   create_table "recipes_tags", force: :cascade do |t|

@@ -1,10 +1,10 @@
 <div class="recipe-filters">
   <!-- <div class="recipe-filters__categories-wrapper"> -->
-    <div class="recipe-filters__categories <%= (params[:filter].present? || params[:q].present?) ? 'full-height' : '' %>">
+    <div class="recipe-filters__categories <%= show_all_filters ? 'full-height' : '' %>">
       <% categories.each do |category| %>
         <div class="recipe-filters__categories__category-tag-wrapper">
           <%= link_to recipe_filters(:category, category.id) do %>
-            <div class="btn recipe-filters__categories__category-filter <%= active_filter(category.id, 'active-category') %>">
+            <div class="btn recipe-filters__categories__category-filter <%= active_category(category.id, 'active-category') %>">
               <div class="recipe-filters__categories__category-filter__content">
                 <%= image_tag category.icon.to_s, class: "recipe-filters__categories__category-filter__icon" %>
                 <!-- <span class="category-filter__title"> -->
@@ -13,6 +13,18 @@
               </div>
             </div>
           <% end %>  
+        </div>
+      <% end %>
+       <% if params[:category].present? %>
+        <div class="recipe-filters__categories__category-tag-wrapper">
+          <%= link_to recipe_filters(:category, nil) do %>
+            <div class="btn btn-default clear-filters-btn">
+              <div class="recipe-filters__categories__category-filter__content">
+                <span class="remove-filter">X</span>
+                Clear category
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <div class="recipe-filters__search">
@@ -36,7 +48,7 @@
           <% end %>
         <% end %>
         <%= link_to recipe_filters(:filter, nil) do %>
-          <span class="btn <%= params[:filter].nil? ? '' : 'btn-default' %>">Clear filters</span>
+          <span class="btn <%= params[:filter].present? ?  'btn-default' : '' %>">Clear filters</span>
         <% end %>
       </div>
     </div>
@@ -48,16 +60,17 @@
           </div>
         </div>
       </div>
-      <% if params[:category] %>
+      <% if show_all_filters %>
         <div class="recipe-filters__categories__category-tag-wrapper">
-          <%= link_to recipe_filters(:category, nil) do %>
-            <div class="btn recipe-filters__categories__category-filter clear-filters-btn">
+          <%= link_to clear_filters do %>
+            <div class="btn btn-default clear-all-filters">
               <div class="recipe-filters__categories__category-filter__content">
-                Clear category
+                <span class="remove-filter">X</span>
+                Clear All
               </div>
             </div>
           <% end %>
-        </div>
+        </div>        
       <% end %>
     </div>
   <!-- </div> -->

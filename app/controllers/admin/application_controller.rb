@@ -12,6 +12,23 @@ module Admin
       # TODO Add authentication logic here.
     end
 
+    def index
+      search_term = params[:search].to_s.strip
+      resources = Administrate::Search.new(scoped_resource,
+                                           dashboard_class,
+                                           search_term).run
+      resources = resources.includes(*resource_includes) if resource_includes.any?
+      resources = order.apply(resources)
+      resources = resources.paginate(:page => params[:page], :per_page => records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render locals: {
+        resources: resources,
+        search_term: search_term,
+        page: page,
+        show_search_bar: show_search_bar?
+      }
+    end
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page
