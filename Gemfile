@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.4.2"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -6,17 +7,17 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.2'
+gem 'rails'
 # Use postgres as the database for Active Record
 gem "pg"
 # Pictures uploader
 gem "carrierwave", :github => "carrierwaveuploader/carrierwave"
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 #Easy ENV_VARs
@@ -24,7 +25,7 @@ gem "figaro"
 #Schema in models
 gem 'annotate', git: 'https://github.com/ctran/annotate_models.git', require: false
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
 #Styles
@@ -59,7 +60,7 @@ gem 'seedbank'
 
 # Backups
 gem 'whenever', require: false
-gem 'backup',   require: false
+# gem 'backup',   require: false
 
 # Profiler
 gem 'ruby-prof'
@@ -74,7 +75,7 @@ group :development, :test do
   gem 'faker'
 
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'capistrano', require: false#, '3.8.2'
