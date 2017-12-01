@@ -25,7 +25,7 @@ class Order < ApplicationRecord
   validates_uniqueness_of :menu_id, scope: [:deliver_on, :user_id]
   validate :no_active_orders, if: -> { new_record? }
 
-  enum status: [:ok, :user_attention]
+  enum status: [:ok, :user_attention, :canceled]
 
   def self.active_order_for(menu)
     Order.joins(<<-EOS 
@@ -39,6 +39,13 @@ class Order < ApplicationRecord
     #TODO AND deliveries.time_from < time '03:00'
   end
   
+  def remove_not_mentioned!(order_items_new)
+    new_ids = order_items_new.pluck(:id)
+    order_items.each do |order_item|
+      order_item.destroy unless new_ids.include?(order_item.id.to_s)
+    end
+  end
+
   def remove_not_mentioned!(order_items_new)
     new_ids = order_items_new.pluck(:id)
     order_items.each do |order_item|

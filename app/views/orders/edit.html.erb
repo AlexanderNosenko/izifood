@@ -1,18 +1,20 @@
 <div class="container">
   <h1>Edit order # <%= @order.id %> for <%= @order.menu.title %> </h1>
   <%= render partial: 'form_with_search', locals: {submit_btn_text: 'Save' }%>
-
-  <% if @order.delivery.present? %>
-    <%= link_to(
-        "Edit delivery", 
-        edit_order_delivery_path({
-          order_id: params[:id], 
-          id: @order.delivery.id
-        }),
-        class: "btn btn-primary")
-    %>
-  <% else %>
-    <%= link_to 'Set delivery', new_order_delivery_path(@order), class: 'btn btn-primary set-delivery-btn' %>
+  
+  <% if @order.ok? %>
+    <% if @order.delivery.present? %>
+      <%= link_to(
+          "Edit delivery", 
+          edit_order_delivery_path({
+            order_id: params[:id], 
+            id: @order.delivery.id
+          }),
+          class: "btn btn-primary")
+      %>
+    <% else %>
+      <%= link_to 'Set delivery', new_order_delivery_path(@order), class: 'btn btn-primary set-delivery-btn' %>
+    <% end %>
   <% end %>
 
   <!-- <div class="live-search">

@@ -1,21 +1,37 @@
-<p>
-  <strong>Title:</strong>
-  <%= @recipe.title %>
-</p>
-
-<% @recipe.images.each do |img| %>
-  <%= image_tag img, width: 200 %>
-<% end %>
-
-<p>
-  <strong>Description:</strong>
-  <% @recipe.description.each_with_index do |step, index| %>
-    <p>
-      <%= image_tag @recipe.desc_images[index] if @recipe.desc_images[index]%>
-    </p>
-    <p>
-      <%= step %>
-    </p>
+<div class="container recipe-content">
+  <div class="title">
+    <h2>
+      <%= @recipe.title %>
+    </h2>
+  </div>
+  <div class="main-images swiper-container">
+    <div class="swiper-scrollbar"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-wrapper">
+      <% @recipe.images.each do |img| %>
+        <div class="swiper-slide">
+          <%= image_tag img %>
+        </div>
+      <% end %>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+  <% if @recipe.description.count > 1 %>
+    <div class="step-description">
+      <% @recipe.description.each_with_index do |step, index| %>
+        <p>
+          <%= image_tag @recipe.desc_images[index] if @recipe.desc_images[index]%>
+        </p>
+        <p>
+          <%= step %>
+        </p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="description">
+      <strong>Description:</strong>
+      <p><%= @recipe.description[0] %></p>
+    </div>
   <% end %>
-</p>
-<%= link_to 'Back', recipes_path %>
+</div>

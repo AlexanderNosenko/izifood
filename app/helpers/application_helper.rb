@@ -49,7 +49,7 @@ module ApplicationHelper
       q: nil
     })
   end
-  
+
   def recipe_filters(type, id)
     # filters = @_request.parameters[:filters].to_a
     # categories = @_request.parameters[:categories].to_a
@@ -97,8 +97,13 @@ module ApplicationHelper
       status_class = 'white'
       status_text = "New"
     else
-      status_class = 'red'
+      status_class = 'blue'
       status_text = "Pending"
+    end
+
+    if order.canceled?
+      status_class = 'red'
+      status_text = "Canceled"
     end
 
     html = <<-HTML

@@ -57,8 +57,8 @@
       Info
     </div>
     <div class="controlls-buttons">
-      <button class="btn btn-danger disabled btn-cancel">Cancel</button>  
-      <%= link_to 'Edit', edit_order_path(order), class: "btn btn-primary btn-edit" %>
+      <%= link_to 'Cancel', cancel_order_path(order), class: "btn btn-danger btn-cancel #{ order.canceled? ? 'disabled' : ''}", method: :patch %>
+      <%= link_to 'Show', edit_order_path(order), class: "btn btn-primary btn-edit" %>
     </div>
   </div>
 </div>

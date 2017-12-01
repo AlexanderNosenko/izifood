@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     resources :delivery, controller: "deliveries", only: %i(new create edit update)
     # post 'delivery', to: 'deliveries#create'
   end
+  patch 'orders/:id/cancel', to: 'orders#cancel', as: 'cancel_order'
+
   resources :delivery_addresses, only: %i(create update)
   resources :ingredients, only: %i(index)
   resources :accounts, only: %i(edit update)

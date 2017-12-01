@@ -1,3 +1,6 @@
+@import 'variables';
+@import "show-recipe";
+
 .recipes{
   display: flex;
   flex-direction: row;
@@ -79,9 +82,9 @@
   }
 }
 
-$mobile-recipe-width: 300px;
+$mobile-recipe-width: 320px;
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .recipes{
     .recipe{
       flex-basis: $mobile-recipe-width;

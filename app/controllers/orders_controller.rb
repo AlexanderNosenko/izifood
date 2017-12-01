@@ -64,6 +64,18 @@ class OrdersController < ApplicationController
 
   end
 
+  def cancel
+    @order = Order.find(params[:id])
+    
+    if @order.update_attribute(:status, 'canceled')
+      flash[:success] = "Order successfully canceled!"
+    else
+      flash[:error] = "Error occured!"
+    end
+  
+    redirect_to orders_path
+  end
+
   def job_status
     status = Sidekiq::Status::status(params[:job_id])
     DeliverySlots.clean_job_status_cache if status == 'completed'

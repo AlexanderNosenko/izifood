@@ -1,0 +1,48 @@
+@import "swiper/swiper.min";
+
+.swiper-container {
+  width: 100%;
+  height: 500px;
+  margin: 50px auto;
+  
+  .swiper-slide {
+    background: $body-background;
+    color:#000;
+    text-align: center;
+    line-height: 300px;
+  }
+
+  .swiper-pagination-bullet-active{
+    background: $accent-color;
+  }
+  .swiper-scrollbar-drag{
+    background: rgba(70, 184, 218, 0.5);
+  }
+
+}
+.recipe-content{
+  width: 70%;
+  .title{
+    padding: 10px;
+  }
+}
+
+
+@media (max-width: 450px) {
+  .swiper-container {
+    height: 363px;
+    .swiper-slide {
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .recipe-content{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    .title{
+
+    }
+  }
+}

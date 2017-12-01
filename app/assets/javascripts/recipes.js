@@ -1,6 +1,6 @@
-// background: 'rgba(0, 0, 0, 0.1)',
-$(document).ready(function(){
+//= require show_recipe
 
+$(document).ready(function(){
   function animateAddingToMenuRecipe(elem){
     elem.animate({
       opacity: '.7',
