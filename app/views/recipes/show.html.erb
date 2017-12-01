@@ -1,4 +1,4 @@
-<div class="container recipe-content">
+<div class="container recipe-wrapper">
   <div class="title">
     <h2>
       <%= @recipe.title %>
@@ -17,21 +17,47 @@
     </div>
     <div class="swiper-pagination"></div>
   </div>
-  <% if @recipe.description.count > 1 %>
-    <div class="step-description">
-      <% @recipe.description.each_with_index do |step, index| %>
-        <p>
-          <%= image_tag @recipe.desc_images[index] if @recipe.desc_images[index]%>
-        </p>
-        <p>
-          <%= step %>
-        </p>
-      <% end %>
+  <div class="recipe-content">
+    <div class="ingredients">
+      <h4><strong>SKŁADNIKI:</strong></h4>
+      <table>
+        <% @recipe.recipe_ingredients.each do |ingredient| %>
+          <tr>
+            <td class="ingredient__title">
+              <span>
+                <%= ingredient.title %>
+              </span>
+            </td>
+            <td class="ingredient__quantity">
+              <span>
+                <%= ingredient.quantity %>
+              </span>
+            </td>
+          </tr>
+          <tr class="row-spacer"></tr>
+        <% end %>
+      </table>
     </div>
-  <% else %>
-    <div class="description">
-      <strong>Description:</strong>
-      <p><%= @recipe.description[0] %></p>
-    </div>
-  <% end %>
+    <% if @recipe.description.count > 1 %>
+      <div class="step-description">
+        <h4><strong>Description:</strong></h4>
+        <% @recipe.description.each_with_index do |step, index| %>
+          <div class="step">
+            <div class="step-image">
+              <%= image_tag @recipe.desc_images[index] if @recipe.desc_images[index]%>  
+            </div>
+            <div class="step__description">
+              <span class="step-count"><%= "#{index + 1}. " %></span>
+              <%= prepare_recipe_description_html(step).html_safe %>
+            </div>
+          </div>          
+        <% end %>
+      </div>
+    <% else %>
+      <div class="description">
+        <h4><strong>Description:</strong></h4>
+        <p><%= prepare_recipe_description_html(@recipe.description[0]).html_safe %></p>
+      </div>
+    <% end %>
+  </div>
 </div>

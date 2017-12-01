@@ -4,7 +4,7 @@
       <% menu.recipes.each do |recipe| %>
         <div class="recipe">
           <div class="image" style="background-image: url(<%= recipe.images[0].url %>);"></div>
-          <div class="title"><%=recipe['title'].downcase.capitalize%></div>
+          <div class="title"><%= link_to recipe['title'].downcase.capitalize, recipe_path(recipe) %></div>
           <div class="remove-recipe-btn">
             <%= link_to 'X', menu_recipes_path({recipe_id: recipe}), method: :delete, remote: true%>
           </div>

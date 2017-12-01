@@ -4,7 +4,7 @@ lock "3.10.0"
 set :application, "izifood.pl"
 set :repo_url, "git@github.com:AlexandrNosenko/izifood.git"
 set :branch, 'master'
-set :rvm_ruby_version, "2.3.1@izifood"
+set :rvm_ruby_version, "2.4.2@izifood"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

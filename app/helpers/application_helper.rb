@@ -122,4 +122,17 @@ module ApplicationHelper
       recipe.title[0..15] + "..."
     }.join(", ") + " )"
   end
+
+  def prepare_recipe_description_html(description)
+    description.gsub(/\r\n/).each_with_index { |new_line_sym, index|
+    #   if index % 2 == 0
+    #     "<p>"
+    #   else
+    #     "</p>"
+    #   end
+    # } + '</p>'
+      '<br>' +  '<br>'
+    }
+    # .gsub('\r\n', "<p>")
+  end
 end
