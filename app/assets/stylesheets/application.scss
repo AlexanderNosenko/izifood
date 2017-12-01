@@ -41,7 +41,7 @@ main{
   position: fixed;
   width: 100%;
   z-index: 4;
-  
+
   .container-fluid{
     width: 70%;
   }
@@ -112,6 +112,10 @@ footer{
 }
 
 @media (max-width: 400px){
+  .navbar{
+    background-color: #E0E0E0;
+    border-color: #E0E0E0;
+  }
   .pagination{
 
     .page-item{

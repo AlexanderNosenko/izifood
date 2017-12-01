@@ -25,7 +25,7 @@
           font-size: 1.5em;
           text-align: center;
           padding: 7px;
-          background: rgba(0,0,0,0.4);
+          background: rgba(219, 147, 7, 0.6);
         }
         .details-link{
           opacity: 0;
@@ -63,10 +63,18 @@
       transition: opacity 0.5s;
       margin-right: 8px;
       transition: all .4s;
-      
       &:hover{
         transform: scale(1.1);
       }
+    }
+
+    .add-to-menu-success-text{
+      display: none;
+      position: absolute;
+      color: #66BB6A;
+      margin-left: 80%;
+      font-size: 1.2em;
+      font-weight: 600;
     }
   }
 }

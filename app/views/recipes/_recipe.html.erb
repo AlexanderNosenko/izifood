@@ -10,6 +10,7 @@
     </div>
     <!-- <div class="description"><%= recipe.description %></div> -->
       <%= link_to menu_recipes_path({recipe_id: recipe}), remote: true, method: :post do %>
+        <div class="add-to-menu-success-text">Added</div>
         <div class="add-to-menu-btn"></div>
       <% end %>
   </div>

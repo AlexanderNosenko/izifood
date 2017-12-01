@@ -19,7 +19,7 @@ $(document).ready(function(){
       opacity: '.7',
     }, 300, function() {
       $(this).animate({
-        backgroundColor: '#f8f8f8',
+        backgroundColor: $('.navbar').css('backgroundColor'),
         top: '0px',
         opacity: '1',
         borderRadius: '0px',
@@ -31,15 +31,29 @@ $(document).ready(function(){
       opacity: '.7',
     }, 300, function() {
       $(this).animate({
-        backgroundColor: '#f8f8f8',
+        backgroundColor: $('.navbar').css('backgroundColor'),
         opacity: '1',
       })
+    });
+  }
+  
+  function animateAddingToMenuBtn(elem){
+    animatedElem = elem.parent().find('.add-to-menu-success-text')
+    animatedElem.css('display', 'block');
+    animatedElem.animate({
+      top: '50%',
+      opacity: '0',
+    }, 700, function(){
+      animatedElem.css('display', 'none');
+      animatedElem.css('top', 'unset');
+      animatedElem.css('opacity', '1');
     });
   }
 
   $(".add-to-menu-btn").on('click', function(){
     animateAddingToMenuRecipe($(this).closest('.recipe-content-overlay'))
     animateAddingToMenuNavigation($('#menus-nav-elem'))
+    animateAddingToMenuBtn($(this))
   })
 
   $(".add-to-menu-btn> a[data-remote]").on("ajax:success", function(e, data, status, xhr){
