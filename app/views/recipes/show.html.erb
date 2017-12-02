@@ -30,8 +30,8 @@
     </div>
 
     <div class="info-pad__item add-to-menu-wrapper">
+      <div class="add-to-menu-success-text">Added</div>
       <%= link_to menu_recipes_path({recipe_id: @recipe}), remote: true, method: :post do %>
-        <div class="add-to-menu-success-text">Added</div>
         <div class="add-to-menu-btn">+ Add to menu</div>
       <% end %>
       <!-- <span class="menu-counter">

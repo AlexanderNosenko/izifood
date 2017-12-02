@@ -189,8 +189,10 @@ $search-icon-width: 38px;
       flex-direction: row;
       flex-wrap: wrap;
       max-height: 256px;
+      will-change: max-height;
+      
       &.full-height{
-        max-height: 80000px;
+        max-height: 1000px;
       }
 
       a{

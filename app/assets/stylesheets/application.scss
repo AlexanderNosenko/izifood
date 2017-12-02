@@ -54,9 +54,18 @@ main{
       width: 112px;
     }
   }
-  #menus-nav-elem{
+  .menus-nav-elem{
     cursor: pointer;
+    transition: all 0.3s ease-out;
   }
+
+  /*.navbar-toggle.collapsed{
+    transition: all 0.3s ease-out;
+    &--animated{
+      background: rgba(70, 184, 218, 0.5);
+      opacity: .7;
+    }
+  }*/
 }
 [role="navigation"]{
   text-align: center;
@@ -129,4 +138,20 @@ footer{
       }
     }
   }
+}
+
+@media (min-width: 1200px){
+  .navbar{
+    .menus-nav-elem{
+      cursor: pointer;
+      transition: all 0.3s ease-out;
+
+      &--animated{
+        background: rgba(70, 184, 218, 0.5);
+        border-radius: 5px;
+        transform: translateY(20px);
+        opacity: .7;
+      }
+    }
+  }  
 }

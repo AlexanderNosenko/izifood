@@ -1,17 +1,19 @@
 <div class="recipe">
   <% recipe.main_ingredient %>
   <div class="recipe-main-image" style="background-image: url('<%=recipe.images[0].url%>');"></div>
+  
   <div class="recipe-content-overlay">
-    <div class="content">
-      <%= link_to recipe do %>
-        <div class="title"><%= recipe.title %></div>  
-      <% end %>
-      <!-- <div class="details-link"><%= link_to 'Show', recipe %></div> -->
-    </div>
-    <!-- <div class="description"><%= recipe.description %></div> -->
-      <%= link_to menu_recipes_path({recipe_id: recipe}), remote: true, method: :post do %>
-        <div class="add-to-menu-success-text">Added</div>
-        <div class="add-to-menu-btn"></div>
-      <% end %>
+    <div class="add-to-menu-success-text">Added</div>
+    <%= link_to menu_recipes_path({recipe_id: recipe}), remote: true, method: :post do %>
+      <div class="add-to-menu-btn"></div>
+    <% end %>
   </div>
+
+  <div class="content">
+    <%= link_to recipe do %>
+      <div class="title"><%= recipe.title %></div>  
+    <% end %>
+    <!-- <div class="details-link"><%= link_to 'Show', recipe %></div> -->
+  </div>
+  
 </div>

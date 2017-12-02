@@ -10,75 +10,106 @@
     flex-basis: 350px;
     min-height: 350px;
     margin-bottom: 20px;
+
+    .content{
+      position: relative;
+      height: 280px;
+      .title{
+        width: 100%;
+        color: white;
+        font-size: 1.5em;
+        text-align: center;
+        padding: 7px;
+        background: rgba(219, 147, 7, 0.6);
+      }
+      .details-link{
+        opacity: 0;
+        transition: opacity 0.5s;
+          width: 100%;
+          text-align: center;
+          margin-top: 33%;
+          a {
+          font-size: 2em;
+            color: white;
+          text-decoration: underline;
+        }
+      }
+    }
+    
+    &:hover{
+      .recipe-content-overlay{
+        opacity: 1;
+      }
+      .content .title{
+        text-decoration:underline!important;
+      }
+    }
+
     .recipe-main-image, .recipe-content-overlay{
       background-size: cover;
       background-position: center;
       width: 350px;
       min-height: 350px;
       position: absolute;
-      transition: background 0.5s;
+      opacity: 1;
+      transition: opacity 0.3s ease-out;
     }
     
     .recipe-content-overlay{
-      .content{
-        height: 280px;
-        .title{
-          width: 100%;
-          color: white;
-          font-size: 1.5em;
-          text-align: center;
-          padding: 7px;
-          background: rgba(219, 147, 7, 0.6);
-        }
-        .details-link{
-          opacity: 0;
-          transition: opacity 0.5s;
-            width: 100%;
-            text-align: center;
-            margin-top: 33%;
-            a {
-            font-size: 2em;
-              color: white;
-            text-decoration: underline;
-          }
-        }
-      }
-
-      &:hover{
-        .content .title{
-          text-decoration:underline!important;
-        }
-
-        background: rgba(0, 0, 0, 0.5);
-        .details-link, .add-to-menu-btn{
-          opacity: 1;
-        }
-      }
-    }
-    
-    .add-to-menu-btn{
-      width: 62px;
-      height: 62px;     
-      float: right;
-      background-image: image-url("add-recipe-to-menu_1.png");
-      background-size: contain;
       opacity: 0;
-      transition: opacity 0.5s;
-      margin-right: 8px;
-      transition: all .4s;
-      &:hover{
-        transform: scale(1.1);
+      background: rgba(0, 0, 0, 0.5);
+      
+      &--animated{
+        opacity: 0.5!important;
+      }
+
+      a{
+        display: block;
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        z-index: 1;
+        
+        .add-to-menu-btn{
+          width: 62px;
+          height: 62px;     
+          float: right;
+          background-image: image-url("add-recipe-to-menu_1.png");
+          background-size: contain;
+          /*transition: opacity 0.5s;
+          transition: all .4s;
+          &:hover{
+            transform: scale(1.1);
+          }*/
+        }
+      }
+
+      .add-to-menu-success-text{
+        display: none;
+        opacity: 1;
+        position: absolute;
+        color: #66BB6A;
+        right: 13px;
+        bottom: 70px;
+        font-size: 1.2em;
+        font-weight: 600;
+        transform: translateY(0);
+        transition: all 300ms ease;
+        
+        &.show{
+          display: block;
+        }
+
+        &--animated{
+          display: block;
+          transform: translateY(-80px);
+          opacity: 0;
+          transition: all 300ms ease;
+        }
       }
     }
 
-    .add-to-menu-success-text{
-      display: none;
-      position: absolute;
-      color: #66BB6A;
-      margin-left: 80%;
-      font-size: 1.2em;
-      font-weight: 600;
-    }
+    
   }
 }
 

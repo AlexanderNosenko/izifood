@@ -1,59 +1,26 @@
 //= require show_recipe
 
 $(document).ready(function(){
-  function animateAddingToMenuRecipe(elem){
-    elem.animate({
-      opacity: '.7',
-    }, 300, function() {
-      $(this).animate({
-        opacity: '1',
-      })
-    });
-  }
-
-  function animateAddingToMenuNavigation(elem){
-    elem.animate({
-      backgroundColor: 'rgba(70, 184, 218, 0.5)',
-      borderRadius: '5px',
-      top: '20px',
-      opacity: '.7',
-    }, 300, function() {
-      $(this).animate({
-        backgroundColor: $('.navbar').css('backgroundColor'),
-        top: '0px',
-        opacity: '1',
-        borderRadius: '0px',
-      })
-    });
-
-    $('.navbar-toggle.collapsed').animate({
-      backgroundColor: 'rgba(70, 184, 218, 0.5)',
-      opacity: '.7',
-    }, 300, function() {
-      $(this).animate({
-        backgroundColor: $('.navbar').css('backgroundColor'),
-        opacity: '1',
-      })
-    });
+  function animateElement(elem, _class, time){
+    setTimeout(function(){elem.addClass(_class)})
+    setTimeout(function(){elem.removeClass(_class)}, time);
   }
   
-  function animateAddingToMenuBtn(elem){
-    animatedElem = elem.parent().find('.add-to-menu-success-text')
-    animatedElem.css('display', 'block');
-    animatedElem.animate({
-      top: '50%',
-      opacity: '0',
-    }, 700, function(){
-      animatedElem.css('display', 'none');
-      animatedElem.css('top', 'unset');
-      animatedElem.css('opacity', '1');
-    });
+  function animateAddingToMenuStatus(elem){
+    elem.addClass('show')
+    animateElement(elem, 'add-to-menu-success-text--animated', 300)
+    setTimeout(function(){elem.removeClass('show')}, 300)
   }
 
   $(".add-to-menu-btn").on('click', function(){
-    animateAddingToMenuRecipe($(this).closest('.recipe-content-overlay'))
-    animateAddingToMenuNavigation($('#menus-nav-elem'))
-    animateAddingToMenuBtn($(this))
+    animateElement($(this).closest('.recipe-content-overlay'), 'recipe-content-overlay--animated', 300)
+    animateAddingToMenuStatus($(this).parent().parent().find('.add-to-menu-success-text'))
+    animateElement($('.menus-nav-elem'), 'menus-nav-elem--animated', 300)
+    animateElement($('.navbar-toggle.collapsed'), 'collapsed--animated', 300)
+    
+    // animateAddingToMenuRecipe($(this).closest('.recipe-content-overlay'))
+    // animateAddingToMenuNavigation()
+    // animateAddingToMenuBtn($(this).parent().find('.add-to-menu-success-text'))
   })
 
   $(".add-to-menu-btn> a[data-remote]").on("ajax:success", function(e, data, status, xhr){

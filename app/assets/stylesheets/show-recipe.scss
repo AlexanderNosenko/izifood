@@ -58,17 +58,34 @@
           margin: 6px 0px 0px 5px;
         }
       }
+
       &.add-to-menu-wrapper{
-        .add-to-menu-success-text{
-          display: none;
-          position: absolute;
-        }
         a{
           text-decoration: none;
         }
         .add-to-menu-btn{
           padding: 6px;
         }
+
+        .add-to-menu-success-text{
+          display: none;
+          opacity: 1;
+          position: absolute;
+          color: #66BB6A;
+          margin-left: 10px;
+          transform: translateY(0);
+          transition: all 400ms ease;
+          
+          &.show{
+            display: block;
+          }
+
+          &--animated{
+            display: block;
+            transform: translateY(-50px);
+            opacity: 0;
+          }
+        }        
       }
     }
   }
