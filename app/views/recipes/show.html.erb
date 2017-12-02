@@ -1,9 +1,46 @@
 <div class="container recipe-wrapper">
+
   <div class="title">
     <h2>
       <%= @recipe.title %>
     </h2>
   </div>
+
+  <div class="info-pad">
+    
+    <div class="info-pad__item portion">
+      <span class="info-icon">
+        <svg viewBox="0 0 23 19" id="portion" width="100%" height="100%"><g fill-rule="evenodd"><path d="M3 7.96c0 .02-.02.04-.046.04h17.092C20.02 8 20 7.98 20 7.96c-.001 4.426-3.81 8.04-8.5 8.04C6.807 16 3 12.386 3 7.96zm18 0a.957.957 0 0 0-.954-.96H2.954A.956.956 0 0 0 2 7.96C2 12.95 6.267 17 11.5 17c5.232 0 9.499-4.05 9.5-9.04zM18.598 19H4.403C4.181 19 4 18.776 4 18.5s.18-.5.403-.5h14.194c.222 0 .403.224.403.5s-.18.5-.402.5zm4.06-10h-1.317C21.153 9 21 8.776 21 8.5s.153-.5.341-.5h1.318c.188 0 .341.224.341.5s-.153.5-.341.5zm-21 0H.342C.153 9 0 8.776 0 8.5S.153 8 .341 8H1.66c.188 0 .341.224.341.5s-.153.5-.341.5z"></path><rect width="1" height="6" x="11" rx=".5"></rect><rect width="1" height="3" x="8" y="3" rx=".5"></rect><rect width="1" height="3" x="14" y="3" rx=".5"></rect></g></svg>
+      </span>
+      <span class="info-text"><%= "#{@recipe.portion_size} porcji" %></span>
+    </div>
+
+    <div class="info-pad__item timer">
+      <span class="info-icon">
+        <svg viewBox="0 0 42 49" id="timer" width="100%" height="100%"><path d="M42 28c0 11.598-9.402 21-21 21S0 39.598 0 28 9.402 7 21 7s21 9.402 21 21zM21 9C10.507 9 2 17.507 2 28s8.507 19 19 19 19-8.507 19-19S31.493 9 21 9zm0 21a1.994 1.994 0 1 1-1-3.723V14.999h2v11.279c.595.346 1 .984 1 1.722a2 2 0 0 1-2 2zM20 2h-3V0h8v2h-3v5h-2V2z"></path></svg>
+      </span>
+      <span class="info-text"><%= @recipe.prep_time %></span>
+    </div>
+
+    <div class="info-pad__item calories">
+      <span class="info-icon">
+        <%= image_tag 'calories-icon.png' %>
+      </span>
+      <span class="info-text"><%= @recipe.calories %></span>
+    </div>
+
+    <div class="info-pad__item add-to-menu-wrapper">
+      <%= link_to menu_recipes_path({recipe_id: @recipe}), remote: true, method: :post do %>
+        <div class="add-to-menu-success-text">Added</div>
+        <div class="add-to-menu-btn">+ Add to menu</div>
+      <% end %>
+      <!-- <span class="menu-counter">
+        4 
+      </span> -->
+    </div>
+
+  </div>
+
   <div class="main-images swiper-container">
     <div class="swiper-scrollbar"></div>
     <div class="swiper-button-prev"></div>
@@ -18,25 +55,33 @@
     <div class="swiper-pagination"></div>
   </div>
   <div class="recipe-content">
-    <div class="ingredients">
-      <h4><strong>SKŁADNIKI:</strong></h4>
-      <table>
-        <% @recipe.recipe_ingredients.each do |ingredient| %>
-          <tr>
-            <td class="ingredient__title">
-              <span>
-                <%= ingredient.title %>
-              </span>
-            </td>
-            <td class="ingredient__quantity">
-              <span>
-                <%= ingredient.quantity %>
-              </span>
-            </td>
-          </tr>
-          <tr class="row-spacer"></tr>
+    <div class="recipe-info">
+      <div class="ingredients">
+        <h4><strong>SKŁADNIKI:</strong></h4>
+        <table>
+          <% @recipe.recipe_ingredients.each do |ingredient| %>
+            <tr>
+              <td class="ingredient__title">
+                <span>
+                  <%= ingredient.title %>
+                </span>
+              </td>
+              <td class="ingredient__quantity">
+                <span>
+                  <%= ingredient.quantity %>
+                </span>
+              </td>
+            </tr>
+            <tr class="row-spacer"></tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="tags">
+        <h4><strong>Tagi:</strong></h4>
+        <% @recipe.recipe_tags.each do |tag| %>
+          <%= link_to tag.title, recipe_filters(:filter, tag.id ) %>
         <% end %>
-      </table>
+      </div>
     </div>
     <% if @recipe.description.count > 1 %>
       <div class="step-description">

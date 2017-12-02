@@ -4,7 +4,7 @@
 .swiper-container {
   width: 100%;
   height: 500px;
-  margin: 50px auto;
+  margin: 25px auto;
   
   .swiper-slide {
     background: $body-background;
@@ -22,9 +22,55 @@
 
 }
 .recipe-wrapper{
-  width: 70%;
+  /*width: 70%;*/
   .title{
     padding: 10px;
+  }
+  .info-pad{
+    display: flex;
+    justify-content: space-around;
+    margin: 12px auto;
+    max-width: 46%;
+    
+    .info-pad__item{
+      display: flex;
+      width: fit-content;
+
+      .info-icon{
+        width: 24px;
+        display: inline-block;        
+      }
+
+      .info-text{
+        display: block;
+        margin: 9px 0px 0px 8px;
+      }
+
+      &.calories{
+        .info-icon{
+          width: 31px;
+          img{
+            display: inline-block;
+            width: 31px;
+          }
+        }
+        .info-text{
+          margin: 6px 0px 0px 5px;
+        }
+      }
+      &.add-to-menu-wrapper{
+        .add-to-menu-success-text{
+          display: none;
+          position: absolute;
+        }
+        a{
+          text-decoration: none;
+        }
+        .add-to-menu-btn{
+          padding: 6px;
+        }
+      }
+    }
   }
   .recipe-content{
     display: flex;
@@ -37,7 +83,7 @@
     }
 
     .description{
-      width: 75%;
+      width: 60%;
       order: 1;
       padding: 10px;
       p{
@@ -46,7 +92,7 @@
     }
     
     .step-description{
-      width: 75%;
+      width: 60%;
       order: 1;
       .step{
         display: flex;
@@ -69,69 +115,77 @@
         }
       }
     }
-
-    .ingredients{
-      width: 20%;
-      margin-bottom: 100px;
-      order: 2;
-      table{
-        border-collapse: collapse;
-        width: 100%;
-        tr{
-          margin-bottom: 10px;
-          td{
-            border-bottom: 1px solid #b8b8b8;
-            vertical-align: bottom;
-            padding: 0;
-
-            .spacer{
-              content: " ";
-              display: inline-block;
-              width: 3px;
-            }
-
-            &.ingredient__quantity{
-              text-align: right;
-              span:before{
-                @extend .spacer;
-              }
-            }
-            
-            &.ingredient__title{
-              text-transform: capitalize;
-              font-size: 1em;
-              span:after{
-                @extend .spacer;
-              }
-            }
-
-            span{
-              background-color: $body-background;
-              position: relative;
-              bottom: -5px;
-            }
-          }
-        }
-        .row-spacer{
-          height: 10px;
-        }
-      }
-
-      /*ul{
-        list-style:none;
-        padding: 0px;
-
-        li{
-          display: flex;
+    .recipe-info{
+      display: flex;
+      flex-direction: column;
+      order: 3;
+      width: 30%;
+      
+      .ingredients{
+        margin-bottom: 40px;
+        order: 2;
+        table{
+          border-collapse: collapse;
           width: 100%;
-          justify-content: space-between;
-          .spacer{
-            content: "_";
-            width: auto;
+          tr{
+            margin-bottom: 10px;
+            td{
+              border-bottom: 1px solid #b8b8b8;
+              vertical-align: bottom;
+              padding: 0;
+
+              .spacer{
+                content: " ";
+                display: inline-block;
+                width: 3px;
+              }
+
+              &.ingredient__quantity{
+                text-align: right;
+                span:before{
+                  @extend .spacer;
+                }
+              }
+              
+              &.ingredient__title{
+                text-transform: capitalize;
+                font-size: 1em;
+                span:after{
+                  @extend .spacer;
+                }
+              }
+
+              span{
+                background-color: $body-background;
+                position: relative;
+                bottom: -5px;
+              }
+            }
+          }
+          .row-spacer{
+            height: 10px;
           }
         }
-      }*/
-    }  
+
+        /*ul{
+          list-style:none;
+          padding: 0px;
+
+          li{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            .spacer{
+              content: "_";
+              width: auto;
+            }
+          }
+        }*/
+      }
+      .tags{
+        margin-bottom: 30px;
+      }
+    }
   }
   
 }
@@ -157,7 +211,16 @@
 }
 
 @media (max-width: 730px){
-  
+  .recipe-wrapper {
+    .info-pad{
+      max-width: 100%;
+      .info-pad__item{
+        &.timer{
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1200px){
@@ -167,6 +230,8 @@
   .recipe-wrapper{
     .recipe-content{
       flex-direction: column;
+      margin: 87px 21px;
+
       .step-description, .description{
         width: 100%;
       }
@@ -182,8 +247,8 @@
         }
       }
       
-      .ingredients{
-        order: unset;
+      .recipe-info{
+        /*order: unset;*/
         width: initial;
       }
     }
