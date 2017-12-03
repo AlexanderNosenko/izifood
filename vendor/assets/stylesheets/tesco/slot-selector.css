@@ -1718,10 +1718,10 @@ th.slot-grid--date {
     border-bottom: none
 }
 
-.slot-grid--item.available {
+/*.slot-grid--item.available {
     padding-top: 4px
 }
-
+*/
 .slot-grid--item.expired,
 .slot-grid--item.notselectable,
 .slot-grid--item.reserved-non-amend-mode,

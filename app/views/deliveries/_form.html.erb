@@ -8,7 +8,9 @@
   <%= @delivery_slots.html_safe %>
 <% else %>
   <script>handleLoading("<%= job_status_url(@job_id) %>")</script>
-  <div class="loading">
-    We are working <span></span>
+  <div class="loader-container">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
 <%  end %>

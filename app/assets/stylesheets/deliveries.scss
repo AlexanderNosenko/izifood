@@ -1,4 +1,6 @@
 @import "tesco/slot-selector";
+@import "variables";
+
 .slot-selected{
   border-color: #008dc8;
   background-color: #e7eef8!important;
@@ -27,7 +29,41 @@
       }
     }  
   }
+}
 
+.loader-container {
+  margin: 44px auto;
+  $animation-speed: 1000ms;
+  $dot-size: 10px;
+  .dot {
+    background: $accent-color;
+    width: $dot-size;
+    height: $dot-size;
+    border: ($dot-size / 5) solid $accent-color;
+    border-radius: 50%;
+    float: left;
+    margin: 0 ($dot-size / 2);
+    transform: scale(0);
+    
+    animation: fx $animation-speed ease infinite;
+
+    &:nth-child(2) {
+      animation: fx $animation-speed ease infinite $animation-speed * 0.3;
+    }
+    &:nth-child(3) {
+      animation: fx $animation-speed ease infinite $animation-speed * 0.6;
+    }
+  }
+
+  @keyframes fx {
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 @media (max-width:947px) {

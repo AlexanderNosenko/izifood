@@ -16,6 +16,7 @@ class DeliveriesController < ApplicationController
     if delivery.save
       redirect_to recipes_path, notice: 'Delivery is set.'
     else
+      flash[:error] = "Error occured!"
       redirect_to new_order_delivery_path(params[:order_id])
     end
   end

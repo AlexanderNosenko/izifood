@@ -10,6 +10,7 @@ $.ajaxSetup({
   }
 });
 //turbolinks:load
+var event = new Event('shit_test');
 
 $(document).on('ready', function(){
   function searchRecipes(){
