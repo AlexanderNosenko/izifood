@@ -55,7 +55,7 @@ set :sidekiq_processes, 1
 
 ## Linked Files & Directories (Default None):
 set :linked_files, %w{config/secrets.yml config/application.yml}
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle, public}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle, public}
 
 # Rake::Task["puma:start"].reenable
 namespace :deploy do

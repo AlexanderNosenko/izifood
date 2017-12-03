@@ -16,7 +16,7 @@ class DeliverySlotsWorker
 
     # unless s.locked?
       # s.lock(90)
-      DeliverySlot.get_new_slots(vendor)
+      # DeliverySlot.get_new_slots(vendor)
       # s.unlock
     # end
 
