@@ -28,7 +28,9 @@ backup generate:model --trigger=db_backup --databases='postgresql' --storages='s
 foreman start -f Procfile
 whenever --update-crontab
 
-gem install bundler
+rvm use --default 2.4.2
+gem install bundler rails
+
 
 sudo apt-get install postgresql postgresql-contrib postgresql-9.5 libpq-dev
 

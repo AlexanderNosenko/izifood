@@ -7,6 +7,7 @@ class DeliverySlotsWorker
   })
 
   def perform(*args)
+    puts "DeliverySlotsWorker running"
     vendor = args[0]
     raise ArgumentError.new("No vendor passed") if vendor.blank?
 

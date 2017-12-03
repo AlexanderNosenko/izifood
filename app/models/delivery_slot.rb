@@ -10,7 +10,7 @@
 #
 
 class DeliverySlot < ApplicationRecord
-  EXPIRE_IN = 3
+  EXPIRE_IN = 1
   $redis = Redis::Namespace.new("izifood", :redis => Redis.new)
 
   validates :content_html, 

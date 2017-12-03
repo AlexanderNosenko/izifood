@@ -1,7 +1,9 @@
-app_dir = "/home/alexandr/Work/Sites/izifood_project/izifood"
-set :output, "#{app_dir}/log/crons.log"
+env :PATH, ENV['PATH']
+env :GEM_PATH, ENV['GEM_PATH']
 
-every ENV.fetch('CHECK_DILEVERY_SLOTS_FREQUENCY', 3).hours do
+set :output, "log/crons.log"
+
+every ENV.fetch('CHECK_DILEVERY_SLOTS_FREQUENCY', 1).hours do
   runner "DeliverySlot.update_slots"
 end
 
