@@ -63,6 +63,12 @@ class Order < ApplicationRecord
     self.update_attribute(:status, "user_attention")
   end
   
+  def can_change_before
+    date = delivery.deliver_on.prev_day
+    date_time = DateTime.parse(date.strftime("%Y-%m-%dT00:00:00%z"))
+    date_time.change({hour: 23, :offset => Time.now.strftime("%z")})
+  end
+
   private
 
   def recalculate_order

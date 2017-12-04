@@ -7,7 +7,6 @@ class DeliverySlotsWorker
   })
 
   def perform(*args)
-    puts "DeliverySlotsWorker running"
     vendor = args[0]
     raise ArgumentError.new("No vendor passed") if vendor.blank?
 
@@ -16,7 +15,7 @@ class DeliverySlotsWorker
 
     # unless s.locked?
       # s.lock(90)
-      # DeliverySlot.get_new_slots(vendor)
+      DeliverySlot.get_new_slots(vendor)
       # s.unlock
     # end
 

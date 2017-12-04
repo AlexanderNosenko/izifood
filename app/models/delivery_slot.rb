@@ -52,7 +52,6 @@ class DeliverySlot < ApplicationRecord
       job_ids = {}
       vendors.map do |vendor|
         job_id = DeliverySlotsWorker.perform_async(vendor)
-
         if job_id
           $redis.set("last_slots_job", job_id) 
         else

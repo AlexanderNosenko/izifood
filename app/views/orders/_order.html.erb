@@ -53,9 +53,11 @@
     </div>
   </div>
   <div class="order-controlls">
-    <div class="controlls-info alert alert-warning <%= order.delivery ? '' : 'disabled' %>">
-      Info
-    </div>
+    <% if order.delivery %>
+      <div class="controlls-info alert alert-warning">
+        You can change your order untill <%= order.can_change_before.strftime('%d %b, %H:%M')%>
+      </div>
+    <% end %>
     <div class="controlls-buttons">
       <%= link_to 'Cancel', cancel_order_path(order), class: "btn btn-danger btn-cancel #{ order.canceled? ? 'disabled' : ''}", method: :patch %>
       <%= link_to 'Show', edit_order_path(order), class: "btn btn-primary btn-edit" %>
