@@ -7,6 +7,7 @@
 #  vendor       :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  uuid         :uuid
 #
 
 class DeliverySlot < ApplicationRecord

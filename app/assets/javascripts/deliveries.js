@@ -52,9 +52,11 @@ function getSelectedDay(data){
 }
 
 function setSlot(data){
-  var slot = getSelectedSlot(data)
-  var slotDay = getSelectedDay(data)
+  if($('.slot-selector').length > 0){
+    var slot = getSelectedSlot(data)
+    var slotDay = getSelectedDay(data)
 
-  $(slot).addClass('slot-selected')
-  selectDay(slotDay)
+    $(slot).addClass('slot-selected')
+    selectDay(slotDay)
+  }
 }

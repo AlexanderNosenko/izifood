@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: promotions
+#
+#  id         :integer          not null, primary key
+#  _type      :integer          default("system"), not null
+#  for        :integer          default("subscription"), not null
+#  info       :jsonb            not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class PromotionTest < ActiveSupport::TestCase
