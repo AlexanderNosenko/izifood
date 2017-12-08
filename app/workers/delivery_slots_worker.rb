@@ -1,15 +1,17 @@
 class DeliverySlotsWorker
   include Sidekiq::Worker
-  
+
   sidekiq_options({
     unique: true,
-    expiration: 3 * 60
+    expiration: 3 * 60,
+    retry: 1
   })
+
+  sidekiq_retry_in { |count| 3*60 + 1 }
 
   def perform(*args)
     vendor = args[0]
     raise ArgumentError.new("No vendor passed") if vendor.blank?
-
 
     # s = Redis::Semaphore.new(:map_reduce_semaphore, connection: "localhost")
 
@@ -18,9 +20,6 @@ class DeliverySlotsWorker
       DeliverySlot.get_new_slots(vendor)
       # s.unlock
     # end
-
-  
-
 
     # result = RubyProf.profile do
     # end

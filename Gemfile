@@ -14,6 +14,9 @@ gem "pg"
 gem "carrierwave", :github => "carrierwaveuploader/carrierwave"
 # Use Puma as the app server
 gem 'puma'
+# Production
+gem 'puma_worker_killer'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -94,8 +97,9 @@ group :development, :test do
   # Minitest-compatible test helpers for rails
   # gem 'shoulda'
 
+end
 
-
+group :production do
 end
 
 group :development do

@@ -32,7 +32,13 @@ class Tesco
     results.join("\n")
   end
 
+  def close
+    @driver.quit
+    @headless.destroy
+  end
+  
   private
+
 
   def get_slots
     @driver.navigate.to BASE_URL + "slots"

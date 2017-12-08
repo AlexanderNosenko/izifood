@@ -166,6 +166,7 @@ GEM
       thor (~> 0.14)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
+    get_process_mem (0.2.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
@@ -238,6 +239,9 @@ GEM
     pg (0.21.0)
     public_suffix (3.0.1)
     puma (3.11.0)
+    puma_worker_killer (0.1.0)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -385,6 +389,7 @@ DEPENDENCIES
   omniauth-facebook
   pg
   puma
+  puma_worker_killer
   rails
   rails-perftest
   redis
