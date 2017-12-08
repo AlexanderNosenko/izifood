@@ -1,5 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+.alert{
+  @extend .alert-info;
+}
 .form-container{
   width: 30%;
   margin: auto;

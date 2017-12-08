@@ -6,18 +6,26 @@
 </head>
 <style>
   .container{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #730E15;
+  }
+  .image-wrapper{
+    width: 100%;
+    height: 100vh;
     text-align: center;
     background-image: url('/500.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center;
   }
-  .containe > h1{
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
+  h3{
+    position: absolute;
+    width: fit-content;
+    left: calc(50% - 152px);
+    top: 47%;
   }
 </style>
 <body class="container">
-  <h1>We're sorry, but something went wrong</h1>
+  <h3>We're sorry, but something went wrong</h3>
+  <div class="image-wrapper"></div>
 </body>
 </html>

@@ -2,8 +2,14 @@ Rails.application.routes.draw do
   root 'recipes#index'
   
   mount_roboto
-  devise_for :users, :controllers => { :sessions => "sessions", :registrations => "registrations" }
 
+  devise_for :users, :controllers => { 
+    :sessions => "authentication/sessions", 
+    :registrations => "authentication/registrations", 
+    :passwords => 'authentication/passwords',
+    :omniauth_callbacks => 'authentication/omniauth_callbacks'
+  }
+  
   namespace :admin do
     resources :users
     resources :deliveries

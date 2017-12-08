@@ -12,6 +12,7 @@
     <%= include_page_js params[:controller] %>
   </head>
   <body>
+    <%= render partial: 'layouts/flashes' %>
     <div class="container-fluid">
       <%= yield %>
     </div> 

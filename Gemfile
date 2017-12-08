@@ -41,6 +41,7 @@ gem 'redis-namespace'
 # gem 'bcrypt', '~> 3.1.7'
 # Authorization
 gem 'devise'
+gem 'omniauth-facebook'
 # Pagination
 # gem 'kaminari'
 gem 'will_paginate', '>= 3.1'
