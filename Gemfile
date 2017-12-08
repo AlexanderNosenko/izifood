@@ -31,6 +31,7 @@ gem 'coffee-rails'
 #Styles
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
 gem 'roboto', '~> 0.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'active_model_serializers'

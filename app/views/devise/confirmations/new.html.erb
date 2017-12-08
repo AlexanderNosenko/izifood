@@ -1,5 +1,8 @@
 <div class="form-container">
   <h2>Resend confirmation instructions</h2>
+  <div class="shared-links">  
+    <%= render "devise/shared/social_links" %>
+  </div>
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <div class="form-group">

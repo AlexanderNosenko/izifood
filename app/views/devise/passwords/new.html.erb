@@ -1,6 +1,8 @@
 <div class="form-container">
   <h2>Forgot your password?</h2>
-
+  <div class="shared-links">  
+    <%= render "devise/shared/social_links" %>
+  </div>
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <div class="form-group">
       <%= f.label :email %><br />

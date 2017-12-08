@@ -1,7 +1,7 @@
 class PromotionsController < ApplicationController
   skip_before_action :check_for_membership!
   
-  def use_promo    
+  def use_promo
     promotion = Promotion.find_by("info ->> 'simple_id' = ? ", params[:id])
 
     if promotion

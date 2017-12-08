@@ -1,0 +1,9 @@
+<%- if devise_mapping.omniauthable? %>
+  <div class="social-auth">
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to omniauth_authorize_path(resource_name, provider) do %>
+        <%= fa_icon provider %>
+      <% end -%>
+    <% end -%>
+  </div>
+<% end -%>

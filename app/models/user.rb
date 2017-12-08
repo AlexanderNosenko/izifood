@@ -75,15 +75,22 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    #todo properly handle auth
-    
-    where(provider: auth.provider, uid: auth.uid, email: auth.info.email).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.name = auth.info.name
-      user.remote_avatar_urls = [auth.info.image + "?width=5555"]
-      # user.skip_confirmation!
+    user = where(provider: auth.provider, uid: auth.uid).or(where(email: auth.info.email)).first
+
+    unless user
+      user = User.new({
+        provider: auth.provider,
+        uid: auth.uid,
+        email: auth.info.email,
+        password: Devise.friendly_token[0,20],
+        name: auth.info.name,
+        remote_avatar_urls: [auth.info.image + "?width=5555"]
+      })
+      
     end
+
+    # user.skip_confirmation!
+    user
   end
   
   def self.new_with_session(params, session)
