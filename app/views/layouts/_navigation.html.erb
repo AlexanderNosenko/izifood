@@ -12,11 +12,11 @@
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="<%= nav_bar_status('/') %>"><%=link_to 'Home', "/" %></li>              
-      </ul>
+      <!-- <ul class="nav navbar-nav">
+        <li><%= link_to '', edit_account_path(current_user) %></li>
+      </ul> -->
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'My Account', edit_account_path(current_user) %></li>
+        <li class="<%= nav_bar_status('/') %>"><%=link_to 'All Recipes', "/" %></li>              
         <li class="menus-nav-elem">
           <a data-toggle="modal" data-target="#menus-modal" >
             My Menus<span class="badge menus-badge"><%= @menus.count %></span>

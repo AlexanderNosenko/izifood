@@ -1,11 +1,7 @@
 //= require show_recipe
+//= require recipe_filters
 
 $(document).ready(function(){
-  function animateElement(elem, _class, time){
-    setTimeout(function(){elem.addClass(_class)})
-    setTimeout(function(){elem.removeClass(_class)}, time);
-  }
-  
   function animateAddingToMenuStatus(elem){
     elem.addClass('show')
     animateElement(elem, 'add-to-menu-success-text--animated', 300)
@@ -30,11 +26,4 @@ $(document).ready(function(){
     // console.log("Error", e.detail[0])
   })
 
-  $(".remove-recipe-btn> a[data-remote]").on("ajax:success", function(e, data, status, xhr){
-    // console.log(e, data, status, xhr)
-    // console.log($(this))
-    // console.log("Success", e.detail[0])
-  }).on("ajax:error", function(e, data, status, xhr){
-    // console.log("Error", e.detail[0])
-  })
 })

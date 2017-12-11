@@ -1,1 +1,15 @@
 $(".user-menus").html("<%= escape_javascript(render @menus ) %>"); 
+
+var s = Swiped.init({
+  query: '.user-menu>.recipe',
+  list: true,
+  left: 100
+});
+
+// Bug with lib
+if(Array.isArray(s)) 
+  s.forEach(function(elem){
+    elem.close()
+  });
+else if(s instanceof Swiped) 
+  s.close()

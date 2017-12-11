@@ -1,8 +1,16 @@
 //= require classie
 //= require selectFx
 //= require hoverForMore
+//= require swiper/swiped
+
 var load_count = 0
 function init_ingredient_selectors(){
+  Swiped.init({
+    query: '.recipe-ingredients>.ingredient',
+    list: true,
+    left: 100
+  });
+
   // Ingredient Selector
   if(load_count == 0)
     $('select.cs-select').each(function(){
@@ -14,12 +22,12 @@ function init_ingredient_selectors(){
 $(document).on('ready', function(){
   // Order Items managment
   $(document).on('click', '.remove-order-item-btn', function(){
+
     var prevElem = $(this).parent().prev();
     if(prevElem.hasClass('alert'))
       prevElem.fadeOut(400, function(){
         $(this).remove()
       })
-
 
     $(this).parent().fadeOut(400, function(){
       $(this).remove()

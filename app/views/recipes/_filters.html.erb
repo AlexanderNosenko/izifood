@@ -7,9 +7,9 @@
             <div class="btn recipe-filters__categories__category-filter <%= active_category(category.id, 'active-category') %>">
               <div class="recipe-filters__categories__category-filter__content">
                 <%= image_tag category.icon.to_s, class: "recipe-filters__categories__category-filter__icon" %>
-                <!-- <span class="category-filter__title"> -->
+                <span class="title">
                   <%= category.title %>
-                <!-- </span>   -->
+                </span>
               </div>
             </div>
           <% end %>  
@@ -56,7 +56,9 @@
       <div class="recipe-filters__categories__category-tag-wrapper">
         <div class="btn recipe-filters__categories__category-filter more-categories-btn">
           <div class="recipe-filters__categories__category-filter__content">
-            <%= show_all_filters ? 'Less' : 'More' %>
+              <span class="title">
+                <%= show_all_filters ? 'Less' : 'More' %>
+              </span>
           </div>
         </div>
       </div>

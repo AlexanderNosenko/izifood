@@ -24,6 +24,8 @@ main{
 
 .flashes{
   z-index: 1000160000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   position: fixed;
   right: 2%;
@@ -57,6 +59,7 @@ main{
   }
   .menus-nav-elem{
     cursor: pointer;
+    -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
   }
 
@@ -74,17 +77,24 @@ main{
 
 .pagination{
   display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   padding-left: 0;
   margin: 19px auto;
   border-radius: 4px;
 
-  li > span{
-    padding: 0px!important;
+  li {
+    display: inline-block;
+    &>span{
+      padding: 0px!important;
+    }
   }
   .page-item{
     &.last, &.first, &.next, &.prev{
       a{
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
         width: fit-content;
       }
     }
@@ -145,12 +155,14 @@ footer{
   .navbar{
     .menus-nav-elem{
       cursor: pointer;
+      -webkit-transition: all 0.3s ease-out;
       transition: all 0.3s ease-out;
 
       &--animated{
         background: rgba(70, 184, 218, 0.5);
         border-radius: 5px;
-        transform: translateY(20px);
+        -webkit-transform: translateY(20px);
+                transform: translateY(20px);
         opacity: .7;
       }
     }

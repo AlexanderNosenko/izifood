@@ -68,16 +68,16 @@
         }
 
         .add-to-menu-success-text{
-          display: none;
-          opacity: 1;
           position: absolute;
+          visibility: hidden;
+          opacity: 1;
           color: #66BB6A;
           margin-left: 10px;
           transform: translateY(0);
-          transition: all 400ms ease;
+          transition: opacity 400ms ease, transform 400ms ease;
           
           &.show{
-            display: block;
+            visibility: visible;
           }
 
           &--animated{

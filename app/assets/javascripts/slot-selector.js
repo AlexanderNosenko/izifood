@@ -52,7 +52,8 @@ function changeSlotWeek(target){
 
   $('.slot-selector').each(function(elem){ $(this).hide()})
   // console.log(slot_selectors, current_slot_selector)
-  slot_selectors[current_slot_selector].show();
+  if(slot_selectors[current_slot_selector])
+    slot_selectors[current_slot_selector].show();
 }
 
 function selectDay(target){

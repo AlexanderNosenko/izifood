@@ -17,5 +17,11 @@
       <div class="custom-ingredients"></div>
     </div>
   </div>
-  <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
+  <% if @order.order_items.any? %>
+    <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
+  <% else %>
+    <div class="no-order-items-wrapper">
+      No items, please add something to menu
+    </div>
+  <% end %>
 <% end %>
