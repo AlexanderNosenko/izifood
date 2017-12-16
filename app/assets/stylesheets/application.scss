@@ -1,6 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
+@import "toastr";
 @import "variables";
 @import "menu-toolbar";
 /*@import "order-live-search";*/
@@ -30,10 +31,6 @@ main{
   position: fixed;
   right: 2%;
 }
-
-/*.container{
-  width: 60%;
-}*/
 
 .container-fluid{
   padding-left: 0px; 

@@ -16,33 +16,21 @@ gem "carrierwave", :github => "carrierwaveuploader/carrierwave"
 gem 'puma'
 # Production
 gem 'puma_worker_killer'
-
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-#Easy ENV_VARs
-gem "figaro"
-#Schema in models
-gem 'annotate', git: 'https://github.com/ctran/annotate_models.git', require: false
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
-#Styles
-gem 'jquery-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
-gem "font-awesome-rails"
-gem 'roboto', '~> 0.2.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'active_model_serializers'
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
 gem 'redis-namespace'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#Background jobs
+gem 'sidekiq'
+gem 'sidekiq-status'
+gem 'sidekiq-middleware'
+# Parsing tools
+gem 'selenium-webdriver'
+gem 'headless'
+gem 'rest-client'
+# Cron jobs
+gem 'whenever', require: false
+
+
 # Authorization
 gem 'devise'
 gem 'omniauth-facebook'
@@ -51,25 +39,46 @@ gem 'omniauth-facebook'
 gem 'will_paginate', '>= 3.1'
 # Admin panel
 gem "administrate"
-#Background jobs
-gem 'sidekiq'
-gem 'sidekiq-status'
-gem 'sidekiq-middleware'
 
-gem 'selenium-webdriver'
-gem 'headless'
-gem 'rest-client'
 
+# Use SCSS for stylesheets
+gem 'sass-rails'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails'
+# Styles
+gem 'jquery-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
+gem 'roboto', '~> 0.2.0'
+# Beautiful flashes
+gem 'toastr-rails'
+
+
+# Usefull tools
+# Easy ENV_VARs
+gem "figaro"
+# Schema in models
+gem 'annotate', git: 'https://github.com/ctran/annotate_models.git', require: false
 # Structure apps seed under db/seeds/*
 gem 'seedbank'
-
-# Backups
-gem 'whenever', require: false
-# gem 'backup',   require: false
-
 # Profiler
 gem 'ruby-prof'
 gem 'rails-perftest'
+
+
+# Backups
+# gem 'backup',   require: false
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# gem 'turbolinks', '~> 5'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# gem 'active_model_serializers'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

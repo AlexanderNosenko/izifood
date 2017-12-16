@@ -41,7 +41,8 @@ class OrdersController < ApplicationController
       flash[:success] = 'Order is saved.'
       redirect_to edit_order_path(@order)
     else
-      flash[:error] = 'Please correct your order.'
+      @errors = @order.errors.to_a.map { |text| [:error, text]}
+      @errors = [[ :error, 'Please correct your order.']]
       render :edit
     end
   end
@@ -58,7 +59,8 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to new_order_delivery_path(@order), success: 'Order was successfully created.'
     else
-      flash[:error] = 'Please correct your order.'
+      @errors = @order.errors.to_a.map { |text| [:error, text]}
+      @errors.push([ :error, 'Please correct your order.'])
       render :new
     end
 

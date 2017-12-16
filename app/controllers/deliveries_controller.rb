@@ -11,10 +11,12 @@ class DeliveriesController < ApplicationController
   end
 
   def create
+    # flash = {}
     delivery = Delivery.new(prepared_params)
 
     if delivery.save
-      redirect_to recipes_path, notice: 'Delivery is set.'
+      flash[:info] = 'Delivery is set.'
+      redirect_to recipes_path
     else
       flash[:error] = "Error occured!"
       redirect_to new_order_delivery_path(params[:order_id])
@@ -29,9 +31,11 @@ class DeliveriesController < ApplicationController
 
   def update
     if @delivery.update(prepared_params)
-      redirect_to recipes_path, notice: 'Delivery is updated.'
+      flash[:info] = 'Delivery is updated!'
+      redirect_to recipes_path
     else
-      redirect_to edit_order_delivery_path(params[:order_id], params[:id]), notice: "Unnown error occured"
+      flash[:error] = "Unnown error occured"
+      redirect_to edit_order_delivery_path(params[:order_id], params[:id])
     end
   end
 
@@ -49,7 +53,7 @@ class DeliveriesController < ApplicationController
     else
       job_ids = DeliverySlot.update_slots
       @job_id = job_ids[:tesco]
-      flash[:notice] = 'We are checking fot available slots'
+      flash[:info] = 'We are checking fot available slots'
     end
   end
   

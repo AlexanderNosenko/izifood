@@ -1,17 +1,8 @@
-<div class="flashes">
+<script class="flashes">
   <% flash.each do |f| %>
-    <div class="alert alert-dismissable fade in out alert-<%= flash_class_for(f[0])%>">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <%= f[1].html_safe%>
-    </div>
-  <% end %>  
-</div>
-
-<script>
-  $(".alert.alert-dismissable").show();
-  setTimeout(function(){
-    $(".alert.alert-dismissable").fadeTo(500, 0, function(){
-      $('.flashes').html("")
-    });
-  }, 5000)
+    toastr.<%= f[0] %>("<%= f[1].html_safe%>")
+  <% end %>
+  <% @errors.to_a.each do |f| %>
+    toastr.<%= f[0] %>("<%= f[1].html_safe%>")
+  <% end %>
 </script>

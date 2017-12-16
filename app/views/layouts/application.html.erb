@@ -20,16 +20,14 @@
   <body>
     <%= render partial: 'layouts/menus_modal' %>
     <%= render partial: 'layouts/navigation' %>
-    <main role="main" class="main-wrapper container-fluid">
-      <!-- <div class="container"> -->
-        <%= render partial: 'layouts/flashes' %>
-        <%= yield %>
-      <!-- </div> -->
+    <main role="main" class="main-wrapper">
+      <%= render partial: 'layouts/flashes' %>
+      <%= yield %>
     </main>
 
     <footer>        
       <div class="copyright">© 2017  IziFood.pl - All rights reserved</div>
     </footer>
-
+    <%= yield('scripts') %>
   </body>
 </html>
