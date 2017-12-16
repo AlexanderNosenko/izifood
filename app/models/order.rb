@@ -72,6 +72,9 @@ class Order < ApplicationRecord
   private
 
   def recalculate_order
+    # Handle case when ingredient for some recipe_ingredient is nil
+    # user should be able to choose it, so he knows that such ingredient sucould be there
+
     recipes_ids = menu.recipes.pluck(:id)#.uniq#.push(nil) #TODO handle custom order_items
     
     included_recipes_ids = recipes.pluck(:id).uniq

@@ -1,11 +1,15 @@
-<% if current_user.used_trial_promo? %>
-  Your membership is expired, please renew
-  <%= form_tag(renew_membership_path, method: :patch) do %>
-    <%= submit_tag 'Renew', class: 'btn btn-primary' %>
+<div class="fluid-container">
+  <% if current_user.used_trial_promo? %>
+    <h2 class="expire-text">
+      Your membership is expired, please renew
+    </h2>
+    <%= form_tag(renew_membership_path, method: :patch) do %>
+      <%= submit_tag 'Renew', class: 'btn renew-membership-btn' %>
+    <% end %>
+  <% else %>
+    Your membership is expired, ahh, okay, we'll give ya 1 more
+    <%= form_tag(use_membership_promo_path, method: :patch) do %>
+      <%= submit_tag 'Renew', class: 'btn renew-membership-btn' %>
+    <% end %>
   <% end %>
-<% else %>
-  Your membership is expired, ahh, okay, we'll give ya 1 more
-  <%= form_tag(use_membership_promo_path, method: :patch) do %>
-    <%= submit_tag 'Renew', class: 'btn btn-primary' %>
-  <% end %>
-<% end %>
+</div>

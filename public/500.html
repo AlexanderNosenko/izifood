@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-<style>
-  .container{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #730E15;
-  }
-  .image-wrapper{
-    width: 100%;
-    height: 100vh;
-    text-align: center;
-    background-image: url('/500.png');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  h3{
-    position: absolute;
-    width: fit-content;
-    left: calc(50% - 152px);
-    top: 47%;
-  }
-</style>
-<body class="container">
-  <h3>We're sorry, but something went wrong</h3>
-  <div class="image-wrapper"></div>
-</body>
+  <head>
+    <title>IzIfood.pl | We're sorry, but something went wrong</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      body, html{
+        font-family: 'Noto Sans', sans-serif;
+        height: 100%;
+        margin: 0px;
+        background: #46b8da;
+        color: white;
+      }
+      .container{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+      .error-code{
+        font-size: 15em;
+      }
+      h2{
+        color: #e8e8e8;
+      }
+      a.btn{
+        margin: 0px auto;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        width: fit-content;
+        font-size: 2em;
+        padding: 10px 46px;
+        border: 2px solid white;
+        border-radius: 33px;
+      }
+    </style>
+  </head>
+
+  <body class="container">
+    <div class="error-code">500</div>
+    <h1>We're sorry, but something went wrong</h1>
+    <!-- <div class="image-wrapper"></div> -->
+    <h2>Here are some places you might go.</h2>
+    <a class="btn" href="/">Home</a>
+    </div>
+  </body>
 </html>

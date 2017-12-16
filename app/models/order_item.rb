@@ -20,7 +20,7 @@ class OrderItem < ApplicationRecord
   # validates :quantity, presence: true
 
   def possible_ingredients(limit = 0)
-    recipe_ingredient.possible_ingredients(limit)
+    @possible_ingredients ||= recipe_ingredient.possible_ingredients(limit)
   end
 
   def possible_quantity

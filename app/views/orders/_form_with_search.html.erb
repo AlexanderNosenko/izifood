@@ -1,6 +1,3 @@
-<div class="order-errors">
-  <%= error_for(:order, @order) %>
-</div>
 <%= form_for @order do |form| %>
   <div class="ingredients">
     <div class="recipe-block">
@@ -12,13 +9,10 @@
     </div>
   </div>
   <div class="dashed-border"></div>
-  <div class="ingredients">
-    <div class="recipe-block">
-      <div class="custom-ingredients"></div>
-    </div>
-  </div>
   <% if @order.order_items.any? %>
-    <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
+    <div>
+      <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
+    </div>
   <% else %>
     <div class="no-order-items-wrapper">
       No items, please add something to menu

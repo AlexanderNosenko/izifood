@@ -29,7 +29,7 @@ $(document).on('ready', function(){
   // })
 
 $('.recipe').click();
-  $(document).on('click', '.remove-recipe-btn', function(){
+  $(document).on('click, touchstart', '.remove-recipe-btn', function(){
     $(this).closest('.recipe').fadeOut(300, function(){
       $(this).find('.remove-recipe-btn a').click();
       $(this).remove();

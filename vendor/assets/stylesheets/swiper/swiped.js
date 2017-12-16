@@ -88,6 +88,8 @@
 
         o = extend(defaultOptions, o || {});
 
+        this.hackyCrap = o.hackyCrap;
+
         this.duration = o.duration;
         this.tolerance = o.tolerance;
         this.time = o.time;
@@ -247,7 +249,12 @@
      * Animation of the closing
      */
     Swiped.prototype.close = function(isForce) {
-        this.animation(0);
+        if(this.hackyCrap){
+            this.elem.style.cssText = "transition: all 300ms;";
+        }else{
+            this.animation(0);
+        }
+
         this.swiped = false;
 
         if (!isForce) {
@@ -331,7 +338,7 @@
 
     Swiped.prototype.animation = function(x, duration) {
         duration = duration === undefined ? this.duration : duration;
-
+        
         this.elem.style.cssText = cssProps.transition + ':' + cssProps.transform + ' ' + duration + 'ms; ' +
         cssProps.transform  + ':' + 'translate3d(' + x + 'px, 0px, 0px)';
     };

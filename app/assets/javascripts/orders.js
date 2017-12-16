@@ -8,7 +8,8 @@ function init_ingredient_selectors(){
   Swiped.init({
     query: '.recipe-ingredients>.ingredient',
     list: true,
-    left: 100
+    left: 100,
+    hackyCrap: true
   });
 
   // Ingredient Selector

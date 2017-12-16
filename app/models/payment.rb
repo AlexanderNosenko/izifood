@@ -25,7 +25,17 @@ class Payment < ApplicationRecord
       .where("(info ->> 'valid_until')::timestamp >= to_timestamp('?')", Time.now.to_i)
       .count > 0
   end
-
+  def self.new_subcription_payment_for(user)
+    user.payments.new({
+      amount: 0,
+      _type: :subscription,
+      status: :success,
+      info: {
+        "valid_until": 1.month.since.strftime("%Y-%m-%d"),
+        "source": 'payment'
+      }
+    })
+  end
   # def self.new_subcription_payment_for(user)
   #   user.payments.new({
   #     amount: 15, 
