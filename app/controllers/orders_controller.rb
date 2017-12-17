@@ -57,7 +57,8 @@ class OrdersController < ApplicationController
   	})
 
     if @order.save
-      redirect_to new_order_delivery_path(@order), success: 'Order was successfully created.'
+      flash[:success] = 'Order was successfully created.'
+      redirect_to new_order_delivery_path(@order)
     else
       @errors = @order.errors.to_a.map { |text| [:error, text]}
       @errors.push([ :error, 'Please correct your order.'])

@@ -1,8 +1,22 @@
+<%
+  toaster_map = {
+    error: "error",
+    alert: "error",
+
+    info: "info",
+    notice: "info",
+
+    success: "success",
+
+    warning: "warning"
+  }
+%>
+
 <script class="flashes">
   <% flash.each do |f| %>
-    toastr.<%= f[0] %>("<%= f[1].html_safe%>")
+    toastr.<%= toaster_map[f[0].to_sym] %>("<%= f[1].html_safe%>")
   <% end %>
   <% @errors.to_a.each do |f| %>
-    toastr.<%= f[0] %>("<%= f[1].html_safe%>")
+    toastr.<%= toaster_map[f[0].to_sym] %>("<%= f[1].html_safe%>")
   <% end %>
 </script>
