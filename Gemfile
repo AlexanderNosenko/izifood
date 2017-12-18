@@ -83,13 +83,26 @@ gem 'rails-perftest'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'factory_bot'
-  
+
   # Easy fake data
   gem 'faker'
+  gem 'factory_bot'
+
 
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
+  # Test runner
+  gem 'minitest-rails'
+  # Customizable Minitest output formats
+  gem 'minitest-reporters'
+  # Minitest-compatible test helpers for rails
+  gem 'shoulda'
+
+
+  # Dev & Deploy tools
+  # Detect dead routes
+  gem 'traceroute'
+
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'capistrano', require: false#, '3.8.2'
@@ -99,12 +112,6 @@ group :development, :test do
   gem 'capistrano-postgresql', '~> 4.2.0' 
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
-
-  # gem 'minitest-rails'
-  # Customizable Minitest output formats
-  # gem 'minitest-reporters'
-  # Minitest-compatible test helpers for rails
-  # gem 'shoulda'
 
 end
 

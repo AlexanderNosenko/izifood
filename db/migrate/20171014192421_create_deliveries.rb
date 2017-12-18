@@ -7,6 +7,8 @@ class CreateDeliveries < ActiveRecord::Migration[5.1]
   	  t.string :time_from, null: false
   	  t.string :time_to, null: false
   	  t.belongs_to :order, index: true, null: false
+
+      t.timestamps
     end
   end
 end

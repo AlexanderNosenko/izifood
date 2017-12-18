@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208020024) do
+ActiveRecord::Schema.define(version: 20171218073403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20171208020024) do
     t.string "time_to", null: false
     t.bigint "order_id", null: false
     t.bigint "delivery_address_id", null: false
+    t.datetime "deliver_on_from", null: false
+    t.datetime "deliver_on_to", null: false
     t.index ["deliver_on"], name: "index_deliveries_on_deliver_on"
     t.index ["delivery_address_id"], name: "index_deliveries_on_delivery_address_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
@@ -93,12 +95,10 @@ ActiveRecord::Schema.define(version: 20171208020024) do
     t.string "title"
     t.boolean "recurring", default: false
     t.boolean "main", default: true, null: false
-    t.datetime "deliver_on"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
-    t.index ["deliver_on"], name: "index_menus_on_deliver_on"
     t.index ["main"], name: "index_menus_on_main"
     t.index ["recurring"], name: "index_menus_on_recurring"
     t.index ["title"], name: "index_menus_on_title"
@@ -120,11 +120,9 @@ ActiveRecord::Schema.define(version: 20171208020024) do
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "menu_id"
-    t.datetime "deliver_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
-    t.index ["deliver_on"], name: "index_orders_on_deliver_on"
     t.index ["menu_id"], name: "index_orders_on_menu_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

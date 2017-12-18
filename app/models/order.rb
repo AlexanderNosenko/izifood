@@ -1,15 +1,4 @@
-# == Schema Information
-#
-# Table name: orders
-#
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  menu_id    :integer
-#  deliver_on :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  status     :integer          default("ok"), not null
-#
+ #
 
 class Order < ApplicationRecord
   belongs_to :user
@@ -22,10 +11,10 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_items
 
-  validates_uniqueness_of :menu_id, scope: [:deliver_on, :user_id]
+  validates_uniqueness_of :menu_id, scope: [:user_id]
   validate :no_active_orders, if: -> { new_record? }
 
-  enum status: [:ok, :user_attention, :canceled]
+  enum status: [:ok, :user_attention, :canceled, :delivered]
 
   def self.active_order_for(menu)
     Order.joins(<<-EOS 
@@ -39,6 +28,12 @@ class Order < ApplicationRecord
     #TODO AND deliveries.time_from < time '03:00'
   end
   
+  def self.update_delivery_statuses
+    Order.joins(:delivery)
+      .where('deliveries.deliver_on_from <= ?', DateTime.now)
+      .update_all(status: :delivered)
+  end
+
   def remove_not_mentioned!(order_items_new)
     new_ids = order_items_new.pluck(:id)
     order_items.each do |order_item|
@@ -63,11 +58,14 @@ class Order < ApplicationRecord
     self.update_attribute(:status, "user_attention")
   end
   
+  # Returns date until which changes can be made to order
   def can_change_before
     date = delivery.deliver_on.prev_day
     date_time = DateTime.parse(date.strftime("%Y-%m-%dT00:00:00%z"))
     date_time.change({hour: 23, :offset => Time.now.strftime("%z")})
   end
+
+
 
   private
 
@@ -101,10 +99,6 @@ class Order < ApplicationRecord
     end  
   end
 
-  # def self.pending
-    
-  # end
-  private
   def items
     order_items.includes(:recipe_ingredient)
   end

@@ -12,10 +12,12 @@
 #  status     :integer          default(0), not null
 #
 
-require 'test_helper'
-
-class MenuTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+FactoryBot.define do
+  factory :menu do
+    title Faker::HarryPotter.house
+    user
+    main { false }
+    recurring { false }
+    status { 0 }
+  end
 end

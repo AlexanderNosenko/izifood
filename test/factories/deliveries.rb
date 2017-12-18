@@ -14,10 +14,20 @@
 #  deliver_on_to       :datetime         not null
 #
 
-require 'test_helper'
+FactoryBot.define do
+  date = 5.days.from_now
 
-class DeliveryTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  factory :delivery do
+    order
+    association :address, factory: :delivery_address
+    cost_value { "0" }
+    cost_currency { "USD" }
+    deliver_on { date }
+    time_from { "10:00" }
+    time_to { "11:00" }
+    
+    deliver_on_from { date.change(hour: 10) }
+    deliver_on_to {  date.change(hour: 11) }
+
+  end
 end

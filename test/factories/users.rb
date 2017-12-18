@@ -30,7 +30,13 @@
 
 FactoryBot.define do
   factory :user do
-    email Faker::Internet.email
+    sequence(:email) { Faker::Internet.email }
     password Faker::HarryPotter.house
+
+    factory :user_with_membership do
+      after(:create) do |user, evaluator|
+        user.give_trial_promo!
+      end
+    end
   end
 end

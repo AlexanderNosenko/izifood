@@ -25,3 +25,4 @@ config/secrets.yml
 app/models/parser.rb
 app/models/ingredients_parser.rb
 config/database.yml
+test/reports

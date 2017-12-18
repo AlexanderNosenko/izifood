@@ -10,17 +10,21 @@
 #  time_to             :string           not null
 #  order_id            :integer          not null
 #  delivery_address_id :integer          not null
+#  deliver_on_from     :datetime         not null
+#  deliver_on_to       :datetime         not null
 #
 
 class Delivery < ApplicationRecord
   belongs_to :order
   belongs_to :address, class_name: "DeliveryAddress", foreign_key: :delivery_address_id
 
-  validates :deliver_on, 
-            :cost_value, 
-            :cost_currency, 
-            :time_from, 
-            :time_to, presence: true
+  validates :deliver_on,
+            :cost_value,
+            :cost_currency,
+            :time_from,
+            :time_to,
+            :deliver_on_from,
+            :deliver_on_to, presence: true
 
   validate :no_deliveries_set, if: -> { new_record? }
 

@@ -11,7 +11,6 @@ class DeliveriesController < ApplicationController
   end
 
   def create
-    # flash = {}
     delivery = Delivery.new(prepared_params)
 
     if delivery.save
@@ -56,20 +55,24 @@ class DeliveriesController < ApplicationController
       flash[:info] = 'We are checking fot available slots'
     end
   end
-  
+
   def prepared_params
     times = delivery_params[:deliver_on].scan(/\d\d:\d\d/)
-    adress = DeliveryAddress.find_by(id: delivery_params[:address_id].to_i)
-    flash[:error] =  "Please fill in adress" if adress.nil?
+    address = DeliveryAddress.find_by(id: delivery_params[:address_id].to_i)
+    flash[:error] =  "Please fill in adress" if address.nil?
+
+    delivery_date = DateTime.parse(delivery_params[:deliver_on])
 
     {
-      deliver_on: DateTime.parse(delivery_params[:deliver_on]),
+      deliver_on: delivery_date,
+      deliver_on_from: delivery_date.change(hour: times[0].to_i),
+      deliver_on_to: delivery_date.change(hour: times[1].to_i),
       time_from: times[0],
       time_to: times[1],
       cost_value: delivery_params[:cost_value],
       cost_currency: delivery_params[:cost_currency],
       order_id: params[:order_id],
-      address: adress
+      address: address
     }
   end
 
@@ -88,5 +91,5 @@ class DeliveriesController < ApplicationController
   def delivery_params
     params.require(:delivery).permit(delivery_attributes)  
   end
-  
+
 end
