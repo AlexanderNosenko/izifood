@@ -36,7 +36,10 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
 
-    if @order.update(order_items_attributes: order_items_params)
+    if @order.canceled?
+      flash[:warning] = 'Order is already canceled.'
+      redirect_to edit_order_path(@order)
+    elsif @order.update(order_items_attributes: order_items_params)
       @order.remove_not_mentioned!(order_items_params)
       flash[:success] = 'Order is saved.'
       redirect_to edit_order_path(@order)

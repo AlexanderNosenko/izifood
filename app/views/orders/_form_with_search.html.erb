@@ -10,9 +10,11 @@
   </div>
   <div class="dashed-border"></div>
   <% if @order.order_items.any? %>
-    <div>
-      <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
-    </div>
+    <% if !@order.canceled?%>
+      <div>
+        <%= form.submit submit_btn_text, class: "btn btn-order-submit" %>
+      </div>
+    <% end %>
   <% else %>
     <div class="no-order-items-wrapper">
       No items, please add something to menu

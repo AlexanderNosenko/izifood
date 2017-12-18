@@ -2,8 +2,8 @@
   <h1 class="title">Edit order # <%= @order.id %> for <%= @order.menu.title %> </h1>
   <%= render partial: 'form_with_search', locals: {submit_btn_text: 'Save' }%>
   
-  <% if @order.ok? %>
-    <% if @order.delivery.present? %>
+  <% if !@order.canceled? %>
+    <% if @order.delivery %>
       <%= link_to(
           "Edit delivery", 
           edit_order_delivery_path({

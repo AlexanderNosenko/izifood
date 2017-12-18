@@ -1,11 +1,21 @@
- #
+# == Schema Information
+#
+# Table name: orders
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  menu_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :integer          default("ok"), not null
+#
 
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :menu     
+
   has_one :delivery, dependent: :destroy
-  has_many :order_items, dependent: :delete_all  
-  
+  has_many :order_items, dependent: :delete_all
   has_many :recipe_ingredients, through: :order_items
   has_many :recipes, through: :recipe_ingredients
 
@@ -16,8 +26,13 @@ class Order < ApplicationRecord
 
   enum status: [:ok, :user_attention, :canceled, :delivered]
 
+  after_commit do |order|
+    order.delivery&.destoy if order.canceled?
+  end
+
+  # For checking if menu is already ordered
   def self.active_order_for(menu)
-    Order.joins(<<-EOS 
+    Order.joins(<<-EOS
       LEFT JOIN deliveries 
         ON deliveries.order_id = orders.id 
         AND deliveries.deliver_on > date '#{Time.now.strftime('%Y-%m-%d')}' 
@@ -55,6 +70,7 @@ class Order < ApplicationRecord
   
   def handle_menu_change
     recalculate_order
+    #TODO create notification table or something
     self.update_attribute(:status, "user_attention")
   end
   
@@ -70,7 +86,7 @@ class Order < ApplicationRecord
   private
 
   def recalculate_order
-    # Handle case when ingredient for some recipe_ingredient is nil
+    # TODO Handle case when ingredient for some recipe_ingredient is nil
     # user should be able to choose it, so he knows that such ingredient sucould be there
 
     recipes_ids = menu.recipes.pluck(:id)#.uniq#.push(nil) #TODO handle custom order_items

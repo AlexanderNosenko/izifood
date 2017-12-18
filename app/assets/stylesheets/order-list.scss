@@ -61,7 +61,7 @@ body{
       display: flex;
       padding: 10px;
       
-      .set-delivery{
+      .order-overlay{
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -130,18 +130,6 @@ body{
           }
           .order-id{
             
-          }
-        }
-
-        &.no-delivery-overlay{
-          .set-delivery{
-            display: flex;
-            .set-delivery-text{
-            
-            }
-            .set-delivery-btn{
-
-            }
           }
         }
       }
@@ -223,7 +211,7 @@ body{
             width: initial;
           }
         }
-        .set-delivery{
+        .order-overlay{
           width: 134px;
           .set-delivery-text{
             display: none;

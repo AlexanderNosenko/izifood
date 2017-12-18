@@ -1,8 +1,12 @@
 <div class="order-card">
   <%= order_status_ribbon(order) %>
   <div class="order-info">
-    <% if order.delivery.nil? %>
-      <div class="set-delivery">
+    <% if order.canceled? %>
+      <div class="order-overlay">
+        <span class="set-delivery-text">Order is canceled</span>
+      </div>
+    <% elsif order.delivery.nil? %>
+      <div class="order-overlay">
         <span class="set-delivery-text">No delivery set, You can do it</span>
         <%= link_to 'Choose slot', new_order_delivery_path(order), class: "btn btn-primary set-delivery-btn" %>
       </div>
@@ -57,6 +61,8 @@
       <div class="controlls-info alert alert-warning">
         You can change your order untill <%= order.can_change_before.strftime('%d %b, %H:%M')%>
       </div>
+    <% else %>
+      <div class="controlls-info"></div>
     <% end %>
     <div class="controlls-buttons">
       <%= link_to 'Cancel', cancel_order_path(order), class: "btn btn-danger btn-cancel #{ order.canceled? ? 'disabled' : ''}", method: :patch %>
