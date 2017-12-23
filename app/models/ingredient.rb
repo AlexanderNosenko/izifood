@@ -29,16 +29,24 @@ class Ingredient < ApplicationRecord
 
   validates :tesco_id, uniqueness: true
 
-  def self.search(q)
-  	search = prev_search_for(q)
+  def self.search(q, options = {})
+    search = prev_search_for(q)
 
-  	if search
-  	  Ingredient.where(id: search.results)
-  	else
-  	  results = fetch_ingredients(q)
-  	  IngredientSearch.create(search: q, results: results.pluck(:id))
-      results
-  	end
+    if search
+      if options[:init_objects]
+        Ingredient.where(id: search.results)
+      else
+        search.results
+      end
+    else
+      results = fetch_ingredients(q)
+      IngredientSearch.create(search: q, results: results.pluck(:id))
+      if options[:init_objects]
+        results
+      else
+        results.pluck(:id)
+      end
+    end
   end
   
   private

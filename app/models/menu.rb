@@ -54,10 +54,11 @@ class Menu < ApplicationRecord
 
   def to_order
     o = Order.new({ user_id: self.user_id, menu_id: self.id })
+
     o.order_items = recipe_ingredients.uniq { |r| r.title }.map { |rec_ing|
       OrderItem.new({
         order_id: o.id, 
-        ingredient_id: rec_ing.possible_ingredients.first.try(:id), 
+        ingredient_id: rec_ing.possible_ingredients.first&.id,
         quantity: quantity_for(rec_ing), 
         recipe_ingredient: rec_ing
       })
