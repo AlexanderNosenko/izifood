@@ -119,7 +119,7 @@
 			}
 
 			if( el.getAttribute( 'data-image' ) ){				
-				image = '<img src="' + el.getAttribute( 'data-image' ) + '"/>';
+				image = '<img class="ingredient-image" data-src="' + el.getAttribute( 'data-image' ) + '"/>';
 			}
 
 			return '<li ' + optclass + link + ' data-option data-value="' + el.value + '">' 

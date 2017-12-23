@@ -12,6 +12,9 @@
     <%= javascript_include_tag 'application' %>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>    
     <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+    <!-- More on lazy loading script https://github.com/ressio/lazy-load-xt -->
+    <script src="//cdn.jsdelivr.net/jquery.lazyloadxt/1.0.0/jquery.lazyloadxt.min.js"></script>
+    <script>$.lazyLoadXT.forceLoad=true;</script>
     <%= javascript_include_tag params[:controller] %>
     <%# include_page_js params[:controller] %>
     
