@@ -20,7 +20,7 @@ class Ingredient < ApplicationRecord
 
   has_many :order_items, dependent: :delete_all
   has_many :translations, class_name: 'IngredientTranslation', dependent: :delete_all
-  
+
   validates :title,
             :price_piece, 
             :quantifier, 
@@ -29,28 +29,52 @@ class Ingredient < ApplicationRecord
 
   validates :tesco_id, uniqueness: true
 
-  def self.search(q, options = {})
-    search = prev_search_for(q)
+  def self.cache_searches_for(titles)
 
-    if search
+    @searches_cache = SearchDuplicate.where(value: titles).includes(:origin).map { |search|
+      titles = (titles - [search.value])
+      [search.value, search.origin.results]
+    }.to_h
+
+    IngredientSearch.where(search: titles).each { |search|
+      @searches_cache[search.search] = search.results
+    }
+  end
+
+  def self.search(q, options = {})
+    if @searches_cache && @searches_cache[q]
+
       if options[:init_objects]
         Ingredient.where(id: search.results)
       else
-        search.results
+        @searches_cache[q]
       end
+
     else
-      results = fetch_ingredients(q)
-      IngredientSearch.create(search: q, results: results.pluck(:id))
-      if options[:init_objects]
-        results
+
+      search = prev_search_for(q)
+
+      if search
+        if options[:init_objects]
+          Ingredient.where(id: search.results)
+        else
+          search.results
+        end
       else
-        results.pluck(:id)
+        results = fetch_ingredients(q)
+        IngredientSearch.create(search: q, results: results.pluck(:id))
+        if options[:init_objects]
+          results
+        else
+          results.pluck(:id)
+        end
       end
+
     end
   end
-  
+
   private
-  
+
   def self.prev_search_for(q)
     duplicate = SearchDuplicate.find_by(value: q)
     

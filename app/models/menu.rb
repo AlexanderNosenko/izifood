@@ -43,17 +43,19 @@ class Menu < ApplicationRecord
   end
 
   def remove_recipe(recipe)
-  	menu_recipe = MenuRecipe.where(menu: self, recipe: recipe).first
+    menu_recipe = MenuRecipe.where(menu: self, recipe: recipe).first
     if !menu_recipe.destroy
-    	self.errors[:menu_recipes] << menu_recipe.errors
- 		  return false
-   	else
-   		return true
-   	end
+      self.errors[:menu_recipes] << menu_recipe.errors
+      return false
+    else
+      return true
+    end
   end
 
   def to_order
     o = Order.new({ user_id: self.user_id, menu_id: self.id })
+
+    Ingredient.cache_searches_for(recipe_ingredients.uniq { |r| r.title }.pluck(:title))
 
     o.order_items = recipe_ingredients.uniq { |r| r.title }.map { |rec_ing|
       OrderItem.new({
@@ -84,11 +86,11 @@ class Menu < ApplicationRecord
   end
 
   def self.create_first_menu_for(user)
-  	Menu.create(user: user, title: 'First menu', main: true)
+    Menu.create(user: user, title: 'First menu', main: true)
   end
 
   # def self.current_menu(menus)
-  # 	menus.where('(deliver_on <= :deliver_on OR deliver_on is NULL) AND main = :main', { deliver_on: DateTime.new + 1.day, main: true }).first
+  #   menus.where('(deliver_on <= :deliver_on OR deliver_on is NULL) AND main = :main', { deliver_on: DateTime.new + 1.day, main: true }).first
   # end
 
 end
