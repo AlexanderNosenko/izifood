@@ -50,7 +50,7 @@ h1.title{
       .title{
         font-size: 2vw; 
       }
-    }   
+    }
     .recipe-ingredients, .custom-ingredients{
       .ingredient{
         display: flex;
@@ -71,6 +71,12 @@ h1.title{
           order: 1;
           width: 24%;
           border-right: 3px solid $accent-color;
+
+          &.disabled{
+            border: none;
+            /*border-right: 3px solid $grey;*/
+          }
+
           span.ingredient-quantity{
             font-size: 0.8em;
             color: grey;
@@ -166,6 +172,67 @@ h1.title{
           }
         }
       }
+    }
+  }
+}
+
+.ingredient-live-search{
+  order: 2;
+  width: 60%;
+  margin-right: 10px;
+  background: white;
+  max-width: 500px;
+  font-size: 1.2em;
+  color: #5b8583;
+
+  .search-module{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  input{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    padding-left: 10px;
+    border-left: 3px solid $grey;
+
+    &:focus{
+      outline: none;
+      border-left: 3px solid $accent-color;
+    }
+  }
+
+  &:focus{
+    outline: none;
+  }
+  .search-results{
+    background: white;
+    ul{
+      display: none;
+      padding: 0px;
+    }
+
+  }
+  .result-item{
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    height: 90px;
+    padding: 10px;
+
+    img{
+      height: 90px;
+      margin-top: -10px;
+    }
+
+    span{
+      display: inline;
+      height: fit-content;
+      margin: auto 0px;
     }
   }
 }

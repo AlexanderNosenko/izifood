@@ -21,3 +21,6 @@
     </div>
   <% end %>
 <% end %>
+<%= form_tag(ingredients_path, remote:true, class: "ingredient-search-form", method: "GET") do%>
+  <%= hidden_field_tag :q, ''%>
+<% end %>

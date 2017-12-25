@@ -10,7 +10,7 @@
 	<%= hidden_field_tag 'order[order_items_attributes][][recipe_ingredient_id]', order_item.recipe_ingredient.id %>
 	<%= hidden_field_tag 'order[order_items_attributes][][quantity]', order_item.quantity %>
 
-	<div class="title">
+	<div class="title <%= order_item.possible_ingredients.any? ? "": "disabled" %>">
 		<span><%= order_item.recipe_ingredient.title %></span>
 		<span class="ingredient-quantity" >
 			<%= order_item.quantity.present? ? "( #{order_item.quantity} )" : "" %>
@@ -19,7 +19,7 @@
 
 	<%= render partial: 'order_items/possible_ingredients', locals: {
 		form_name: 'order[order_items_attributes][][ingredient_id]',
-		ingredients: order_item.possible_ingredients,
+		ingredients: order_item.possible_ingredients.any? ? order_item.possible_ingredients : order_item.ingredient.present? ? [order_item.ingredient] : [],
 		selected: order_item.ingredient_id } %>
 
   <!-- <div class="quantity">

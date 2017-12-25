@@ -1,4 +1,6 @@
-<div class="ingredient">
-  <div class="image"><%= image_tag ingredient.image.url || "ing-default.jpg" %></div>
-  <div class="title"><%= ingredient.title %></div>
-</div>
+<li class="result-item" data-id="<%= ingredient.id %>">
+  <%= image_tag ingredient.image.url || "ing-default.jpg", class: "ingredient-image" %>
+  <span data-toggle="tooltip" title="<%= ingredient.title %>" class="overflowing">
+    <%= ingredient.title %>
+  </span>
+</li>
