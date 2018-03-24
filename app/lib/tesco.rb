@@ -16,8 +16,8 @@ class Tesco
   def login
     @driver.navigate.to BASE_URL + "login"
 
-    @driver.find_element(:id, "email").send_keys "***REMOVED***"
-    @driver.find_element(:id, "password").send_keys "***REMOVED***"
+    @driver.find_element(:id, "email").send_keys ENV['TESCO_ACCOUNT_EMAIL']
+    @driver.find_element(:id, "password").send_keys ENV['TESCO_ACCOUNT_PASSWORD']
     @driver.find_element(:css, ".button.button-primary").click
   end
 

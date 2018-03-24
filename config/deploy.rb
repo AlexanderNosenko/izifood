@@ -1,7 +1,7 @@
 set :application, "izifood.pl"
 set :repo_url, "git@github.com:AlexandrNosenko/izifood.git"
 set :branch, 'master'
-set :rvm_ruby_version, "2.4.2@izifood"
+set :rvm_ruby_version, "2.4.3@izifood"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -33,7 +33,7 @@ set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
 set :sidekiq_role, :app
 set :sidekiq_processes, 1
 # :sidekiq_require => nil
-# :sidekiq_config => nil # if you have a config/sidekiq.yml, do not forget to set this. 
+# :sidekiq_config => nil # if you have a config/sidekiq.yml, do not forget to set this.
 # :sidekiq_queue => nil
 # :sbunidekiq_service_name => "sidekiq_#{fetch(:application)}_#{fetch(:sidekiq_env)}"
 # :sidekiq_cmd => "#{fetch(:bundle_cmd, "bundle")} exec sidekiq" # Only for capistrano2.5
@@ -56,13 +56,13 @@ set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle, public}
 namespace :deploy do
   desc "Fix deploy:puma:restart bug"
   task :puma_restart_fix do
-    on roles(:app) do 
+    on roles(:app) do
       execute("cd #{current_path}; /usr/local/rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec puma -C #{shared_path}/puma.rb --daemon")
     end
   end
 
   after 'puma:restart', 'deploy:puma_restart_fix'
-  
+
   desc "Update crontab with whenever"
   task :update_cron do
     on roles(:app) do
