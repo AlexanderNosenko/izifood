@@ -1,3 +1,8 @@
+set :stage, :staging
+
+SERVER_IP = '51.15.83.214'
+set :deploy_to, "/home/izifood_app/"
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -6,7 +11,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-
+server SERVER_IP, user: 'root', roles: %w{app web db}
 
 
 # role-based syntax
@@ -20,8 +25,9 @@
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
-
-
+# role :app, ['root@' + SERVER_IP]
+# role :web, ['root@' + SERVER_IP]
+# role :db,  ['root@' + SERVER_IP]
 
 # Configuration
 # =============
@@ -59,3 +65,4 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+

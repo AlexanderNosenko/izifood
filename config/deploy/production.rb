@@ -1,6 +1,8 @@
 set :stage, :production
 
-SERVER_IP = '51.15.83.214'
+SERVER_IP = '51.15.89.234'
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, "/home/izifood_app/"
 
 # server-based syntax
 # ======================
@@ -64,4 +66,3 @@ server SERVER_IP, user: 'root', roles: %w{app web db}
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-

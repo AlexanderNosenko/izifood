@@ -1,6 +1,8 @@
 <%= form_tag(recipes_path, method: "get", id: 'recipes-search-form') do %>
   <%= hidden_field_tag(:category, params[:category]) %>
-  <%= hidden_field_tag(:filter, params[:filter]) %>
+  <% params[:filters].to_a.each do |filter| %>
+    <%= hidden_field_tag('filters[]', filter) %>
+  <% end %>
   <div class="search-input-wrapper">
     <span class="search-icon glass <%= params[:q].blank? ? 'active' : ''%>"></span>
     <span class="search-icon cross <%= params[:q].blank? ? '' : 'active'%>" id="reset-search"></span>

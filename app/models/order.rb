@@ -29,7 +29,7 @@ class Order < ApplicationRecord
   after_commit do |order|
     order.delivery&.destoy if order.canceled?
   end
-
+  
   # For checking if menu is already ordered
   def self.active_order_for(menu)
     Order.joins(<<-EOS
@@ -100,6 +100,7 @@ class Order < ApplicationRecord
     
 
     new_recipe_ingredient = RecipeIngredient.where(recipe_id: new_recipes_ids).uniq { |r| r.title }
+    #BUG when adding recipe with missing ingredients, should be able to add "empty" ingredient
     new_recipe_ingredient.each do |rec_ing|
       items.create({
         ingredient_id: rec_ing.possible_ingredients.first&.id,

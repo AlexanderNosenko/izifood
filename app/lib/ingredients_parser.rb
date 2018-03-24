@@ -4,9 +4,9 @@ require "rest-client"
 class IngredientsParser
 	@@site_url = "https://ezakupy.tesco.pl/groceries/pl-PL/shop/"
 	@@top_categories = ['warzywa-owoce', 'pieczywo-cukiernia', 'mieso-ryby-garmaz', 'nabial-i-jaja']
-	
+
 	# def parse_sub_categories(page)
-	# 	page.		
+	# 	page.
 	# end
 	# def has_elems(page)
 		# return page.css('.tile-content').length > 0
@@ -15,7 +15,7 @@ class IngredientsParser
 	def get_ingredients(from, limit)
 		puts "Shit"
 		ingredients = []
-		@@top_categories.each do |cat| 
+		@@top_categories.each do |cat|
 			page_num = from
 			puts 'cat: ' + cat
 			link = @@site_url + cat + "/all?page="
@@ -26,7 +26,7 @@ class IngredientsParser
 				puts "page " + page_num.to_s
 				ingredients.concat(parse_ingredients_from(page))
 				page_num += 1
-				
+
 				begin
 				  page = Nokogiri::HTML(RestClient.get(link + page_num.to_s))
 				rescue
@@ -39,10 +39,10 @@ class IngredientsParser
 
 	def parse_ingredients_from(page)
 		page.css('.tile-content').map do |ing|
-			ing_id = ing.attr('id')			
+			ing_id = ing.attr('id')
 			ing = Nokogiri::HTML(ing.to_html)
 			{
-				title: adapt_title(get_title_for(ing)),				
+				title: adapt_title(get_title_for(ing)),
 				# category: "",
 				tesco_id: ing_id,
 				price_piece: get_price_piece_for(ing),
@@ -54,7 +54,7 @@ class IngredientsParser
 		end
 	end
 
-	private	
+	private
 	def get_title_for(ing)
 		ing.css('.product-tile--title').text.gsub(/tesco/i, '').strip
 	end
@@ -84,7 +84,7 @@ class IngredientsParser
 	def get_min_amount_for(ing)
 		matches = /(\d+|\d,\d+)\s\w+/.match(get_title_for(ing))
 		quantifier = get_quantifier_for(ing)
-		if matches 
+		if matches
 			matches[0]
 		elsif quantifier == 'kg'
 			(1000 / (get_price_volume_for(ing) / get_price_piece_for(ing))).to_i.to_s + " g"

@@ -2,7 +2,7 @@ require "selenium-webdriver"
 require 'nokogiri'
 require 'headless'
 
-class Tesco	
+class Tesco
   BASE_URL = "https://ezakupy.tesco.pl/groceries/en-GB/"
   DRIVER = ENV['SELENIUM_DRIVER']
 
@@ -18,7 +18,7 @@ class Tesco
 
     @driver.find_element(:id, "email").send_keys "***REMOVED***"
     @driver.find_element(:id, "password").send_keys "***REMOVED***"
-    @driver.find_element(:css, ".button.button-primary").click		
+    @driver.find_element(:css, ".button.button-primary").click
   end
 
   def delivery_slots_html
@@ -36,7 +36,7 @@ class Tesco
     @driver.quit
     @headless.destroy
   end
-  
+
   private
 
 
@@ -45,14 +45,14 @@ class Tesco
 
     result = 3.times.map do |i|
       delivery_links = @driver.find_elements(:css, '.tabheader.slot-selector--week-tabheader.slot-selector--3-week-tab-space')
-      
+
       unless i == 0
         link_url = delivery_links[i].find_element(:css, "a").attribute('href')
         @driver.navigate.to link_url
       end
 
       page = Nokogiri::HTML(@driver.page_source).css('.slot-selector').to_html
-      page_html = page.gsub(/<(form|a)/, "<div")	  
+      page_html = page.gsub(/<(form|a)/, "<div")
       page_html.gsub(/<\/(form|a)/, "</div")
     end
   end

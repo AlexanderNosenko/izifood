@@ -1,6 +1,11 @@
+<script>
+if( localStorage.getItem("menuGuideDone") == "true" )
+  $(document).ready(function(){ $('.menu-swipe-guide-overlay').remove() })
+</script>
 <div class="menu-block" data-id="<%= menu.id %>" style="display: <%= menu.main ? 'block' : 'none' %>">
   <div class="user-menu">
     <% if menu.recipes.present? %>
+        <div class="menu-swipe-guide-overlay">Swipe right to delete —></div>
       <% menu.recipes.each do |recipe| %>
         <div class="recipe">
           <div class="image" style="background-image: url(<%= recipe.images[0].url %>);"></div>
@@ -9,7 +14,6 @@
             <i class="fa fa-trash" aria-hidden="true"></i>
             <span><%= link_to 'X', menu_recipes_path({recipe_id: recipe}), method: :delete, remote: true %></span>
           </div>
-          
         </div>    
       <% end%>
     <% else %>

@@ -7,6 +7,22 @@
 /*@import "order-live-search";*/
 @import "recipe-filters";
 
+.menu-swipe-guide-overlay{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 91%;
+  height: 80%;
+  margin-top: 0px;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3;
+  color: white;
+  font-family: 'Pangolin', cursive;
+  font-size: 1.2em;
+}
+
+
 html{
   position: relative;
   min-height: 100%;

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'recipes#index'
-  
+
   mount_roboto
 
   devise_for :users, :controllers => { 
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     :passwords => 'authentication/passwords',
     :omniauth_callbacks => 'authentication/omniauth_callbacks'
   }
-  
+
   namespace :admin do
     resources :users
     resources :deliveries

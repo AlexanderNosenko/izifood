@@ -5,7 +5,7 @@
 #  id                   :integer          not null, primary key
 #  recipe_ingredient_id :integer          not null
 #  order_id             :integer          not null
-#  ingredient_id        :integer          not null
+#  ingredient_id        :integer
 #  quantity             :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null

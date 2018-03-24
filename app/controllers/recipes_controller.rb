@@ -15,13 +15,13 @@ class RecipesController < ApplicationController
     categories = prepend_chosen(categories, params[:category])
     
     filters = RecipeTag.filters.order(order: :desc)
-    filters = prepend_chosen(filters, params[:filter])
+    filters = prepend_chosen(filters, params[:filters])
 
     locals = {
       recipes: recipes,
       categories: categories,
       filters: filters,
-      show_all_filters: params[:category].present? || params[:filter].present? || params[:q].present?
+      show_all_filters: params[:category].present? || params[:filters]&.any? || params[:q].present?
     }
     
     respond_to do |format|

@@ -211,7 +211,7 @@
             this.move();
 
             //prevent scroll
-            e.preventDefault();
+            // e.preventDefault();
         }
     };
 

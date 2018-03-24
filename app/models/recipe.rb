@@ -56,9 +56,9 @@ class Recipe < ApplicationRecord
         .where("recipes_categories.category_id": params[:category])
     end
 
-    if params[:filter].present?
+    if params[:filters]&.any?
       res = res.joins(:recipes_tags)
-        .where("recipes_tags.tag_id": params[:filter])
+        .where("recipes_tags.tag_id": params[:filters])
         # .where("recipe_tags._type": :filter)
     end
 

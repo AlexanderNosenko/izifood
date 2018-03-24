@@ -3,7 +3,7 @@
     <div class="recipe-filters__categories <%= show_all_filters ? 'full-height' : '' %>">
       <% categories.each do |category| %>
         <div class="recipe-filters__categories__category-tag-wrapper">
-          <%= link_to recipe_filters(:category, category.id) do %>
+          <%= link_to recipe_filters(:category, :push, category.id) do %>
             <div class="btn recipe-filters__categories__category-filter <%= active_category(category.id, 'active-category') %>">
               <div class="recipe-filters__categories__category-filter__content">
                 <%= image_tag category.icon.to_s, class: "recipe-filters__categories__category-filter__icon" %>
@@ -17,7 +17,7 @@
       <% end %>
        <% if params[:category].present? %>
         <div class="recipe-filters__categories__category-tag-wrapper">
-          <%= link_to recipe_filters(:category, nil) do %>
+          <%= link_to recipe_filters(:category, :delete) do %>
             <div class="btn btn-default clear-filters-btn">
               <div class="recipe-filters__categories__category-filter__content">
                 <span class="remove-filter">X</span>
@@ -34,20 +34,20 @@
         <% filters.each do |_filter| %>
           <% if params[:filter] == _filter.id.to_s %>
             <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
-              <%= link_to recipe_filters(:filter, nil) do %>
+              <%= link_to recipe_filters(:filters, :delete, _filter.id) do %>
                 <span class="remove-filter">X</span>
               <% end %>
               <%= _filter.title %>
             </div>
           <% else %>
-            <%= link_to recipe_filters(:filter, _filter.id) do %>
+            <%= link_to recipe_filters(:filters, :push, _filter.id) do %>
               <div class="btn <%= active_filter(_filter.id, 'btn-default') %> ingredient-filter">
                 <%= _filter.title %>
               </div>
             <% end %>
           <% end %>
         <% end %>
-        <%= link_to recipe_filters(:filter, nil) do %>
+        <%= link_to recipe_filters(:filters, :clear) do %>
           <span class="btn <%= params[:filter].present? ?  'btn-default' : '' %>">Clear filters</span>
         <% end %>
       </div>

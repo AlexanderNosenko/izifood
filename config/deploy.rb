@@ -1,6 +1,3 @@
-# config valid only for current version of Capistrano
-# lock "3.10.0"
-
 set :application, "izifood.pl"
 set :repo_url, "git@github.com:AlexandrNosenko/izifood.git"
 set :branch, 'master'
@@ -8,8 +5,6 @@ set :rvm_ruby_version, "2.4.2@izifood"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/izifood_app/"
 set :use_sudo, false
 set :rails_env, "production"
 set :deploy_via, :copy #:remote_cache

@@ -79,7 +79,7 @@
       <div class="tags">
         <h4><strong>Tagi:</strong></h4>
         <% @recipe.recipe_tags.each do |tag| %>
-          <%= link_to tag.title, recipe_filters(:filter, tag.id ) %>
+          <%= link_to tag.title, recipe_filters(:filter, tag.id, :add ) %>
         <% end %>
       </div>
     </div>
