@@ -49,7 +49,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 # Styles
 gem 'jquery-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem "font-awesome-rails"
 gem 'roboto', '~> 0.2.0'
 # Beautiful flashes
